@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Information Revealer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Card container for 3D perspective and dynamic height */
+        .card-container {
+            perspective: 1000px; /* Gives a 3D effect */
+            height: auto; /* Will be set dynamically by JavaScript */
+            min-height: 160px; /* Minimum height for cards, will be overridden if content is taller */
+            min-width: 400px; /* Ensures cards are at least 400px wide for readability */
+            position: relative; /* Needed for absolute positioning of inner card */
+            transition: height 0.7s ease-in-out; /* Smooth height transition */
+        }
+
+        /* Inner card for the actual flip rotation */
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%; /* Take full height of its parent (card-container) */
+            text-align: center;
+            transition: transform 0.7s; /* Smooth flip animation */
+            transform-style: preserve-3d; /* Preserve 3D space for children */
+        }
+
+        /* When the card is flipped, rotate the inner container */
+        .card-container.is-flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        /* Front and back faces of the card */
+        .card-front, .card-back {
+            position: absolute; /* Stack front and back in the same space */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%; /* Take full height of inner card */
+            -webkit-backface-visibility: hidden; /* Hide the back of the element when facing away */
+            backface-visibility: hidden;
+            display: flex; /* Use flexbox for content centering */
+            align-items: center; /* Vertically center content */
+            justify-content: center; /* Horizontally center content */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid;
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+            word-wrap: break-word; /* Allow long words to break */
+            white-space: normal; /* Allow text to wrap */
+            overflow: auto; /* Add scroll if content exceeds card height after height adjustment */
+            min-height: 140px; /* Ensure content area has a minimum height */
+        }
+
+        .card-front {
+            background: linear-gradient(to bottom right, #DBEAFE, #BFDBFE); /* blue-100 to blue-200 */
+            color: #1E40AF; /* blue-900 */
+            font-weight: 600;
+            font-size: 1.125rem; /* text-lg */
+            border-color: #93C5FD; /* blue-300 */
+        }
+
+        .card-back {
+            background: linear-gradient(to bottom right, #D1FAE5, #A7F3D0); /* green-100 to green-200 */
+            color: #065F46; /* green-900 */
+            font-size: 1rem; /* text-base */
+            border-color: #6EE7B7; /* green-300 */
+            transform: rotateY(180deg); /* Initially rotated to be hidden */
+        }
+
+        /* Responsive grid for cards */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); /* Flexible columns, min 400px wide */
+            gap: 1.5rem; /* gap-6 in Tailwind */
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4 text-gray-800">
+    <div class="w-full px-4 md:px-8 lg:px-12 bg-white shadow-xl rounded-xl py-6 md:py-8">
+        <!-- File upload section -->
+        <div class="mb-8 flex flex-col items-center justify-center border-b pb-6 border-gray-200">
+            <label
+                for="json-upload"
+                class="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-full shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
+            >
+                Upload Information JSON
+                <input
+                    id="json-upload"
+                    type="file"
+                    accept=".json"
+                    class="hidden"
+                />
+            </label>
+            <p id="error-message" class="mt-4 text-red-600 font-medium text-center hidden"></p>
+        </div>
+
+        <!-- Content display area -->
+        <div id="content-display">
+            <!-- Initial message when no data is loaded -->
+            <div id="initial-message" class="text-center py-20">
+                <p class="text-lg text-gray-600">
+                    Upload a JSON file to reveal information.
+                </p>
+                <p class="text-sm text-gray-500 mt-2">
+                    Expected format: <code class="bg-gray-100 p-1 rounded text-gray-700">{"title": "", "main": "", "category": [{"categoryname": "", "plates": [{"clue": "info"}, ...]}]}</code>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const fileUploadInput = document.getElementById('json-upload');
+            const contentDisplay = document.getElementById('content-display');
+            const errorMessageElement = document.getElementById('error-message');
+            const initialMessage = document.getElementById('initial-message');
+
+            // Function to display error messages
+            const displayError = (message) => {
+                errorMessageElement.textContent = message;
+                errorMessageElement.classList.remove('hidden');
+            };
+
+            // Function to clear error messages
+            const clearError = () => {
+                errorMessageElement.classList.add('hidden');
+                errorMessageElement.textContent = '';
+            };
+
+            // Function to find URLs and convert them to hyperlinks
+            function linkify(text) {
+                // Regex to find URLs (http/https, optional www, followed by non-space characters)
+                const urlRegex = /(https?:\/\/[^\s]+)/g;
+                return text.replace(urlRegex, (url) => {
+                    // Create a safe anchor tag, ensuring it opens in a new tab
+                    return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">${url}</a>`;
+                });
+            }
+
+            // Handles file upload
+            fileUploadInput.addEventListener('change', (event) => {
+                const file = event.target.files[0];
+                if (!file) {
+                    displayError('No file selected.');
+                    contentDisplay.innerHTML = ''; // Clear previous content
+                    initialMessage.classList.remove('hidden'); // Show initial message
+                    return;
+                }
+
+                if (file.type !== 'application/json') {
+                    displayError('Please upload a valid JSON file.');
+                    contentDisplay.innerHTML = '';
+                    initialMessage.classList.remove('hidden');
+                    return;
+                }
+
+                const reader = new FileReader();
+
+                reader.onload = (e) => {
+                    try {
+                        const parsedData = JSON.parse(e.target.result);
+
+                        if (
+                            !parsedData.title ||
+                            !parsedData.main ||
+                            !Array.isArray(parsedData.category)
+                        ) {
+                            displayError(
+                                'Invalid JSON format. Please ensure it contains "title", "main", and an array "category".'
+                            );
+                            contentDisplay.innerHTML = '';
+                            initialMessage.classList.remove('hidden');
+                            return;
+                        }
+
+                        renderContent(parsedData);
+                        clearError();
+                        initialMessage.classList.add('hidden'); // Hide initial message
+                    } catch (err) {
+                        displayError('Error parsing JSON file. Please ensure it is well-formed.');
+                        contentDisplay.innerHTML = '';
+                        initialMessage.classList.remove('hidden');
+                    }
+                };
+
+                reader.onerror = () => {
+                    displayError('Error reading file.');
+                    contentDisplay.innerHTML = '';
+                    initialMessage.classList.remove('hidden');
+                };
+
+                reader.readAsText(file);
+            });
+
+            // Renders the main content (title, main, categories, cards)
+            const renderContent = (data) => {
+                contentDisplay.innerHTML = ''; // Clear existing content
+
+                // Render Header
+                const headerHtml = `
+                    <div class="text-center mb-10">
+                        <h1 class="text-4xl font-extrabold text-gray-900 leading-tight mb-4">${data.title}</h1>
+                        <p class="text-lg text-gray-700 leading-relaxed max-w-2xl mx-auto">${data.main}</p>
+                    </div>
+                `;
+                contentDisplay.insertAdjacentHTML('beforeend', headerHtml);
+
+                // Render Categories
+                const categoriesContainer = document.createElement('div');
+                categoriesContainer.className = 'mt-10 space-y-10';
+                contentDisplay.appendChild(categoriesContainer);
+
+                data.category.forEach(cat => {
+                    const section = document.createElement('section');
+                    section.className = 'border border-blue-300 rounded-lg p-6 bg-white shadow-md';
+                    section.innerHTML = `
+                        <h2 class="text-2xl font-bold text-blue-800 mb-6 border-b pb-3 border-blue-200">
+                            ${cat.categoryname}
+                        </h2>
+                        <div class="cards-grid" data-category="${cat.categoryname}">
+                            <!-- Cards will be appended here -->
+                        </div>
+                    `;
+                    categoriesContainer.appendChild(section);
+
+                    const cardsGrid = section.querySelector(`[data-category="${cat.categoryname}"]`);
+                    cat.plates.forEach(plate => {
+                        const clue = Object.keys(plate)[0];
+                        const info = plate[clue];
+
+                        // Create card elements
+                        const cardContainer = document.createElement('div');
+                        cardContainer.className = 'card-container cursor-pointer';
+
+                        const cardInner = document.createElement('div');
+                        cardInner.className = 'card-inner';
+
+                        const cardFront = document.createElement('div');
+                        cardFront.className = 'card-front';
+                        cardFront.innerHTML = `<p>${clue}</p>`;
+
+                        const cardBack = document.createElement('div');
+                        cardBack.className = 'card-back';
+                        // Apply linkify function to the info content
+                        cardBack.innerHTML = `<p>${linkify(info)}</p>`;
+
+                        cardInner.appendChild(cardFront);
+                        cardInner.appendChild(cardBack);
+                        cardContainer.appendChild(cardInner);
+
+                        cardsGrid.appendChild(cardContainer);
+
+                        // Measure heights after elements are in DOM but before initial display is finalized
+                        // Temporarily set height to auto to get actual content height
+                        cardFront.style.height = 'auto';
+                        cardBack.style.height = 'auto';
+
+                        // Calculate scroll heights, ensuring a minimum height of 160px
+                        // Use setTimeout to ensure content has fully rendered and wrapped before measuring
+                        setTimeout(() => {
+                            const frontHeight = Math.max(cardFront.scrollHeight, 160);
+                            const backHeight = Math.max(cardBack.scrollHeight, 160);
+
+                            // Reset heights to 100% for the flip effect
+                            cardFront.style.height = '100%';
+                            cardBack.style.height = '100%';
+
+                            // Store heights as data attributes on the card container
+                            cardContainer.dataset.frontHeight = frontHeight;
+                            cardContainer.dataset.backHeight = backHeight;
+
+                            // Set the initial height of the card container to the front content's height
+                            cardContainer.style.height = `${frontHeight}px`;
+                        }, 0); // Use a small timeout to allow browser to render content
+                    });
+                });
+
+                // Attach click listeners to all cards after they are rendered
+                document.querySelectorAll('.card-container').forEach(card => {
+                    card.addEventListener('click', () => {
+                        const isFlipped = card.classList.contains('is-flipped');
+                        let targetHeight;
+
+                        // Determine the target height based on whether the card is flipping to front or back
+                        if (isFlipped) { // Currently flipped, will flip back to front
+                            targetHeight = card.dataset.frontHeight;
+                        } else { // Currently not flipped, will flip to back
+                            targetHeight = card.dataset.backHeight;
+                        }
+
+                        // Set the card container's height to the target height
+                        card.style.height = `${targetHeight}px`;
+                        // Toggle the 'is-flipped' class to trigger the flip animation
+                        card.classList.toggle('is-flipped');
+                    });
+                });
+            };
+        });
+    </script>
+</body>
+</html>
