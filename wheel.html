@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Student Selector Wheel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align to top for better layout */
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5; /* Light gray background */
+            color: #333;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px 40px;
+            border-radius: 12px; /* More rounded corners */
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* Stronger shadow */
+            width: 100%;
+            max-width: 800px; /* Wider container */
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 25px; /* Spacing between sections */
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5em; /* Larger heading */
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: #34495e;
+            font-size: 1.8em;
+            font-weight: 600;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+
+        .section-box {
+            padding: 20px;
+            border: 1px dashed #a0aec0; /* Tailwind gray-400 */
+            border-radius: 8px;
+            background-color: #f7fafc; /* Tailwind gray-50 */
+        }
+
+        input[type="file"] {
+            display: block; /* Make it block for better spacing */
+            margin: 15px auto 0; /* Center and add top margin */
+            padding: 10px;
+            border: 1px solid #cbd5e0; /* Tailwind gray-300 */
+            border-radius: 6px;
+            width: calc(100% - 20px); /* Adjust width for padding */
+            max-width: 400px;
+            background-color: #ffffff;
+            cursor: pointer;
+        }
+
+        #studentList {
+            list-style: none;
+            padding: 0;
+            max-height: 150px; /* Shorter list to make space for canvas */
+            overflow-y: auto;
+            border: 1px solid #e2e8f0; /* Tailwind gray-200 */
+            border-radius: 6px;
+            background-color: #ffffff;
+            text-align: left;
+            margin-top: 15px;
+        }
+
+        #studentList li {
+            padding: 8px 15px;
+            border-bottom: 1px solid #edf2f7; /* Tailwind gray-100 */
+            font-size: 1em;
+            color: #4a5568; /* Tailwind gray-700 */
+        }
+
+        #studentList li:last-child {
+            border-bottom: none;
+        }
+
+        canvas {
+            background-color: #ecf0f1; /* Light blue-gray for canvas background */
+            border: 5px solid #34495e; /* Darker border for canvas */
+            border-radius: 50%; /* Make it circular */
+            display: block;
+            margin: 0 auto; /* Center the canvas */
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.1);
+        }
+
+        button {
+            background-color: #3498db; /* Primary blue */
+            color: white;
+            padding: 14px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.3em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.4); /* Shadow for button */
+            width: 100%;
+            max-width: 350px;
+            margin: 20px auto 0;
+        }
+
+        button.reset-button {
+            background-color: #e74c3c; /* Red for reset */
+            box-shadow: 0 4px 10px rgba(231, 76, 60, 0.4);
+        }
+
+        button.reset-button:hover:not(:disabled) {
+            background-color: #c0392b; /* Darker red on hover */
+            box-shadow: 0 6px 15px rgba(231, 76, 60, 0.6);
+        }
+
+        button:hover:not(:disabled) {
+            background-color: #2980b9; /* Darker blue on hover */
+            transform: translateY(-3px); /* Lift effect */
+            box-shadow: 0 6px 15px rgba(52, 152, 219, 0.6);
+        }
+
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .winner-display {
+            margin-top: 25px;
+            padding: 20px 25px;
+            background-color: #d4edda; /* Light green for winner */
+            border: 2px solid #28a745; /* Darker green border */
+            border-radius: 10px;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #155724; /* Dark green text */
+            display: none; /* Hidden by default */
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+        }
+
+        .winner-display.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #winnerName {
+            color: #c0392b; /* Strong red for winner name */
+            font-size: 1.8em;
+            display: block;
+            margin-top: 10px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .options-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.1em;
+            color: #4a5568;
+            cursor: pointer;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            border-radius: 4px;
+            accent-color: #3498db; /* Blue accent for checkbox */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 25px;
+                gap: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+
+            button {
+                padding: 12px 25px;
+                font-size: 1.1em;
+            }
+
+            .winner-display {
+                font-size: 1.2em;
+            }
+
+            #winnerName {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Random Student Selector</h1>
+
+        <div class="upload-section section-box">
+            <p class="text-lg text-gray-700">Upload a text file (.txt) with student names, one name per line:</p>
+            <input type="file" id="fileInput" accept=".txt">
+        </div>
+
+        <div class="names-section section-box">
+            <h2 class="text-xl">Current Students:</h2>
+            <ul id="studentList">
+                <li>No students loaded yet.</li>
+            </ul>
+        </div>
+
+        <div class="options-section section-box">
+            <h2 class="text-xl">Options:</h2>
+            <label class="checkbox-container">
+                <input type="checkbox" id="removeWinnerCheckbox" checked>
+                Remove picked student from list
+            </label>
+            <button id="resetWheel" class="reset-button">Reset Wheel</button>
+        </div>
+
+        <div class="wheel-section section-box">
+            <canvas id="wheelCanvas" width="400" height="400"></canvas>
+            <button id="spinWheel" disabled>Pick a Random Student!</button>
+            <div id="winnerDisplay" class="winner-display">
+                <p>Winner: <span id="winnerName">---</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const fileInput = document.getElementById('fileInput');
+            const studentList = document.getElementById('studentList');
+            const spinWheelButton = document.getElementById('spinWheel');
+            const resetWheelButton = document.getElementById('resetWheel'); // New button
+            const removeWinnerCheckbox = document.getElementById('removeWinnerCheckbox'); // New checkbox
+            const winnerDisplay = document.getElementById('winnerDisplay');
+            const winnerNameSpan = document.getElementById('winnerName');
+            const wheelCanvas = document.getElementById('wheelCanvas');
+            const ctx = wheelCanvas.getContext('2d');
+
+            let students = []; // Array to store student names
+            let currentRotation = 0; // Current rotation of the wheel in radians
+            let spinningSpeed = 0; // Speed of rotation
+            let animationFrameId = null; // To store the requestAnimationFrame ID
+
+            const centerX = wheelCanvas.width / 2;
+            const centerY = wheelCanvas.height / 2;
+            const radius = Math.min(centerX, centerY) - 10; // Slightly smaller to leave space for border
+
+            const colors = [
+                '#f1c40f', '#e67e22', '#e74c3c', '#9b59b6', '#3498db',
+                '#1abc9c', '#2ecc71', '#f39c12', '#d35400', '#c0392b',
+                '#8e44ad', '#2980b9', '#16a085', '#27ae60'
+            ];
+
+            // Function to draw the wheel
+            function drawWheel() {
+                ctx.clearRect(0, 0, wheelCanvas.width, wheelCanvas.height); // Clear canvas
+
+                if (students.length === 0) {
+                    // Draw a placeholder circle if no students
+                    ctx.beginPath();
+                    ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+                    ctx.fillStyle = '#bdc3c7'; // Light gray
+                    ctx.fill();
+                    ctx.strokeStyle = '#7f8c8d';
+                    ctx.lineWidth = 3;
+                    ctx.stroke();
+
+                    ctx.fillStyle = '#34495e';
+                    ctx.font = '20px Inter';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText('No Students', centerX, centerY - 20);
+                    ctx.fillText('Upload .txt file', centerX, centerY + 10);
+                    return;
+                }
+
+                const arcAngle = (Math.PI * 2) / students.length;
+                let startAngle = currentRotation;
+
+                for (let i = 0; i < students.length; i++) {
+                    const endAngle = startAngle + arcAngle;
+
+                    // Draw slice
+                    ctx.beginPath();
+                    ctx.moveTo(centerX, centerY);
+                    ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+                    ctx.closePath();
+                    ctx.fillStyle = colors[i % colors.length];
+                    ctx.fill();
+                    ctx.strokeStyle = '#ffffff'; // White separator lines
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+
+                    // Draw text (student name)
+                    ctx.save();
+                    ctx.translate(centerX, centerY);
+                    ctx.rotate(startAngle + arcAngle / 2); // Rotate to the middle of the slice
+                    ctx.textAlign = 'right';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillStyle = '#ffffff'; // White text
+                    ctx.font = '14px Inter'; // Smaller font for many names
+
+                    // Adjust font size if name is too long
+                    let text = students[i];
+                    const maxTextWidth = radius * 0.7; // Max width for text
+                    let fontSize = 14;
+                    ctx.font = `${fontSize}px Inter`;
+                    while (ctx.measureText(text).width > maxTextWidth && fontSize > 8) {
+                        fontSize--;
+                        ctx.font = `${fontSize}px Inter`;
+                    }
+                    if (ctx.measureText(text).width > maxTextWidth) {
+                        text = text.substring(0, Math.floor(text.length * (maxTextWidth / ctx.measureText(text).width))) + '...';
+                    }
+
+                    ctx.fillText(text, radius - 10, 0); // Draw text slightly inward from the edge
+                    ctx.restore();
+
+                    startAngle = endAngle;
+                }
+
+                // Draw center circle (optional)
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, radius * 0.15, 0, Math.PI * 2);
+                ctx.fillStyle = '#34495e';
+                ctx.fill();
+                ctx.strokeStyle = '#ffffff';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                // Draw pointer
+                ctx.beginPath();
+                ctx.moveTo(centerX - 15, centerY - radius - 20);
+                ctx.lineTo(centerX + 15, centerY - radius - 20);
+                ctx.lineTo(centerX, centerY - radius - 5);
+                ctx.closePath();
+                ctx.fillStyle = '#e74c3c'; // Red pointer
+                ctx.fill();
+            }
+
+            // Animation loop for spinning
+            function animateWheel() {
+                currentRotation += spinningSpeed;
+                spinningSpeed *= 0.98; // Decelerate
+
+                // Stop condition: if speed is very low
+                if (spinningSpeed < 0.001) {
+                    cancelAnimationFrame(animationFrameId);
+                    spinningSpeed = 0;
+                    determineWinner();
+                    spinWheelButton.disabled = false; // Re-enable button
+                    return;
+                }
+                drawWheel();
+                animationFrameId = requestAnimationFrame(animateWheel);
+            }
+
+            // Determine the winner when the wheel stops
+            function determineWinner() {
+                if (students.length === 0) return;
+
+                const arcAngle = (Math.PI * 2) / students.length;
+                // Normalize currentRotation to be between 0 and 2*PI
+                let normalizedRotation = currentRotation % (Math.PI * 2);
+                if (normalizedRotation < 0) {
+                    normalizedRotation += Math.PI * 2;
+                }
+
+                // The pointer is at the top, which corresponds to -Math.PI / 2 or 1.5 * Math.PI
+                // We need to adjust the rotation to match the pointer's position
+                // The angle under the pointer is (1.5 * Math.PI - normalizedRotation + Math.PI * 2) % (Math.PI * 2);
+                // Adjusting for the wheel's clockwise rotation and pointer position
+                // The pointer points at the top (angle 90 degrees or PI/2 from positive x-axis, or 3PI/2 if measured clockwise from positive x-axis)
+                // The wheel's 0 angle is to the right.
+                // We want to find which slice is currently under the pointer.
+                // The angle of the pointer is effectively 270 degrees (3 * Math.PI / 2 radians).
+                // We need to consider the current rotation and where the slices end up.
+                // The angles are measured clockwise from the positive x-axis.
+                // The pointer is at 270 degrees (3PI/2).
+                // A slice starting at `startAngle` and ending at `endAngle` (relative to the wheel's current rotation)
+                // is under the pointer if `3PI/2` falls within `(startAngle + currentRotation)` and `(endAngle + currentRotation)`.
+                // A simpler way: calculate the effective angle of the pointer relative to the wheel's fixed 0 position.
+                // The wheel rotates clockwise, so if currentRotation is positive, the content moves clockwise.
+                // The pointer is fixed at 270 degrees (3PI/2).
+                // The angle of the slice that the pointer points to, relative to the wheel's own unrotated state (0 degrees = right)
+                // is (3PI/2 - currentRotation) modulo (2PI).
+                let effectivePointerAngle = (3 * Math.PI / 2 - normalizedRotation + Math.PI * 2) % (Math.PI * 2);
+
+                let winnerIndex = -1;
+                for (let i = 0; i < students.length; i++) {
+                    const startOfSlice = i * arcAngle;
+                    const endOfSlice = (i + 1) * arcAngle;
+                    if (effectivePointerAngle >= startOfSlice && effectivePointerAngle < endOfSlice) {
+                        winnerIndex = i;
+                        break;
+                    }
+                }
+                // Fallback for edge cases or floating point inaccuracies
+                if (winnerIndex === -1 && students.length > 0) {
+                    winnerIndex = Math.floor(effectivePointerAngle / arcAngle);
+                }
+
+                const winner = students[winnerIndex];
+                winnerNameSpan.textContent = winner;
+                winnerDisplay.classList.add('show');
+
+                // Remove winner if checkbox is checked
+                if (removeWinnerCheckbox.checked && winnerIndex !== -1) {
+                    students.splice(winnerIndex, 1); // Remove the winner from the array
+                    displayStudentsList(); // Update the HTML list
+                    drawWheel(); // Redraw the wheel without the removed student
+                    // If no students left, disable spin button
+                    if (students.length === 0) {
+                        spinWheelButton.disabled = true;
+                    }
+                }
+            }
+
+            // Handle file upload
+            fileInput.addEventListener('change', (event) => {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const text = e.target.result;
+                        students = text.split('\n')
+                                       .map(name => name.trim())
+                                       .filter(name => name.length > 0);
+                        displayStudentsList(); // Update the HTML list
+                        drawWheel(); // Redraw the canvas wheel with new students
+                        spinWheelButton.disabled = students.length === 0;
+                        winnerDisplay.classList.remove('show');
+                        winnerNameSpan.textContent = '---';
+                    };
+                    reader.readAsText(file);
+                } else {
+                    students = [];
+                    displayStudentsList();
+                    drawWheel();
+                    spinWheelButton.disabled = true;
+                    winnerDisplay.classList.remove('show');
+                    winnerNameSpan.textContent = '---';
+                }
+            });
+
+            // Display students in the HTML list
+            function displayStudentsList() {
+                studentList.innerHTML = ''; // Clear current list
+                if (students.length === 0) {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = 'No students loaded yet.';
+                    studentList.appendChild(listItem);
+                    return;
+                }
+                students.forEach(student => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = student;
+                    studentList.appendChild(listItem);
+                });
+            }
+
+            // Spin the wheel (pick a random student)
+            spinWheelButton.addEventListener('click', () => {
+                if (students.length === 0) {
+                    // Use custom message box instead of alert
+                    winnerNameSpan.textContent = 'Please upload a list of students first!';
+                    winnerDisplay.classList.add('show');
+                    return;
+                }
+
+                spinWheelButton.disabled = true; // Disable button during spin
+                winnerDisplay.classList.remove('show'); // Hide previous winner
+                winnerNameSpan.textContent = 'Spinning...';
+
+                // Calculate a random target rotation
+                const minSpins = 5; // Minimum full rotations
+                const maxSpins = 10; // Maximum full rotations
+                const randomFullRotations = Math.floor(Math.random() * (maxSpins - minSpins + 1)) + minSpins;
+
+                const targetIndex = Math.floor(Math.random() * students.length);
+                const arcAngle = (Math.PI * 2) / students.length;
+                // Calculate the angle for the center of the target slice (relative to the wheel's 0 position)
+                const targetSliceCenterAngle = (targetIndex * arcAngle) + (arcAngle / 2);
+
+                // We want the pointer (at 1.5 * Math.PI or 270 degrees) to align with the target slice center.
+                // The wheel rotates clockwise.
+                // The angle needed to bring the target slice center to the pointer is:
+                // (Angle of pointer - targetSliceCenterAngle) + full rotations
+                let finalAngle = (randomFullRotations * Math.PI * 2) + (Math.PI * 1.5 - targetSliceCenterAngle);
+
+                // Ensure the final angle is positive and sufficient for a spin
+                // It must be greater than currentRotation + minSpins * 2 * PI
+                while (finalAngle < currentRotation + (Math.PI * 2 * minSpins)) {
+                    finalAngle += Math.PI * 2;
+                }
+
+                spinningSpeed = (finalAngle - currentRotation) / 120; // Initial speed based on distance and desired frames (e.g., 120 frames)
+
+                if (animationFrameId) {
+                    cancelAnimationFrame(animationFrameId);
+                }
+                animationFrameId = requestAnimationFrame(animateWheel);
+            });
+
+            // Handle reset button click
+            resetWheelButton.addEventListener('click', () => {
+                students = []; // Clear the students array
+                fileInput.value = ''; // Clear the file input
+                displayStudentsList(); // Update the HTML list to show "No students loaded"
+                drawWheel(); // Redraw the canvas to show the empty state
+                spinWheelButton.disabled = true; // Disable spin button
+                winnerDisplay.classList.remove('show'); // Hide winner display
+                winnerNameSpan.textContent = '---'; // Reset winner text
+                if (animationFrameId) {
+                    cancelAnimationFrame(animationFrameId); // Stop any ongoing animation
+                    spinningSpeed = 0; // Reset speed
+                }
+            });
+
+            // Initial drawing of the wheel (empty)
+            drawWheel();
+            displayStudentsList();
+        });
+    </script>
+</body>
+</html>
