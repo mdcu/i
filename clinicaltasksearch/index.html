@@ -14,7 +14,7 @@
     <div class="max-w-2xl mx-auto p-4 sm:p-8">
         <header class="mb-8">
             <h1 class="text-3xl font-bold text-gray-800 mb-2">Clinical Task Search</h1>
-            <p class="text-gray-600">Enter terms to search across all data columns.</p>
+            <p class="text-gray-600">โปรดพิมพ์ชื่อทักษะหรือหัตถการที่รายวิชาต้องการให้นิสิตบันทึกในช่องนี้ เพื่อตรวจสอบว่ามีรายการในระบบแล้วหรือไม่   </p>
         </header>
 
         <!-- Search Input Section -->
@@ -132,7 +132,7 @@
 ["Low transverse cesarean section","","F","Proc.F.06","หัตถการ 3","3.4.3.6","LTCS, Lower segment Caesarean section, LSCS, Low Transverse Incision, Bikini-Cut Incision, LSTCS, Lower-segment transverse cesarean section"],
 ["Needle biopsy of breast","","F","Proc.F.07","หัตถการ 3","3.4.3.7","Needle biopsy of breast, Breast biopsy, Fine needle aspiration, FNA, Core needle biopsy, CNB, Vacuum Assisted Breast Biopsy, VABB, Mammotome, Stereotactic biopsy"],
 ["Peritoneal lavage","","F","Proc.F.08","หัตถการ 3","3.4.3.8","DPL, Diagnostic Peritoneal Lavage, Peritoneal Irrigation, Peritoneal Washing, DPA, Diagnostic Peritoneal Aspiration"],
-["Removal of embedded foreign body from cornea without incision","","F","Proc.F.09","หัตถการ 3","3.4.3.9","transparent covering of the eyeball, กระจกตา, córnea, 角膜"],
+["Removal of embedded foreign body from cornea without incision","","F","Proc.F.09","หัตถการ 3","3.4.3.9","transparent covering of the eyeball, กระจกตา, córnea"],
 ["Repair of extensor tendon of hand","","F","Proc.F.10","หัตถการ 3","3.4.3.10","Extensor tendon repair, tendon repair, primary repair, secondary repair, extensor tendon injuries, extensor tendon laceration, mallet finger, boutonniere deformity, central slip repair, DIP, PIP, MCP, ROM, EDC, EPL, EIP, ECU, ECRB, ECRL, CPT 26418, การซ่อมแซมเอ็นยืดมือ, ผ่าตัดซ่อมแซมเส้นเอ็น"],
 ["Salpingectomy","","F","Proc.F.11","หัตถการ 3","3.4.3.11","Fallopian tube removal, Unilateral salpingectomy, Partial salpingectomy, Bilateral salpingectomy, Total salpingectomy, Opportunistic salpingectomy, Prophylactic salpingectomy, BS, BSO"],
 ["Suprapubic tap","","F","Proc.F.12","หัตถการ 3","3.4.3.12","Suprapubic aspiration, SPA, Suprapubic bladder aspiration, SBA, Bladder Aspiration, Suprapubic urine collection, Bladder tap"],
@@ -172,7 +172,7 @@
 ["Iron studies","","INV","INV26","การตรวจอื่น ๆ","3.3.26","Iron Panel, Total Iron, Fe, Total Iron-Binding Capacity, TIBC, Transferrin, Transferrin Saturation, TSAT, Ferritin, Serum Ferritin, SF, UIBC, sTfR, ชุดตรวจธาตุเหล็ก, การตรวจระดับเหล็กในเลือด"],
 ["Antiglobulin test (Coombs test)","","INV","INV27","การตรวจอื่น ๆ","3.3.27","Antiglobulin test, Coombs test, DAT, IAT, Direct Antiglobulin Test, Indirect Antiglobulin Test, Direct Coombs Test, Indirect Coombs Test, AHG, AGT, การทดสอบแอนติโกลบูลิน, การทดสอบคูมบ์ส"],
 ["Aerosol bronchodilator therapy","","K","Proc.K.01","องค์ความรู้","3.4.K.1","Inhalation therapy, Respiratory therapy, Nebulization therapy, Bronchodilator therapy, Aerosol therapy, Breathing treatment, SABA, LABA, MDI, DPI, Nebulizer"],
-["Basic mechanical ventilation","","K","Proc.K.02","องค์ความรู้","3.4.K.2","Mechanical ventilation, Assisted ventilation, Artificial ventilation, Ventilation, MV, AMV, A/C, AC, CMV, ‡ªìπ«`∏`°“√™à«¬À“¬„®∑`Ë‡§√◊ËÕß™à«¬À“¬„®®–∑”Àπâ“∑`Ë"],
+["Basic mechanical ventilation","","K","Proc.K.02","องค์ความรู้","3.4.K.2","Mechanical ventilation, Assisted ventilation, Artificial ventilation, Ventilation, MV, AMV, A/C, AC, CMV"],
 ["Blood and blood component transfusion","","K","Proc.K.03","องค์ความรู้","3.4.K.3","Blood transfusion, transfusion, Blood component therapy, Blood replacement, Blood component transfusion, Blood transfusion therapy, Packed cells transfusion, haemotransfusion, hemotransfusion, autologous transfusion, autotransfusion, exchange transfusion, PRBC, FFP, PLT, CRYO, RBC, การถ่ายเลือด, การให้เลือด, การให้โลหิต, ถ่ายเลือด, 輸血"],
 ["Breathing exercise","","K","Proc.K.04","องค์ความรู้","3.4.K.4","Breathing technique, Pranayama, Breathwork, Breathing control, Respiratory training, ลมปราณ, lompran, Breathing practice, Diaphragmatic breathing"],
 ["Measurement of central venous pressure","","K","Proc.K.05","องค์ความรู้","3.4.K.5","CVP, Central Venous Pressure, Right Atrial Pressure, RAP, Jugular Venous Pressure, Venous Pressure, Right Ventricular End-Diastolic Pressure, RVEDP"],
@@ -427,13 +427,19 @@
 
             resultsList.innerHTML = filtered.map(row => `
                 <li class="px-6 py-4 hover:bg-blue-50 transition-colors cursor-default group">
-                    <div class="flex items-center justify-between">
+                    <div class="flex items-center justify-between" style = "flex-wrap:wrap">
                         <span class="text-gray-800 font-medium group-hover:text-blue-700 transition-colors">
                             ${row[0]}
                         </span>
-                        <span class="text-xs font-bold px-2 py-1 bg-gray-100 text-gray-500 rounded uppercase">
-                            ${row[1] || 'N/A'}
-                        </span>
+                    ${row[2]?`<span class="text-xs font-bold px-2 py-1 bg-gray-100 text-gray-500 rounded uppercase" style="margin-left:auto">`
+                        +row[2]+    
+                        `</span>`:''}
+                        <p style = "
+    font-size: 0.75rem;
+    color: silver;
+    font-style: italic;
+    width: 100%;
+">${row[6]}</p>
                     </div>
                 </li>
             `).join('');
