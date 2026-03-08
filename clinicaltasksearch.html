@@ -48,1535 +48,341 @@
          * The 'data' variable contains the 2D array.
          * The first row is assumed to be the header.
          */
-        const data = [
-    [
-        "ชื่อรายการ",
-        "MDCU tier",
-        "MDCU code",
-        "TMC group",
-        "TMC code",
-        "Synonyms"
-    ],
-    [
-        "Advanced cardiopulmonary resuscitation",
-        "A",
-        "Proc.A.01",
-        "หัตถการ 1.1",
-        "3.4.1.1.1",
-        "Advanced Cardiovascular Life Support, ACLS, Advanced life support, ALS, CPR, Cardiopulmonary resuscitation, การช่วยชีวิตขั้นสูงด้านหัวใจและหลอดเลือด"
-    ],
-    [
-        "Anterior nasal packing",
-        "A",
-        "Proc.A.03",
-        "หัตถการ 1.1",
-        "3.4.1.1.3",
-        "Anterior nasal packing, Nasal packing, ANS packing, Nasal tampon, Packing, Anterior Epistaxis Nasal Pack, Rhino Rocket, Rapid Rhino, Merocel, การอุดจมูก, การแพ็คจมูก"
-    ],
-    [
-        "Endotracheal intubation (adult)",
-        "A",
-        "Proc.A.06",
-        "หัตถการ 1.1",
-        "3.4.1.1.6",
-        "Intubation, Tracheal intubation, Airway intubation, ETT"
-    ],
-    [
-        "Intravenous fluid infusion",
-        "A",
-        "Proc.A.13",
-        "หัตถการ 1.1",
-        "3.4.1.1.13",
-        "IV, IV therapy, IV infusion, IV drip, Intravenous drip, Intravenous fluid, Infusion, CI, ในหลอดเลือดดำ, การให้อาหารทางเส้นเลือด"
-    ],
-    [
-        "Basic life support",
-        "A",
-        "Proc.A.31",
-        "หัตถการ 1.1",
-        "3.4.1.1.31",
-        "Basic Life Support, BLS, CPR, First Aid, ABC, CAB, การช่วยชีวิตขั้นพื้นฐาน"
-    ],
-    [
-        "Needle aspiration of pneumothorax",
-        "A",
-        "Proc.A.32",
-        "หัตถการ 1.1",
-        "3.4.1.1.32",
-        "Needle aspiration, NA, Simple aspiration, Thoracentesis, Needle thoracocentesis, Pneumothorax aspiration, Chest aspiration"
-    ],
-    [
-        "External splinting",
-        "B",
-        "Proc.B.08",
-        "หัตถการ 1.1",
-        "3.4.1.1.8",
-        "support, cast, brace, splinter, immobilizer, rigid support, เฝือก"
-    ],
-    [
-        "Incision and drainage",
-        "B",
-        "Proc.B.11",
-        "หัตถการ 1.1",
-        "3.4.1.1.11",
-        "I&D, Clinical lancing, Lancing, การผ่าตัด, การระบายน้ำ"
-    ],
-    [
-        "Nasogastric intubation and related procedures (gastric gavage, lavage)",
-        "B",
-        "Proc.B.17c",
-        "หัตถการ 1.1",
-        "3.4.1.1.17",
-        "Nasogastric tube, NG tube, Ryle`s tube, Stomach pumping, Gastric lavage, Gastric aspiration, Tube feeding"
-    ],
-    [
-        "Neonatal resuscitation",
-        "B",
-        "Proc.B.18",
-        "หัตถการ 1.1",
-        "3.4.1.1.18",
-        "Neonatal Resuscitation Program, Newborn resuscitation, NRP, CPR, PPV, Chest compressions, ETT, LMA, UVC, การกู้ชีพ, การช่วยหายใจ, การกดหน้าอกเพื่อนวดหัวใจ"
-    ],
-    [
-        "Normal labor",
-        "B",
-        "Proc.B.19",
-        "หัตถการ 1.1",
-        "3.4.1.1.19",
-        "SVD, NSVD, Spontaneous vaginal delivery, Normal Spontaneous Vaginal Delivery, childbirth, delivery, birth, contractions, parturition, คลอด, การคลอด"
-    ],
-    [
-        "Pap smear",
-        "B",
-        "Proc.B.20",
-        "หัตถการ 1.1",
-        "3.4.1.1.20",
-        "Pap test, Papanicolaou smear test, cervical smear, smear test, cervical cytology, LBC, CC, การตรวจมะเร็งปากมดลูก"
-    ],
-    [
-        "Suture",
-        "B",
-        "Proc.B.26",
-        "หัตถการ 1.1",
-        "3.4.1.1.26",
-        "stitch, seam, joint, surgical seam, รอยประสาน"
-    ],
-    [
-        "Urethral catheterization",
-        "B",
-        "Proc.B.27",
-        "หัตถการ 1.1",
-        "3.4.1.1.27",
-        "UC, Catheterization, IC, CIC, ISC, Self-catheterization, Transurethral catheterization, หลอดสวน, เกี่ยวกับท่อปัสสาวะ"
-    ],
-    [
-        "Wound dressing",
-        "B",
-        "Proc.B.30",
-        "หัตถการ 1.1",
-        "3.4.1.1.30",
-        "dressing, bandage, gauze, compress, ผ้าพันแผล, NPWT, VAC, CTP, HCT/P"
-    ],
-    [
-        "Amniotomy (artificial rupture of membranes at time of delivery)",
-        "C",
-        "Proc.C.02",
-        "หัตถการ 1.1",
-        "3.4.1.1.2",
-        "Amniotomy, Artificial rupture of membranes, AROM, breaking the water, rupture of membranes, เจาะถุงน้ำคร่ำ"
-    ],
-    [
-        "Aspiration of skin, subcutaneous tissue",
-        "C",
-        "Proc.C.04",
-        "หัตถการ 1.1",
-        "3.4.1.1.4",
-        "Aspiration, FNA, Fine-Needle Aspiration, Fine-Needle Biopsy, Skin lesion aspiration, SC, SQ, Hypodermic, Sucking, Suction, Draw, Pull, ความปรารถนา"
-    ],
-    [
-        "Capillary puncture",
-        "C",
-        "Proc.C.05",
-        "หัตถการ 1.1",
-        "3.4.1.1.5",
-        "Skin puncture, Capillary draw, Finger puncture, Heel puncture, เจาะ"
-    ],
-    [
-        "Episiotomy",
-        "C",
-        "Proc.C.07",
-        "หัตถการ 1.1",
-        "3.4.1.1.7",
-        "Perineotomy, ME, MLE, Perineal incision, Surgical cut, Perineal laceration"
-    ],
-    [
-        "FAST ultrasound in trauma",
-        "C",
-        "Proc.C.09",
-        "หัตถการ 1.1",
-        "3.4.1.1.9",
-        "FAST, EFAST, FAST scan, Extended FAST scan, Focussed assessment with sonography for trauma, Focused Assessment with Sonography in Trauma, อัลตราซาวด์"
-    ],
-    [
-        "First aid management of injured patient",
-        "C",
-        "Proc.C.10",
-        "หัตถการ 1.1",
-        "3.4.1.1.10",
-        "First aid, emergency treatment, treatment, critical care, triage, intervention, Basic Life Support, BLS, Cardiopulmonary Resuscitation, CPR, Automated External Defibrillator, AED, DRSABCD, RICE, SAMPLE, MIST, ABC, ฉุกเฉิน, รักษา, โรงพยาบาล"
-    ],
-    [
-        "Injection: Intradermal",
-        "C",
-        "Proc.C.12a",
-        "หัตถการ 1.1",
-        "3.4.1.1.12",
-        "ID, intracutaneous injection, intradermic, shot, injection"
-    ],
-    [
-        "Injection: Subcutaneous",
-        "C",
-        "Proc.C.12b",
-        "หัตถการ 1.1",
-        "3.4.1.1.12",
-        "hypodermic, hypodermic injection, subcutaneous injection, SC, SQ, SubQ, SUBQ, shot, การฉีดยาเข้าชั้นใต้ผิวหนัง, เข้าใต้ชั้นผิวหนัง"
-    ],
-    [
-        "Injection: Intramuscular",
-        "C",
-        "Proc.C.12c",
-        "หัตถการ 1.1",
-        "3.4.1.1.12",
-        "IM, i.m., shot, hypodermic injection, hypodermic, bing, การฉีดยา, ฉีด"
-    ],
-    [
-        "Injection: Intravenous",
-        "C",
-        "Proc.C.12d",
-        "หัตถการ 1.1",
-        "3.4.1.1.12",
-        "IV, IV injection, shot, jab, dose, hypo, IV push, bolus, IV drip, ในหลอดเลือดดำ, การฉีดยา, ยาฉีด"
-    ],
-    [
-        "Intercostal drainage",
-        "C",
-        "Proc.C.14",
-        "หัตถการ 1.1",
-        "3.4.1.1.14",
-        "Chest tube, Chest drain, Intercostal drain, Intercostal catheter, ICC, ICD, Tube thoracostomy, Thoracostomy, Bülau drain"
-    ],
-    [
-        "Local anesthetic infiltration",
-        "C",
-        "Proc.C.15",
-        "หัตถการ 1.1",
-        "3.4.1.1.15",
-        "Local anesthesia, Infiltration anesthesia, Regional anesthesia, Local analgesia, Field block, Local infiltration anaesthesia, Subcutaneous infiltration, LA, LIA, ยาชาใช้เฉพาะที่, ยาระงับความรู้สึก"
-    ],
-    [
-        "Digital nerve block",
-        "C",
-        "Proc.C.15",
-        "หัตถการ 1.1",
-        "3.4.1.1.15",
-        "Digital Block, Digital Ring Block, Metacarpal Block, Metatarsal Block, Transthecal Digital Block, Flexor Tendon Sheath Block, One Injection Digital Anesthesia, Volar Subcutaneous Block, Wing Block, Web-Space Block, Tumescent Block, DNB, TTB, DDB, MCB, SCB, SIMPLE"
-    ],
-    [
-        "Lumbar puncture (adult)",
-        "C",
-        "Proc.C.16",
-        "หัตถการ 1.1",
-        "3.4.1.1.16",
-        "spinal tap, spinal puncture, LP"
-    ],
-    [
-        "Nasogastric intubation",
-        "C",
-        "Proc.C.17a",
-        "หัตถการ 1.1",
-        "3.4.1.1.17",
-        "NG intubation, NGT placement, Nasogastric tube insertion, Gastric tube placement, การใส่สายให้อาหารทางจมูก"
-    ],
-    [
-        "Gastric gavage",
-        "C",
-        "Proc.C.17b",
-        "หัตถการ 1.1",
-        "3.4.1.1.17",
-        "Gastric lavage, Stomach tube feeding, Gavage, Gastric intubation, NG tube, การล้างกระเพาะอาหาร, การให้อาหารทางสายยาง"
-    ],
-    [
-        "Radial artery puncture for blood gas analysis",
-        "C",
-        "Proc.C.21",
-        "หัตถการ 1.1",
-        "3.4.1.1.21",
-        "ABG, Arterial Blood Gas, Blood Gas Analysis, Radial Puncture, Radial Artery Access, Transradial Artery Access"
-    ],
-    [
-        "Removal of nail or nail fold",
-        "C",
-        "Proc.C.22",
-        "หัตถการ 1.1",
-        "3.4.1.1.22",
-        "Nail removal, nail avulsion, partial nail avulsion, total nail avulsion, matrixectomy, ingrown nail, onychocryptosis, PNA, TNA, O/C"
-    ],
-    [
-        "Skin traction of limbs",
-        "C",
-        "Proc.C.23",
-        "หัตถการ 1.1",
-        "3.4.1.1.23",
-        "Skin Traction, Cutaneous Traction, Buck`s traction, Bryant`s traction, Traction, Trxn, LE traction, UE traction, Pull, Tension, Stretch"
-    ],
-    [
-        "Strengthening and stretching exercise",
-        "C",
-        "Proc.C.24",
-        "หัตถการ 1.1",
-        "3.4.1.1.24",
-        "PNF, SRT, ROM, Tai Chi, Qigong, Dynamic Stretching, Static Stretching, Isometric Stretching, Active Stretching, Passive Stretching, strengthening, flexibility, lengthening, extension, Thai massage"
-    ],
-    [
-        "Stump bandaging",
-        "C",
-        "Proc.C.25",
-        "หัตถการ 1.1",
-        "3.4.1.1.25",
-        "Stump dressing, residual limb wrapping, RLD, Amputation bandaging, การพันผ้าพันแผลตอขา, Kaan phan phaa phan plae tor khaa"
-    ],
-    [
-        "Vaginal packing",
-        "C",
-        "Proc.C.28",
-        "หัตถการ 1.1",
-        "3.4.1.1.28",
-        "Vaginal pack, Vag pack, Orifice packing, Vaginal Packing Gauze, Vaginal Packing Sponge, VP, การยัดผ้าก๊อซในช่องคลอด, การแพ็คช่องคลอด"
-    ],
-    [
-        "Venipuncture",
-        "C",
-        "Proc.C.29",
-        "หัตถการ 1.1",
-        "3.4.1.1.29",
-        "Phlebotomy, Blood draw, Blood sample collection, IV start, IV access, เจาะเลือด"
-    ],
-    [
-        "Abdominal paracentesis",
-        "D",
-        "Proc.D.01",
-        "หัตถการ 1.2",
-        "3.4.1.2.1",
-        "Paracentesis, Abdominal tap, Ascitic tap, Laparocentesis, Peritoneocentesis, Abdominal Tapping, Aspiration of ascites"
-    ],
-    [
-        "Aspiration of bursa (elbow and ankle)",
-        "D",
-        "Proc.D.02",
-        "หัตถการ 1.2",
-        "3.4.1.2.2",
-        "Aspiration of bursa, Bursa Aspiration, Joint aspiration, Arthrocentesis, Aspiration of the olecranon bursa, Olecranon bursa aspiration, Bursitis, Elbow bursitis, Prepatellar bursitis, เบอร์ไซติส"
-    ],
-    [
-        "Biopsy of skin, superficial mass",
-        "D",
-        "Proc.D.03",
-        "หัตถการ 1.2",
-        "3.4.1.2.3",
-        "Biopsy, Shave biopsy, Punch biopsy, Excisional biopsy, Fine-needle aspiration, FNA, Tissue sample, Nodules, Bumps, การตัดชิ้นเนื้อ, Kaan tàt chín núea"
-    ],
-    [
-        "Breech assistance delivery",
-        "D",
-        "Proc.D.04",
-        "หัตถการ 1.2",
-        "3.4.1.2.4",
-        "Breech birth, breech presentation, bottom-first delivery, frank breech, complete breech, footling breech, ECV, C-section"
-    ],
-    [
-        "Cervical biopsy",
-        "D",
-        "Proc.D.05",
-        "หัตถการ 1.2",
-        "3.4.1.2.5",
-        "Biopsy, Punch biopsy, Cone biopsy, Endocervical curettage, ECC, LEEP, Conization, CKC"
-    ],
-    [
-        "Cervical dilatation and uterine curettage",
-        "D",
-        "Proc.D.06",
-        "หัตถการ 1.2",
-        "3.4.1.2.6",
-        "D&C, D and C, Dilation and curettage, dilatation and curettage, curette, Scraping of the Uterus, ขูดมดลูก"
-    ],
-    [
-        "Contraceptive drug implantation and removal",
-        "D",
-        "Proc.D.07",
-        "หัตถการ 1.2",
-        "3.4.1.2.7",
-        "Contraceptive implant, Birth control implant, Subdermal implant, LARC, IUD, คุมกำเนิด, ยาคุมกำเนิด, ETG, LNG"
-    ],
-    [
-        "Debridement of wound",
-        "D",
-        "Proc.D.08",
-        "หัตถการ 1.2",
-        "3.4.1.2.8",
-        "Cleaning, Cleansing, Irrigation, Excision, Scraping, Wound cleansing, Wound irrigation, Surgical removal, Tissue debridement, Sharp debridement, Autolytic debridement, Biological debridement, Enzymatic debridement, Mechanical debridement, Larval therapy, Maggot therapy, 清創術, 清创术, CSWD, MDT, DIME"
-    ],
-    [
-        "Endotracheal intubation (children)",
-        "D",
-        "Proc.D.09",
-        "หัตถการ 1.2",
-        "3.4.1.2.9",
-        "Endotracheal intubation, Tracheal intubation, ET intubation, Pediatric intubation, ETT, ETR, Intubation - endotracheal, การใส่ท่อช่วยหายใจ, การใส่ท่อช่วยหายใจในเด็ก"
-    ],
-    [
-        "Excision of benign tumor and cyst of skin and subcutaneous tissue",
-        "D",
-        "Proc.D.10",
-        "หัตถการ 1.2",
-        "3.4.1.2.10",
-        "Surgical removal, Tumor excision, Cyst removal, Benign neoplasm removal, Lipoma excision, Sebaceous cyst surgery, ตัด (dtàt)"
-    ],
-    [
-        "Incision and curettage (external hordeolum)",
-        "D",
-        "Proc.D.11",
-        "หัตถการ 1.2",
-        "3.4.1.2.11",
-        "Incision and drainage, I&C, Lancing, Surgical drainage, Curettement"
-    ],
-    [
-        "Intraosseous access",
-        "D",
-        "Proc.D.12",
-        "หัตถการ 1.2",
-        "3.4.1.2.12",
-        "Intraosseous infusion, IO, Intraosseous vascular access, IO access, Intraosseous Cannulation, Intraosseous Line, IO Line"
-    ],
-    [
-        "Insertion of intrauterine contraceptive device",
-        "D",
-        "Proc.D.13",
-        "หัตถการ 1.2",
-        "3.4.1.2.13",
-        "IUD, IUCD, Coil, Intrauterine device, Intrauterine system, IUS, LARC, Birth control, Contraceptive device, LNG-IUD, Cu-IUD, ห่วงอนามัยคุมกำเนิด"
-    ],
-    [
-        "Joint aspiration, knee",
-        "D",
-        "Proc.D.14",
-        "หัตถการ 1.2",
-        "3.4.1.2.14",
-        "Arthrocentesis, Joint aspiration, Knee aspiration, Knee arthrocentesis, Arthro, เจาะเข่า"
-    ],
-    [
-        "Lumbar puncture (children)",
-        "D",
-        "Proc.D.15",
-        "หัตถการ 1.2",
-        "3.4.1.2.15",
-        "Spinal tap, LP, Spinal puncture"
-    ],
-    [
-        "Manual removal of placenta",
-        "D",
-        "Proc.D.16",
-        "หัตถการ 1.2",
-        "3.4.1.2.16",
-        "MROP, MRP, Manual placenta removal, Manual removal of a retained placenta, Evacuation of the placenta from the uterus by hand"
-    ],
-    [
-        "Manual vacuum aspiration",
-        "D",
-        "Proc.D.17",
-        "หัตถการ 1.2",
-        "3.4.1.2.17",
-        "MVA, Manual vacuum aspiration, Suction curettage, Vacuum aspiration, Abortion, in-clinic abortion, aspiration abortion, menstrual extraction, suction-curettage"
-    ],
-    [
-        "Plaster of Paris technique",
-        "D",
-        "Proc.D.18",
-        "หัตถการ 1.2",
-        "3.4.1.2.18",
-        "POP, Plaster, Plaster cast, Gypsum plaster, ปูนปลาสเตอร์, ปูนทำเฝือก, Cast"
-    ],
-    [
-        "Pleural paracentesis (thoracentesis)",
-        "D",
-        "Proc.D.19",
-        "หัตถการ 1.2",
-        "3.4.1.2.19",
-        "thoracocentesis, pleural tap, chest tap, pleuracentesis, pleurocentesis, needle thoracostomy, pleural aspiration"
-    ],
-    [
-        "Posterior nasal packing",
-        "D",
-        "Proc.D.20",
-        "หัตถการ 1.2",
-        "3.4.1.2.20",
-        "Posterior nasal pack, Posterior packing, Posterior epistaxis nasal pack, Posterior Nasal Hemorrhage Management, Posterior balloon placement, Posterior nasal tamponade, PnP, การใช้วัสดุกดห้ามเลือดในโพรงหลังจมูก"
-    ],
-    [
-        "Removal of foreign body from conjunctiva (simple case)",
-        "D",
-        "Proc.D.21",
-        "หัตถการ 1.2",
-        "3.4.1.2.21",
-        "Conjunctival Foreign Body Removal, Foreign body removal, Superficial foreign body removal, Conjunctival extraneous body removal, FB, FBR, EOFB, EGFB, CPT 65205"
-    ],
-    [
-        "Removal of foreign body from ear (simple case)",
-        "D",
-        "Proc.D.22",
-        "หัตถการ 1.2",
-        "3.4.1.2.22",
-        "Ear Foreign Body Removal, Foreign body extraction, FB removal, เอาสิ่งแปลกปลอมออกจากหู, การเอาสิ่งแปลกปลอมออกจากหู, Removal of object from ear canal"
-    ],
-    [
-        "Removal of foreign body from nose (simple case)",
-        "D",
-        "Proc.D.23",
-        "หัตถการ 1.2",
-        "3.4.1.2.23",
-        "Foreign body removal, FBR, NFB removal, Extraction, Retrieval, Elimination, Excision, Removal procedure"
-    ],
-    [
-        "Removal of foreign body from throat (simple case)",
-        "D",
-        "Proc.D.24",
-        "หัตถการ 1.2",
-        "3.4.1.2.24",
-        "Heimlich maneuver, Choking first aid, FB removal, Abdominal thrusts, Back blows, Airway clearance, การสำลัก, วิธีการ Heimlich, เอาสิ่งแปลกปลอมออกจากคอ"
-    ],
-    [
-        "Removal of foreign body from vagina in adult",
-        "D",
-        "Proc.D.25",
-        "หัตถการ 1.2",
-        "3.4.1.2.25",
-        "Vaginal foreign body removal, Removal of impacted vaginal foreign body, Vagina foreign body extraction, Retained tampon removal under anesthesia, Foreign body in vulva and vagina treatment, การนำสิ่งแปลกปลอมออกจากช่องคลอด, VFB, CPT, ICD-10-CM, OR"
-    ],
-    [
-        "Removal of foreign body from vagina in child",
-        "D",
-        "Proc.D.26",
-        "หัตถการ 1.2",
-        "3.4.1.2.26",
-        "Vaginal Foreign Body, Foreign object in the vagina, Retained tampon, Retained pessary, Removal of impacted vaginal foreign body, FB, CPT 57415, T19.2XXA, Genitourinary Foreign Body Removal, ช่องคลอด, จิ๋ม, น้องสาว, ปิ๊"
-    ],
-    [
-        "Removal of intrauterine contraceptive device",
-        "D",
-        "Proc.D.27",
-        "หัตถการ 1.2",
-        "3.4.1.2.27",
-        "IUD removal, Intrauterine device removal, IUCD removal, Removal of the coil, IUD, IUCD, Coil, Mirena IUD removal, Mirena coil removal, Chinese ring removal, vòng tránh thai"
-    ],
-    [
-        "Tubal ligation & resection (postpartum)",
-        "D",
-        "Proc.D.28",
-        "หัตถการ 1.2",
-        "3.4.1.2.28",
-        "Tubal ligation, Female sterilization, Tubal sterilization, Having tubes tied, Tubectomy, Permanent birth control, TL, BTL, PPTL, Tubal tie"
-    ],
-    [
-        "Ultrasonography, gravid uterus",
-        "D",
-        "Proc.D.29",
-        "หัตถการ 1.2",
-        "3.4.1.2.29",
-        "Obstetric ultrasonography, Prenatal ultrasound, Obstetric sonogram, USG, USS, Ultrasound scan, TVS, USG ANC, ตรวจอัลตราซาวนด์"
-    ],
-    [
-        "Venesection or central venous catheterization",
-        "D",
-        "Proc.D.30",
-        "หัตถการ 1.2",
-        "3.4.1.2.30",
-        "Phlebotomy, therapeutic blood removal, therapeutic phlebotomy, bloodletting, venipuncture, CVC, central line, central venous line, CVL, CVAD, central venous access device"
-    ],
-    [
-        "Umbilical vein catheterization",
-        "D",
-        "Proc.D.31",
-        "หัตถการ 1.2",
-        "3.4.1.2.31",
-        "Umbilical venous catheter, UVC, Umbilical venous line, UVL, Optimal umbilical venous catheter tip positioning"
-    ],
-    [
-        "Vacuum extraction",
-        "D",
-        "Proc.D.32",
-        "หัตถการ 1.2",
-        "3.4.1.2.32",
-        "VE, Ventouse, vacuum-assisted vaginal delivery, vacuum extraction delivery, การดูดสูญญากาศช่วยคลอด"
-    ],
-    [
-        "Appendectomy",
-        "E",
-        "Proc.E.01",
-        "หัตถการ 2.2",
-        "3.4.2.2.1",
-        "appendicectomy, appendisectomy, appendix removal, surgical removal of the appendix, excision of the vermiform appendix, การตัดไส้ติ่ง, การผ่าตัดไส้ติ่ง, ศัลยกรรมตัดไส้ติ่งออก"
-    ],
-    [
-        "Marsupialization of Bartholin’s cyst",
-        "E",
-        "Proc.E.05",
-        "หัตถการ 2.2",
-        "3.4.2.2.5",
-        "Marsupialization, Bartholin cyst drainage, Bartholin gland cyst procedure, Bartholin abscess drainage, Word catheter, Jacobi ring, การทำปากถุงน้ำบาร์โธลิน"
-    ],
-    [
-        "Polypectomy (cervical)",
-        "E",
-        "Proc.E.07",
-        "หัตถการ 2.2",
-        "3.4.2.2.7",
-        "Cervical Polypectomy, Polypectomy, In-office polypectomy, Local excision of lesion, 57500, การตัดติ่งเนื้อที่ปากมดลูก"
-    ],
-    [
-        "Reduction of finger dislocations",
-        "E",
-        "Proc.E.08a",
-        "หัตถการ 2.2",
-        "3.4.2.2.8",
-        "Finger dislocation, Jammed finger, Coach`s finger, PIP dislocation, DIP dislocation, MCP dislocation, Phalanx dislocation, Closed reduction finger, PIPJ, DIPJ, MCPJ, การจัดกระดูกนิ้วมือที่เคลื่อน"
-    ],
-    [
-        "Reduction of shoulder dislocations",
-        "E",
-        "Proc.E.08b",
-        "หัตถการ 2.2",
-        "3.4.2.2.8",
-        "Shoulder dislocation, Dislocation of the shoulder, Glenohumeral dislocation, Glenohumeral joint dislocation, Closed reduction, Reduction, Relocation, TCT, TAE, FARES, ภาวะข้อไหล่หลุด"
-    ],
-    [
-        "Bone marrow aspiration",
-        "F",
-        "Proc.F.01",
-        "หัตถการ 3",
-        "3.4.3.1",
-        "BMA, Bone marrow aspirate, Bone marrow biopsy, Bone marrow exam, Aspiration"
-    ],
-    [
-        "Circumcision",
-        "F",
-        "Proc.F.02",
-        "หัตถการ 3",
-        "3.4.3.2",
-        "surgical removal of the foreskin, male circumcision, female circumcision, female genital cutting, genital mutilation, circ, Khlip, ขลิบ, MC, MMC, VMMC, MGC"
-    ],
-    [
-        "Closed reduction of simple fractures",
-        "F",
-        "Proc.F.03",
-        "หัตถการ 3",
-        "3.4.3.3",
-        "Closed Reduction, CR, Reduction, Closed Fracture Reduction, Fracture reduction - closed"
-    ],
-    [
-        "General anesthesia for uncomplicated patient for simple surgery",
-        "F",
-        "Proc.F.04",
-        "หัตถการ 3",
-        "3.4.3.4",
-        "GA, general anesthetic, general anaesthesia, anaesthesia, unconsciousness, ยาสลบ"
-    ],
-    [
-        "Joint aspiration, other than knee joint",
-        "F",
-        "Proc.F.05",
-        "หัตถการ 3",
-        "3.4.3.5",
-        "Arthrocentesis, Joint tap, Synovial fluid aspiration, Joint fluid removal"
-    ],
-    [
-        "Low transverse cesarean section",
-        "F",
-        "Proc.F.06",
-        "หัตถการ 3",
-        "3.4.3.6",
-        "LTCS, Lower segment Caesarean section, LSCS, Low Transverse Incision, Bikini-Cut Incision, LSTCS, Lower-segment transverse cesarean section"
-    ],
-    [
-        "Needle biopsy of breast",
-        "F",
-        "Proc.F.07",
-        "หัตถการ 3",
-        "3.4.3.7",
-        "Needle biopsy of breast, Breast biopsy, Fine needle aspiration, FNA, Core needle biopsy, CNB, Vacuum Assisted Breast Biopsy, VABB, Mammotome, Stereotactic biopsy"
-    ],
-    [
-        "Peritoneal lavage",
-        "F",
-        "Proc.F.08",
-        "หัตถการ 3",
-        "3.4.3.8",
-        "DPL, Diagnostic Peritoneal Lavage, Peritoneal Irrigation, Peritoneal Washing, DPA, Diagnostic Peritoneal Aspiration"
-    ],
-    [
-        "Removal of embedded foreign body from cornea without incision",
-        "F",
-        "Proc.F.09",
-        "หัตถการ 3",
-        "3.4.3.9",
-        "transparent covering of the eyeball, กระจกตา, córnea, 角膜"
-    ],
-    [
-        "Repair of extensor tendon of hand",
-        "F",
-        "Proc.F.10",
-        "หัตถการ 3",
-        "3.4.3.10",
-        "Extensor tendon repair, tendon repair, primary repair, secondary repair, extensor tendon injuries, extensor tendon laceration, mallet finger, boutonniere deformity, central slip repair, DIP, PIP, MCP, ROM, EDC, EPL, EIP, ECU, ECRB, ECRL, CPT 26418, การซ่อมแซมเอ็นยืดมือ, ผ่าตัดซ่อมแซมเส้นเอ็น"
-    ],
-    [
-        "Salpingectomy",
-        "F",
-        "Proc.F.11",
-        "หัตถการ 3",
-        "3.4.3.11",
-        "Fallopian tube removal, Unilateral salpingectomy, Partial salpingectomy, Bilateral salpingectomy, Total salpingectomy, Opportunistic salpingectomy, Prophylactic salpingectomy, BS, BSO"
-    ],
-    [
-        "Suprapubic tap",
-        "F",
-        "Proc.F.12",
-        "หัตถการ 3",
-        "3.4.3.12",
-        "Suprapubic aspiration, SPA, Suprapubic bladder aspiration, SBA, Bladder Aspiration, Suprapubic urine collection, Bladder tap"
-    ],
-    [
-        "Tracheostomy",
-        "F",
-        "Proc.F.13",
-        "หัตถการ 3",
-        "3.4.3.13",
-        "Tracheotomy, Trach"
-    ],
-    [
-        "Cervical spine and pelvic traction",
-        "G",
-        "Proc.G.01",
-        "หัตถการ 4",
-        "3.4.4.1",
-        "Cervical traction, Neck traction, Lumbar traction, Pelvic traction, Spinal traction, Spinal decompression, Spinal decompression therapy, Traction"
-    ],
-    [
-        "Low forceps extraction",
-        "G",
-        "Proc.G.02",
-        "หัตถการ 4",
-        "3.4.4.2",
-        "Low forceps delivery, Single delivery by low forceps delivery, Forceps delivery, Outlet Forceps, Mid-cavity forceps delivery, Assisted delivery, Instrumental birth, Operative vaginal delivery, OVD"
-    ],
-    [
-        "Peritoneal dialysis",
-        "G",
-        "Proc.G.03",
-        "หัตถการ 4",
-        "3.4.4.3",
-        "PD, CAPD, Continuous ambulatory peritoneal dialysis, APD, Automated peritoneal dialysis, CCPD, Continuous cycling peritoneal dialysis, Continuous cycler-assisted peritoneal dialysis, IPD, Intermittent peritoneal dialysis, Renal dialysis"
-    ],
-    [
-        "Pleural biopsy",
-        "G",
-        "Proc.G.04",
-        "หัตถการ 4",
-        "3.4.4.4",
-        "Biopsy, Needle biopsy, Open biopsy, Thoracoscopic biopsy, Thoracentesis, Lung biopsy, Tissue sample, Bx"
-    ],
-    [
-        "Skeletal traction",
-        "G",
-        "Proc.G.05",
-        "หัตถการ 4",
-        "3.4.4.5",
-        "sk. tx, sk. trx, sk. tr., BST, Balance Skeletal Traction, Traction Pins, โครงกระดูก"
-    ],
-    [
-        "Spinal anesthesia",
-        "G",
-        "Proc.G.06",
-        "หัตถการ 4",
-        "3.4.4.6",
-        "spinal block, spinal anaesthesia, SAB, subarachnoid block, intrathecal block, intradural block, spinal, ยาชา"
-    ],
-    [
-        "Vasectomy",
-        "G",
-        "Proc.G.07",
-        "หัตถการ 4",
-        "3.4.4.7",
-        "Male sterilization, permanent contraception, birth control, family planning, NSV, No-Scalpel Vasectomy"
-    ],
-    [
-        "Aerosol bronchodilator therapy",
-        "K",
-        "Proc.K.01",
-        "องค์ความรู้",
-        "3.4.K.1",
-        "Inhalation therapy, Respiratory therapy, Nebulization therapy, Bronchodilator therapy, Aerosol therapy, Breathing treatment, SABA, LABA, MDI, DPI, Nebulizer"
-    ],
-    [
-        "Basic mechanical ventilation",
-        "K",
-        "Proc.K.02",
-        "องค์ความรู้",
-        "3.4.K.2",
-        "Mechanical ventilation, Assisted ventilation, Artificial ventilation, Ventilation, MV, AMV, A/C, AC, CMV, ‡ªìπ«`∏`°“√™à«¬À“¬„®∑`Ë‡§√◊ËÕß™à«¬À“¬„®®–∑”Àπâ“∑`Ë"
-    ],
-    [
-        "Blood and blood component transfusion",
-        "K",
-        "Proc.K.03",
-        "องค์ความรู้",
-        "3.4.K.3",
-        "Blood transfusion, transfusion, Blood component therapy, Blood replacement, Blood component transfusion, Blood transfusion therapy, Packed cells transfusion, haemotransfusion, hemotransfusion, autologous transfusion, autotransfusion, exchange transfusion, PRBC, FFP, PLT, CRYO, RBC, การถ่ายเลือด, การให้เลือด, การให้โลหิต, ถ่ายเลือด, 輸血"
-    ],
-    [
-        "Breathing exercise",
-        "K",
-        "Proc.K.04",
-        "องค์ความรู้",
-        "3.4.K.4",
-        "Breathing technique, Pranayama, Breathwork, Breathing control, Respiratory training, ลมปราณ, lompran, Breathing practice, Diaphragmatic breathing"
-    ],
-    [
-        "Measurement of central venous pressure",
-        "K",
-        "Proc.K.05",
-        "องค์ความรู้",
-        "3.4.K.5",
-        "CVP, Central Venous Pressure, Right Atrial Pressure, RAP, Jugular Venous Pressure, Venous Pressure, Right Ventricular End-Diastolic Pressure, RVEDP"
-    ],
-    [
-        "Oxygen therapy",
-        "K",
-        "Proc.K.06",
-        "องค์ความรู้",
-        "3.4.K.6",
-        "Oxygen therapy, Hyperbaric Oxygen Therapy, HBOT, HBO, LTOT, HOT, NOT, O2 therapy, Supplemental O2, O2, ออกซิเจน, ออกซิเจนใน, ก๊าซออกซิเจน"
-    ],
-    [
-        "Phototherapy",
-        "K",
-        "Proc.K.07",
-        "องค์ความรู้",
-        "3.4.K.7",
-        "light therapy, actinotherapy, radiation therapy, radiotherapy, blue light therapy, UV Phototherapy, PUVA, UVB"
-    ],
-    [
-        "Postural drainage",
-        "K",
-        "Proc.K.08",
-        "องค์ความรู้",
-        "3.4.K.8",
-        "Postural drainage, Chest physiotherapy, PD, Airway clearance, Mucus clearance, Respiratory therapy, Chest physical therapy, PD & P, CPT, Modified Postural Drainage, MPD"
-    ],
-    [
-        "Stomal care",
-        "K",
-        "Proc.K.09",
-        "องค์ความรู้",
-        "3.4.K.9",
-        "Stoma, Ostomy, Colostomy, Ileostomy, Urostomy, Peristomal skin care, สโตม่า"
-    ],
-    [
-        "Gait aids",
-        "X",
-        "Proc.X.01",
-        "จุฬาฯ only",
-        "",
-        "Gait aids, Assistive Device, AD, Ambulation aid, AA, Wheelchair, WC, W/c, Powerchair, Wheeled Walker, WW, 4WW, Rollator, Rolling Walker, RW, Straight Cane, SC, Quad Cane, QC, Adaptive equipment, AE, เก้าอี้รถเข็น, รถเก้าอี้ไฟฟ้า, รถเข็นช่วยเดิน"
-    ],
-    [
-        "Prosthetics and orthotics",
-        "X",
-        "Proc.X.02",
-        "จุฬาฯ only",
-        "",
-        "prosthesis, orthosis, prostheses, orthoses, artificial limb, implant, brace, splint, support, O&P, CPO, CP, CO"
-    ],
-    [
-        "PE: Head-to-Toe Assessment: Adult",
-        "X",
-        "Proc.X.03",
-        "จุฬาฯ only",
-        "",
-        "Head-to-Toe, H2T Assessment, Complete Physical Assessment, Physical Assessment Guide, General Survey, Comprehensive Evaluation, IPPA, Inspection Palpation Percussion Auscultation, DCAP-BTLS, COLDSPA, OPQRSTU, OLD CART, PERRLA, การตรวจร่างกาย, การประเมินสุขภาพ"
-    ],
-    [
-        "PE: Head-to-Toe Assessment: Infant",
-        "X",
-        "Proc.X.04",
-        "จุฬาฯ only",
-        "",
-        "Head-to-Toe Assessment Infant, Newborn Assessment, Neonatal Physical Exam, Baby Physical Exam, HTTA, APGAR, Infant Head-to-Toe, Neonatal Assessment, การประเมินร่างกายทารก, การตรวจร่างกายทารกแรกเกิด"
-    ],
-    [
-        "PE: Head-to-Toe Assessment: Child",
-        "X",
-        "Proc.X.05",
-        "จุฬาฯ only",
-        "",
-        "Head-to-Toe Assessment, Pediatric Assessment, Child Physical Assessment, Head to Toe Exam, Physical Examination, Full Body Assessment, H2T, Pediatric Health Assessment, DCAP-BTLS, ABCDEFGHI, การประเมินร่างกายเด็ก, การตรวจร่างกายเด็ก"
-    ],
-    [
-        "PE: Head-to-Toe Assessment: Older Adult",
-        "X",
-        "Proc.X.06",
-        "จุฬาฯ only",
-        "",
-        "Head-to-Toe Assessment, Physical Assessment, General Survey, Physical Examination, Comprehensive Geriatric Assessment, CGA, Geriatric Assessment, DCAP-BTLS, ABCDEFGHI, FATMPH, T-FRAIL"
-    ],
-    [
-        "PE: General Survey and Vital Signs",
-        "X",
-        "Proc.X.07",
-        "จุฬาฯ only",
-        "",
-        "Vital signs, Vitals, General Survey, General Appearance, Physical Assessment, VS, T, P, R, BP, HR, RR"
-    ],
-    [
-        "PE: Skin",
-        "X",
-        "Proc.X.08",
-        "จุฬาฯ only",
-        "",
-        "epidermis, dermis, hide, pelt, surface, cutis, integument, complexion, ผิว, ผิวพรรณ, ผิวหนัง, SSKIN, AD, HS, BCC, SCC"
-    ],
-    [
-        "PE: Eyes and adnexa",
-        "X",
-        "Proc.X.09",
-        "จุฬาฯ only",
-        "",
-        "Ocular system, Ocular adnexa, Eyeball, Accessory visual structures, Globe and adnexa, OD, OS, OU, K, ON, ตา"
-    ],
-    [
-        "PE: Ears, Nose, Mouth, and Neck",
-        "X",
-        "Proc.X.10",
-        "จุฬาฯ only",
-        "",
-        "ENT, Otorhinolaryngology, Otolaryngology, Head and Neck surgery, ORL, OHNS, Ear, Nose, and Throat"
-    ],
-    [
-        "PE: Thorax and Lungs",
-        "X",
-        "Proc.X.11",
-        "จุฬาฯ only",
-        "",
-        "chest, rib cage, torso, pectus, pulmonary cavity, CXR, COPD, LRT, URT, TB, B/S, ปอด"
-    ],
-    [
-        "PE: Cardiovascular System",
-        "X",
-        "Proc.X.12",
-        "จุฬาฯ only",
-        "",
-        "Circulatory system, Vascular system, Cardiovascular, CV, CVS, ระบบหัวใจหลอดเลือด, หัวใจร่วมหลอดเลือด"
-    ],
-    [
-        "PE: Peripheral Vascular System",
-        "X",
-        "Proc.X.13",
-        "จุฬาฯ only",
-        "",
-        "Peripheral Vascular Disease, PVD, Peripheral Artery Disease, PAD, Vascular system, Peripheral arteries, เกี่ยวกับท่อหรือหลอด"
-    ],
-    [
-        "PE: Breasts and Axillae",
-        "X",
-        "Proc.X.14",
-        "จุฬาฯ only",
-        "",
-        "breast, bosom, mammary gland, chest, axilla, armpit, underarm, oxter, axillae, accessory breast, polymastia, supernumerary breast, นม, หน้าอก, เต้านม, รักแร้, ALND, AND, AWS, SNB, NAC, Mast, MX, BMX"
-    ],
-    [
-        "PE: Abdomen",
-        "X",
-        "Proc.X.15",
-        "จุฬาฯ only",
-        "",
-        "belly, stomach, guts, corporation, ท้อง, หน้าท้อง, Abd, Abdo, ABD"
-    ],
-    [
-        "PE: Male Genitalia and Prostate",
-        "X",
-        "Proc.X.16",
-        "จุฬาฯ only",
-        "",
-        "penis, phallus, member, cock, dick, weenie, tool, shaft, glans, foreskin, prepuce, testicle, testes, balls, nuts, gonads, scrotum, epididymis, vas deferens, urethra, prostate, prostate gland, seminal vesicle, BPH, PSA, ED, STD, STI, DRE, TURP, ควย, ต่อมลูกหมาก, องคชาต, อวัยวะเพศชาย"
-    ],
-    [
-        "PE: Female Genitalia",
-        "X",
-        "Proc.X.17",
-        "จุฬาฯ only",
-        "",
-        "Vagina, Vulva, Genitals, Female genitals, Yoni, โยนี, ช่องคลอด, จิ๋ม"
-    ],
-    [
-        "PE: Rectum and Anus",
-        "X",
-        "Proc.X.18",
-        "จุฬาฯ only",
-        "",
-        "Rectum, Anus, Anal, Rectal, Back passage, Butthole, Asshole, ช่องทวารหนัก, ทวารหนัก, ไส้ตรง, EAS, IAS, BRBPR"
-    ],
-    [
-        "PE: Musculoskeletal System",
-        "X",
-        "Proc.X.19",
-        "จุฬาฯ only",
-        "",
-        "Musculoskeletal System, Musculoskeletal, MusculoSkeletal, M/S, Skeletal System, Bones and Muscles, Ortho, กระดูก, กล้ามเนื้อ"
-    ],
-    [
-        "PE: Nervous System: Cranial Nerves and Motor System",
-        "X",
-        "Proc.X.20",
-        "จุฬาฯ only",
-        "",
-        "facial nerve, CN VII, seventh cranial nerve, nervus facialis"
-    ],
-    [
-        "PE: Nervous System: Sensory System and Reflexes",
-        "X",
-        "Proc.X.21",
-        "จุฬาฯ only",
-        "",
-        "Nervous System, CNS, Central Nervous System, Peripheral Nervous System, Autonomic Nervous System, ระบบประสาท, Sensory System, Somatosensory System, Sensory, Sensorial, ทางประสาทสัมผัส, Reflexes, Reflex Action, Reaction, Automatic, Involuntary, ปฏิกิริยาตอบกลับโดยอัตโนมัติ"
-    ],
-    [
-        "Hematocrit",
-        "LAB",
-        "LAB01",
-        "การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ",
-        "3.1.1",
-        "HCT, packed cell volume, PCV, erythrocyte volume fraction, EVF, Ht, Crit, haematocrit, ฮีมาโทคริต"
-    ],
-    [
-        "Blood smear: differential white blood cell count, red cell morphology, platelet estimate and morphology",
-        "LAB",
-        "LAB02",
-        "การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ",
-        "3.1.2",
-        "Blood film, Peripheral blood smear, CBC with differential, CBC w/ diff, DIFF, Differential leukocyte count, Blood smear examination, การตรวจฟิล์มเลือด, การนับแยกชนิดเม็ดเลือดขาว, การตรวจความสมบูรณ์ของเม็ดเลือดและแยกชนิดเม็ดเลือดขาว"
-    ],
-    [
-        "Malarial parasite",
-        "LAB",
-        "LAB03",
-        "การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ",
-        "3.1.3",
-        "Plasmodium, P. falciparum, Pf, P. vivax, P. ovale, P. malariae, P. knowlesi, ไข้มาลาเรีย, ไข้ป่า, ไข้จับสั่น, มาลาเรีย, ยุงก้นปล่อง"
-    ],
-    [
-        "ABO blood group, Anti-D (Rh blood group)",
-        "LAB",
-        "LAB04",
-        "การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ",
-        "3.1.4",
-        "Blood type, Blood group, Rh factor, Rhesus factor, ABORH, หมู่เลือด"
-    ],
-    [
-        "20-min whole blood clotting test (20WBCT)",
-        "LAB",
-        "LAB05",
-        "การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ",
-        "3.1.5",
-        "20WBCT, WBCT20, 20-minute whole blood clotting test, whole blood clotting test, การทดสอบการแข็งตัวของเลือดครบส่วน 20 นาที"
-    ],
-    [
-        "Urine analysis",
-        "LAB",
-        "LAB06",
-        "การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ",
-        "3.1.6",
-        "การตรวจวิเคราะห์ปัสสาวะ, การแปลผลการตรวจวิเคราะห์ปัสสาวะ, Urinalysis, UA, uranalysis, Urine Test, Urine RE/ME test, Urine R/M test"
-    ],
-    [
-        "Body fluid analysis (CSF)",
-        "LAB",
-        "LAB07a",
-        "การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ",
-        "3.1.7",
-        "Cerebrospinal Fluid Analysis, CSF Analysis, Spinal Fluid Analysis, CSF, Spinal Tap, Lumbar Puncture, นํ้าไขสันหลัง"
-    ],
-    [
-        "Body fluid analysis (pleural)",
-        "LAB",
-        "LAB07b",
-        "การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ",
-        "3.1.7",
-        "Pleural Fluid Analysis, Pleural Fluid Testing, Pleural Effusion Testing, Diagnostic Thoracentesis, Pleural Fluid Tap, Pleural Fluid Aspiration, Pleural Fluid Culture, Pleural Fluid Cytology, Thoracentesis Fluid Analysis, Non-Gynecological Cytology, Body Fluids Cytology, Fluid, Non-Gyne Cytology, Cytology, Serous Fluids"
-    ],
-    [
-        "Body fluid analysis (others)",
-        "LAB",
-        "LAB07c",
-        "การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ",
-        "3.1.7",
-        "Body Fluid Analysis, Body Fluid Count and Differential, Fluid Count/Differential, Differential Count, Ascitic Fluid Analysis, Paracentesis Fluid Analysis, Pleural Fluid Analysis, Thoracentesis Fluid Analysis, Synovial Fluid Analysis, BF, CSF, RBC, WBC, SYF, TNC, BFFCD, การตรวจวิเคราะห์สารน้ำาจากร่างกาย, สารน้ำาจากร่างกาย"
-    ],
-    [
-        "Stool examination",
-        "LAB",
-        "LAB08a",
-        "การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ",
-        "3.1.8",
-        "Stool test, Fecal test, Fecal occult test, FOBT, FIT, Stool C&S, Fecal Culture, การตรวจอุจจาระ, การตรวจหาเลือดในอุจจาระ"
-    ],
-    [
-        "Stool occult blood",
-        "LAB",
-        "LAB08b",
-        "การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ",
-        "3.1.8",
-        "Stool occult blood, Fecal Occult Blood Test, FOBT, guaiac fecal occult blood test, gFOBT, stool guaiac test, guaiac smear test, occult blood test, Hemoccult, Fecal Immunochemical Test, FIT, iFOBT"
-    ],
-    [
-        "Sputum examination",
-        "LAB",
-        "LAB08c",
-        "การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ",
-        "3.1.8",
-        "การตรวจเสมหะ, Sputum analysis, Sputum test, Sputum culture, Sputum C&S, Respiratory Culture, Sputum Microbiology Test"
-    ],
-    [
-        "Gram staining",
-        "LAB",
-        "LAB09a",
-        "การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ",
-        "3.1.9",
-        "Gram stain, Gram's stain, Gram method, Gram's method, Gram's procedure, Gram staining procedure, Gram stain test, การย้อมสีแกรม"
-    ],
-    [
-        "Acid fast staining",
-        "LAB",
-        "LAB09b",
-        "การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ",
-        "3.1.9",
-        "Acid-fast stain, Ziehl-Neelsen stain, ZN, AFB, Kinyoun method, สีย้อมทนกรด, การย้อมสีทนกรด, แอซิดฟาสท์"
-    ],
-    [
-        "Modified acid fast staining",
-        "LAB",
-        "LAB09c",
-        "การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ",
-        "3.1.9",
-        "Modified Acid-Fast Stain, Modified AFB Stain, Partial Acid Fast Stain, mZN, Modified Kinyoun, การย้อมสี Modified Acid Fast Stain, การย้อมสี Modified AFB"
-    ],
-    [
-        "KOH smear",
-        "LAB",
-        "LAB10a",
-        "การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ",
-        "3.1.10",
-        "Potassium hydroxide preparation, KOH prep, Fungal smear, Skin lesion KOH exam, KOH test, KOH, Smear Fungus, Smear Yeast, Smear KOH, Yeast Smear, KOH mount test, Fungal wet mount test, Potassium hydroxide examination of skin lesion"
-    ],
-    [
-        "Tzanck smear",
-        "LAB",
-        "LAB10b",
-        "การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ",
-        "3.1.10",
-        "Tzanck smear for Cytology, Herpes Smear for Cytology, Tzanck test, chickenpox skin test, herpes skin test, TZANCK, แตงค์สเมียร์"
-    ],
-    [
-        "Wet preparation",
-        "LAB",
-        "LAB10c",
-        "การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ",
-        "3.1.10",
-        "Wet Prep, prep, การเตรียมการ, การเตรียมเปียก"
-    ],
-    [
-        "Electrocardiography",
-        "LAB",
-        "LAB12",
-        "การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ",
-        "3.1.12",
-        "Electrocardiogram, EKG, ECG, cardiogram, คลื่นไฟฟ้าหัวใจ, อีซีจี, อีเคจี"
-    ],
-    [
-        "Growth and development assessment",
-        "LAB",
-        "LAB13",
-        "การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ",
-        "3.1.13",
-        "การประเมินพัฒนาการและการเจริญเติบโต, การประเมินพัฒนาการ, Developmental Assessment, Developmental Screening, Developmental Milestones, ASQ, EPSDT, C&TC"
-    ],
-    [
-        "Electronic fetal heart rate monitoring",
-        "LAB",
-        "LAB14",
-        "การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ",
-        "3.1.14",
-        "Electronic fetal monitoring, EFM, Continuous electronic fetal monitoring, CEFM, Cardiotocography, CTG, fetal monitor, electronic foetal monitor, การเฝ้าติดตามอัตราการเต้นของหัวใจทารกในครรภ์ด้วยอิเล็กทรอนิกส์, คาร์ดิโอโทโคกราฟี"
-    ],
-    [
-        "Nasal and nasopharyngeal swab",
-        "LAB",
-        "LAB15",
-        "การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ",
-        "3.1.15",
-        "Nasopharyngeal swab, NPS, NP, Nasal swab, Nasal and nasopharyngeal swab, การเก็บตัวอย่างจากโพรงจมูกส่วนบน"
-    ],
-    [
-        "Urine pregnancy test",
-        "LAB",
-        "LAB16",
-        "การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ",
-        "3.1.16",
-        "ชุดทดสอบการตั้งครรภ์, การทดสอบการตั้งครรภ์, Pregnancy test, HPT"
-    ],
-    [
-        "Point of care testing e.g., glucose, blood gas",
-        "LAB",
-        "LAB17",
-        "การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ",
-        "3.1.17",
-        "POCT, POC, near-patient testing, bedside testing, near-patient testing (NPT), การตรวจ ณ จุดดูแลผู้ป่วย, การตรวจวินิจฉัยข้างเตียง"
-    ],
-    [
-        "FAST ultrasonography in trauma",
-        "LAB",
-        "LAB19",
-        "การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ",
-        "3.1.19",
-        "FAST, EFAST, Focused Assessment with Sonography for Trauma, Focused Assessment with Sonography in Trauma, Extended FAST, Extended FAST scan, FAST scan, Trauma ultrasound, การตรวจ FAST, การตรวจ EFAST"
-    ],
-    [
-        "Chest x-ray",
-        "RAD",
-        "RAD01",
-        "การตรวจทางรังสีวิทยา ",
-        "3.2.1",
-        "CXR, Chest radiograph, Chest X-ray, Chest film, Chest XR, เอกซเรย์ปอด, ภาพถ่ายด้วยรังสีเอ็กซ์"
-    ],
-    [
-        "Plain abdomen",
-        "RAD",
-        "RAD02",
-        "การตรวจทางรังสีวิทยา ",
-        "3.2.2",
-        "ภาพถ่ายรังสีช่องท้อง, X-ray ช่องท้อง, Abdominal X-ray, AXR, KUB, Plain abdominal film, Abdominal radiograph"
-    ],
-    [
-        "Plain KUB",
-        "RAD",
-        "RAD03",
-        "การตรวจทางรังสีวิทยา ",
-        "3.2.3",
-        "KUB, Kidney Ureter and Bladder X-ray, KUB radiograph, Plain film KUB, Plain abdominal film, เอกซเรย์ KUB, ภาพถ่ายรังสี KUB"
-    ],
-    [
-        "Skull and sinuses",
-        "RAD",
-        "RAD04",
-        "การตรวจทางรังสีวิทยา ",
-        "3.2.4",
-        "กะโหลกศีรษะ, ไซนัส, โพรงในกระดูกศีรษะ, กะโหลกศีรษะและไซนัส, Skull, cranium, sinuses, paranasal sinuses, Skull and sinuses"
-    ],
-    [
-        "Bones and joints",
-        "RAD",
-        "RAD05",
-        "การตรวจทางรังสีวิทยา ",
-        "3.2.5",
-        "Bones, joints, Skeletal system, Musculoskeletal system, Bone structure, Anatomy, MA, กระดูก, ข้อต่อ, โครงกระดูกมนุษย์, กายวิภาค"
-    ],
-    [
-        "Lateral soft tissue of neck",
-        "RAD",
-        "RAD06",
-        "การตรวจทางรังสีวิทยา ",
-        "3.2.6",
-        "Lateral soft tissue neck X-ray, LNR, Soft tissue neck lateral radiograph, Plain lateral neck radiograph, ท่า lateral neck soft tissue technique, เนื้อเยื่ออ่อนด้านข้างคอ"
-    ],
-    [
-        "Hemoglobin, white blood cell count, platelet count",
-        "INV",
-        "INV01",
-        "การตรวจอื่น ๆ",
-        "3.3.1",
-        "haemoglobin, Hb, Hgb, hemoprotein, ฮีโมโกลบิน, เฮโมโกลบิน, WBC count, leukocyte count, PLT, thrombocyte count, เกล็ดเลือด, เม็ดสีนำออกซิเจนที่อยู่ในเซลล์ของเม็ดเลือดแดง"
-    ],
-    [
-        "Red cell indices",
-        "INV",
-        "INV02",
-        "การตรวจอื่น ๆ",
-        "3.3.2",
-        "Red blood cell indices, RBC indices, Rbc indices, Erythrocyte indices, Blood indices, Hematology parameters, MCV, MCH, MCHC, RDW, เซลล์เม็ดเลือดแดง"
-    ],
-    [
-        "Reticulocyte count",
-        "INV",
-        "INV03",
-        "การตรวจอื่น ๆ",
-        "3.3.3",
-        "Retic count, RPI, CRC, Reticulocyte percent, Reticulocyte Index, Reticulocyte Production Index, Corrected Reticulocyte, การนับเรติคูโลไซต์"
-    ],
-    [
-        "Inclusion bodies, Heinz bodies",
-        "INV",
-        "INV04",
-        "การตรวจอื่น ๆ",
-        "3.3.4",
-        "Heinz bodies, Heinz-Ehrlich bodies, Inclusion bodies, RBC inclusions, ฮีนซ์ บอดีส์, สิ่งรวมในเม็ดเลือดแดง, สิ่งรวม"
-    ],
-    [
-        "Hemoglobin typing",
-        "INV",
-        "INV05",
-        "การตรวจอื่น ๆ",
-        "3.3.5",
-        "Hemoglobin, haemoglobin, Hb, Hgb, H&H, H/H, MCH, MCHC, ฮีโมโกลบิน"
-    ],
-    [
-        "Erythrocyte sedimentation rate",
-        "INV",
-        "INV06",
-        "การตรวจอื่น ๆ",
-        "3.3.6",
-        "อัตราการตกตะกอนของเม็ดเลือดแดง, ESR, sed rate, sedimentation rate, Westergren ESR"
-    ],
-    [
-        "C-reactive protein",
-        "INV",
-        "INV07",
-        "การตรวจอื่น ๆ",
-        "3.3.7",
-        "C-reactive protein, CRP, CRP (C-Reactive Protein), High Sensitivity C-reactive Protein, Protein, C-Reactive, hsCRP"
-    ],
-    [
-        "Coagulation study, D-dimer",
-        "INV",
-        "INV08",
-        "การตรวจอื่น ๆ",
-        "3.3.8",
-        "ดี-ไดเมอร์, D-dimer, DDI, Fragment D-dimer, Fibrin degradation fragment, Fibrin degradation products, Fibrin split products, XDP, FDP"
-    ],
-    [
-        "Culture from clinical specimens",
-        "INV",
-        "INV09",
-        "การตรวจอื่น ๆ",
-        "3.3.9",
-        "Culture from clinical specimens, Clinical culture, Laboratory culture, Specimen Culture, C/S, Culture for Bacteria and Yeast, การเพาะเชื้อ, การเพาะเชื้อจากสิ่งส่งตรวจ, วัฒนธรรมห้องปฏิบัติการ"
-    ],
-    [
-        "Antimicrobial susceptibility testing",
-        "INV",
-        "INV10",
-        "การตรวจอื่น ๆ",
-        "3.3.10",
-        "AST, Antibiotic Susceptibility Testing, Sensitivity Testing, Drug Resistance Testing, Culture and Sensitivity, C & S, Antimicrobial Susceptibility, Antibiotic sensitivity testing, Susceptibility testing, Drug susceptibility testing, การทดสอบความไวต่อยาต้านจุลชีพ"
-    ],
-    [
-        "Cytological and pathological reports",
-        "INV",
-        "INV11",
-        "การตรวจอื่น ๆ",
-        "3.3.11",
-        "Cytopathology report, Pathology report, Diagnostic report, Medical report, Lab report, TBS, TBSRTC, BSRTC, TPSRUC, FNAC, PAP, รายงานทางพยาธิวิทยา, รายงานเซลล์วิทยา, รายงานทางห้องปฏิบัติการ, พยาธิวิทยา"
-    ],
-    [
-        "Endocrinologic studies: plasma glucose, HbA1C, Oral glucose tolerance test (OGTT), postprandial GTT, thyroid function test, serum cortisol, Parathyroid Hormone (PTH) level",
-        "INV",
-        "INV12",
-        "การตรวจอื่น ๆ",
-        "3.3.12",
-        "Endocrinologic studies, Endocrine tests, Hormonal studies, plasma glucose, blood sugar, FPG, HbA1C, A1C, glycated hemoglobin, glycosylated hemoglobin, Oral glucose tolerance test, OGTT, GTT, Parathyroid Hormone, PTH, Parathormone, Parathyrin, การตรวจทางต่อมไร้ท่อ, ระดับน้ำตาลในเลือด, ฮีโมโกลบิน A1C, การทดสอบความทนทานต่อกลูโคส, ฮอร์โมนพาราไทรอยด์, ฮอร์โมน PTH"
-    ],
-    [
-        "Cardiac markers",
-        "INV",
-        "INV13",
-        "การตรวจอื่น ๆ",
-        "3.3.13",
-        "ตัวบ่งชี้ทางชีวภาพหัวใจ, เอนไซม์หัวใจ, Cardiac biomarkers, Cardiac enzymes, CB, Cardiac Troponin, cTn, cTnI, cTnT, Troponin I, Troponin T, CK-MB, Myoglobin"
-    ],
-    [
-        "Forensic and toxicology trace evidence",
-        "INV",
-        "INV14",
-        "การตรวจอื่น ๆ",
-        "3.3.14",
-        "Trace evidence, Forensic Toxicology, Microscopic Trace Evidence, Impression Trace Evidence, GSR, นิติเวช, นิติเวชวิทยา"
-    ],
-    [
-        "HIV testing",
-        "INV",
-        "INV15",
-        "การตรวจอื่น ๆ",
-        "3.3.15",
-        "HIV testing, HIV screening, HIVST, HIVSST, RDT, VCT, การตรวจเอชไอวี, การตรวจหาเชื้อเอชไอวี"
-    ],
-    [
-        "Serologic studies e.g., HAV, HBV, HCV, TPHA, VDRL",
-        "INV",
-        "INV16",
-        "การตรวจอื่น ๆ",
-        "3.3.16",
-        "Serological testing, serology, serum analysis, immunological test, HAV, HBV, HCV, TPHA, VDRL, RPR, TP-PA, การตรวจทางซีโรโลยี, การตรวจเลือด"
-    ],
-    [
-        "Arterial blood gas analysis",
-        "INV",
-        "INV17",
-        "การตรวจอื่น ๆ",
-        "3.3.17",
-        "การตรวจก๊าซจากหลอดเลือดแดง, Arterial blood gas, ABG, ABGA, Blood gas analysis"
-    ],
-    [
-        "Spirometry, peak expiratory flow rate measurement",
-        "INV",
-        "INV18",
-        "การตรวจอื่น ๆ",
-        "3.3.18",
-        "Spirometry, Peak Expiratory Flow Rate, PEFR, Peak Expiratory Flow, PEF, Peak flow measurement, Peak flow"
-    ],
-    [
-        "Audiometry",
-        "INV",
-        "INV19",
-        "การตรวจอื่น ๆ",
-        "3.3.19",
-        "เครื่องตรวจสมรรถภาพการได้ยิน, ตรวจการได้ยิน, เครื่องตรวจการได้ยิน, Hearing test, Hearing measurement, Hearing acuity testing, PTA, ABR, Tympanometry, CPA"
-    ],
-    [
-        "Computerized tomography (CT) scan",
-        "INV",
-        "INV20",
-        "การตรวจอื่น ๆ",
-        "3.3.20",
-        "CT scan, CAT scan, computed tomography, computerized tomography, computerized axial tomography, computed axial tomography, เอกซเรย์คอมพิวเตอร์, คอมพิวเตอร์เอ็กซเรย์"
-    ],
-    [
-        "Mammography",
-        "INV",
-        "INV21",
-        "การตรวจอื่น ๆ",
-        "3.3.21",
-        "Mammogram, Mastography, mammo, MG, การเอ็กซเรย์เต้านม, การตรวจเต้านมด้วยรังสีเอ็กซเรย์"
-    ],
-    [
-        "Barium contrast GI studies",
-        "INV",
-        "INV22",
-        "การตรวจอื่น ๆ",
-        "3.3.22",
-        "Barium swallow, Ba swallow, Esophagogram, Esophagram, Esophagography, Upper GI Series, UGI series, Upper GI Study, UGI Study, Contrast swallow, Barium meal, การกลืนแป้งแบเรียม, การตรวจหลอดอาหารด้วยแบเรียม, แบเรียมสวอลโลว์"
-    ],
-    [
-        "Echocardiography",
-        "INV",
-        "INV23",
-        "การตรวจอื่น ๆ",
-        "3.3.23",
-        "เอคโค่, การตรวจหัวใจด้วยคลื่นเสียงสะท้อน, Echo, echocardiogram, cardiac ultrasound"
-    ],
-    [
-        "Tumor markers",
-        "INV",
-        "INV24",
-        "การตรวจอื่น ๆ",
-        "3.3.24",
-        "Tumor markers, cancer markers, biomarkers, cancer biomarkers, circulating tumor marker, tumor tissue marker, CEA, AFP, CA19-9, PSA, CA125, CA 15-3, CA 27.29, B2M, สารบ่งชี้มะเร็ง, ค่ามะเร็ง"
-    ],
-    [
-        "Bone mineral density",
-        "INV",
-        "INV25",
-        "การตรวจอื่น ๆ",
-        "3.3.25",
-        "BMD, Bone density, Bone mass, aBMD, vBMD, Bone mineral density"
-    ],
-    [
-        "Iron studies",
-        "INV",
-        "INV26",
-        "การตรวจอื่น ๆ",
-        "3.3.26",
-        "Iron Panel, Total Iron, Fe, Total Iron-Binding Capacity, TIBC, Transferrin, Transferrin Saturation, TSAT, Ferritin, Serum Ferritin, SF, UIBC, sTfR, ชุดตรวจธาตุเหล็ก, การตรวจระดับเหล็กในเลือด"
-    ],
-    [
-        "Antiglobulin test (Coombs test)",
-        "INV",
-        "INV27",
-        "การตรวจอื่น ๆ",
-        "3.3.27",
-        "Antiglobulin test, Coombs test, DAT, IAT, Direct Antiglobulin Test, Indirect Antiglobulin Test, Direct Coombs Test, Indirect Coombs Test, AHG, AGT, การทดสอบแอนติโกลบูลิน, การทดสอบคูมบ์ส"
-    ],
-    [
-        "Liver profile",
-        "INV",
-        "INV90",
-        "จุฬาฯ only",
-        "",
-        "Liver profile, Liver function test, Liver panel, Liver function panel, Hepatic function panel, LFT, HFP, การตรวจการทำงานของตับ, การตรวจสมรรถภาพตับ"
-    ],
-    [
-        "Kidney profile",
-        "INV",
-        "INV91",
-        "จุฬาฯ only",
-        "",
-        "Kidney Profile, Renal Function Panel, RFP, Kidney Function Tests, BUN, Cr, CREAT, GFR, eGFR, uACR, ไต, ไต โปรไฟล์, การตรวจสมรรถภาพไต"
-    ],
-    [
-        "Lipid profile",
-        "INV",
-        "INV92",
-        "จุฬาฯ only",
-        "",
-        "Lipid panel, Cholesterol test, Lipid panel test, Cholesterol panel, Coronary risk panel, Lipoprotein profile, FLP, LP, CHD Profile, Cardiac Risk Profile, การตรวจวิเคราะห์ไขมันในเลือด, โปรไฟล์ไขมัน"
-    ],
-    [
-        "Magnetic resonance imaging",
-        "INV",
-        "INV93",
-        "จุฬาฯ only",
-        "",
-        "MRI, Nuclear magnetic resonance imaging, NMRI, Magnetic resonance tomography, MRT, magnetic-resonance imaging, NMR, เอ็มอาร์ไอ"
-    ],
-    [
-        "Radionuclide study",
-        "INV",
-        "INV94",
-        "จุฬาฯ only",
-        "",
-        "Radionuclide scan, nuclear medicine scan, radionuclide imaging, radionuclide angiocardiography, radionuclide angiography, radionuclide scanning, radionuclide test, radionuclide stress test, radionuclide ventriculography, RNA, RVG, การตรวจทางเวชศาสตร์นิวเคลียร์"
-    ],
-    [
-        "Intravascular contrast studies: arterial and venous studies",
-        "INV",
-        "INV95",
-        "จุฬาฯ only",
-        "",
-        "Intravascular contrast studies, Angiography, Digital Subtraction Angiography, DSA, Venography, CT IV contrast, Vascular imaging with contrast, การตรวจด้วยสารทึบรังสีในหลอดเลือด, การถ่ายภาพรังสีหลอดเลือด, การถ่ายภาพรังสีหลอดเลือดแบบดิจิทัล, การถ่ายภาพรังสีหลอดเลือดดำ"
-    ],
-    [
-        "Ultrasonography",
-        "INV",
-        "INV96",
-        "จุฬาฯ only",
-        "",
-        "Ultrasonography, Ultrasound, Sonography, Echography, US, U/S, อัลตราซาวนด์, อัลตร้าซาวด์, อุลตราซาวด์, คลื่นเสียงความถี่สูง, คลื่นเหนือเสียง"
-    ]
+        const data = [["ชื่อรายการ","SPECIALTY","MDCU tier","MDCU code","TMC group","TMC code","Synonyms"],
+["Advanced cardiopulmonary resuscitation","","A","Proc.A.01","หัตถการ 1.1","3.4.1.1.1","Advanced Cardiovascular Life Support, ACLS, Advanced life support, ALS, CPR, Cardiopulmonary resuscitation, การช่วยชีวิตขั้นสูงด้านหัวใจและหลอดเลือด"],
+["Anterior nasal packing","","A","Proc.A.03","หัตถการ 1.1","3.4.1.1.3","Anterior nasal packing, Nasal packing, ANS packing, Nasal tampon, Packing, Anterior Epistaxis Nasal Pack, Rhino Rocket, Rapid Rhino, Merocel, การอุดจมูก, การแพ็คจมูก"],
+["Endotracheal intubation (adult)","","A","Proc.A.06","หัตถการ 1.1","3.4.1.1.6","Intubation, Tracheal intubation, Airway intubation, ETT"],
+["Intravenous fluid infusion","","A","Proc.A.13","หัตถการ 1.1","3.4.1.1.13","IV, IV therapy, IV infusion, IV drip, Intravenous drip, Intravenous fluid, Infusion, CI, ในหลอดเลือดดำ, การให้อาหารทางเส้นเลือด"],
+["Basic life support","","A","Proc.A.31","หัตถการ 1.1","3.4.1.1.31","Basic Life Support, BLS, CPR, First Aid, ABC, CAB, การช่วยชีวิตขั้นพื้นฐาน"],
+["Needle aspiration of pneumothorax","","A","Proc.A.32","หัตถการ 1.1","3.4.1.1.32","Needle aspiration, NA, Simple aspiration, Thoracentesis, Needle thoracocentesis, Pneumothorax aspiration, Chest aspiration"],
+["External splinting","","B","Proc.B.08","หัตถการ 1.1","3.4.1.1.8","support, cast, brace, splinter, immobilizer, rigid support, เฝือก"],
+["Incision and drainage","","B","Proc.B.11","หัตถการ 1.1","3.4.1.1.11","I&D, Clinical lancing, Lancing, การผ่าตัด, การระบายน้ำ"],
+["Nasogastric intubation and related procedures (gastric gavage, lavage)","","B","Proc.B.17c","หัตถการ 1.1","3.4.1.1.17","Nasogastric tube, NG tube, Ryle`s tube, Stomach pumping, Gastric lavage, Gastric aspiration, Tube feeding"],
+["Neonatal resuscitation","","B","Proc.B.18","หัตถการ 1.1","3.4.1.1.18","Neonatal Resuscitation Program, Newborn resuscitation, NRP, CPR, PPV, Chest compressions, ETT, LMA, UVC, การกู้ชีพ, การช่วยหายใจ, การกดหน้าอกเพื่อนวดหัวใจ"],
+["Normal labor","","B","Proc.B.19","หัตถการ 1.1","3.4.1.1.19","SVD, NSVD, Spontaneous vaginal delivery, Normal Spontaneous Vaginal Delivery, childbirth, delivery, birth, contractions, parturition, คลอด, การคลอด"],
+["Pap smear","","B","Proc.B.20","หัตถการ 1.1","3.4.1.1.20","Pap test, Papanicolaou smear test, cervical smear, smear test, cervical cytology, LBC, CC, การตรวจมะเร็งปากมดลูก"],
+["Suture","","B","Proc.B.26","หัตถการ 1.1","3.4.1.1.26","stitch, seam, joint, surgical seam, รอยประสาน"],
+["Urethral catheterization","","B","Proc.B.27","หัตถการ 1.1","3.4.1.1.27","UC, Catheterization, IC, CIC, ISC, Self-catheterization, Transurethral catheterization, หลอดสวน, เกี่ยวกับท่อปัสสาวะ"],
+["Wound dressing","","B","Proc.B.30","หัตถการ 1.1","3.4.1.1.30","dressing, bandage, gauze, compress, ผ้าพันแผล, NPWT, VAC, CTP, HCT/P"],
+["Amniotomy (artificial rupture of membranes at time of delivery)","","C","Proc.C.02","หัตถการ 1.1","3.4.1.1.2","Amniotomy, Artificial rupture of membranes, AROM, breaking the water, rupture of membranes, เจาะถุงน้ำคร่ำ"],
+["Aspiration of skin, subcutaneous tissue","","C","Proc.C.04","หัตถการ 1.1","3.4.1.1.4","Aspiration, FNA, Fine-Needle Aspiration, Fine-Needle Biopsy, Skin lesion aspiration, SC, SQ, Hypodermic, Sucking, Suction, Draw, Pull, ความปรารถนา"],
+["Capillary puncture","","C","Proc.C.05","หัตถการ 1.1","3.4.1.1.5","Skin puncture, Capillary draw, Finger puncture, Heel puncture, เจาะ"],
+["Episiotomy","","C","Proc.C.07","หัตถการ 1.1","3.4.1.1.7","Perineotomy, ME, MLE, Perineal incision, Surgical cut, Perineal laceration"],
+["FAST ultrasound in trauma","","C","Proc.C.09","หัตถการ 1.1","3.4.1.1.9","FAST, EFAST, FAST scan, Extended FAST scan, Focussed assessment with sonography for trauma, Focused Assessment with Sonography in Trauma, อัลตราซาวด์"],
+["First aid management of injured patient","","C","Proc.C.10","หัตถการ 1.1","3.4.1.1.10","First aid, emergency treatment, treatment, critical care, triage, intervention, Basic Life Support, BLS, Cardiopulmonary Resuscitation, CPR, Automated External Defibrillator, AED, DRSABCD, RICE, SAMPLE, MIST, ABC, ฉุกเฉิน, รักษา, โรงพยาบาล"],
+["Injection: Intradermal","","C","Proc.C.12a","หัตถการ 1.1","3.4.1.1.12","ID, intracutaneous injection, intradermic, shot, injection"],
+["Injection: Subcutaneous","","C","Proc.C.12b","หัตถการ 1.1","3.4.1.1.12","hypodermic, hypodermic injection, subcutaneous injection, SC, SQ, SubQ, SUBQ, shot, การฉีดยาเข้าชั้นใต้ผิวหนัง, เข้าใต้ชั้นผิวหนัง"],
+["Injection: Intramuscular","","C","Proc.C.12c","หัตถการ 1.1","3.4.1.1.12","IM, i.m., shot, hypodermic injection, hypodermic, bing, การฉีดยา, ฉีด"],
+["Injection: Intravenous","","C","Proc.C.12d","หัตถการ 1.1","3.4.1.1.12","IV, IV injection, shot, jab, dose, hypo, IV push, bolus, IV drip, ในหลอดเลือดดำ, การฉีดยา, ยาฉีด"],
+["Intercostal drainage","","C","Proc.C.14","หัตถการ 1.1","3.4.1.1.14","Chest tube, Chest drain, Intercostal drain, Intercostal catheter, ICC, ICD, Tube thoracostomy, Thoracostomy, Bülau drain"],
+["Local anesthetic infiltration","","C","Proc.C.15","หัตถการ 1.1","3.4.1.1.15","Local anesthesia, Infiltration anesthesia, Regional anesthesia, Local analgesia, Field block, Local infiltration anaesthesia, Subcutaneous infiltration, LA, LIA, ยาชาใช้เฉพาะที่, ยาระงับความรู้สึก"],
+["Digital nerve block","","C","Proc.C.15","หัตถการ 1.1","3.4.1.1.15","Digital Block, Digital Ring Block, Metacarpal Block, Metatarsal Block, Transthecal Digital Block, Flexor Tendon Sheath Block, One Injection Digital Anesthesia, Volar Subcutaneous Block, Wing Block, Web-Space Block, Tumescent Block, DNB, TTB, DDB, MCB, SCB, SIMPLE"],
+["Lumbar puncture (adult)","","C","Proc.C.16","หัตถการ 1.1","3.4.1.1.16","spinal tap, spinal puncture, LP"],
+["Nasogastric intubation","","C","Proc.C.17a","หัตถการ 1.1","3.4.1.1.17","NG intubation, NGT placement, Nasogastric tube insertion, Gastric tube placement, การใส่สายให้อาหารทางจมูก"],
+["Gastric gavage","","C","Proc.C.17b","หัตถการ 1.1","3.4.1.1.17","Gastric lavage, Stomach tube feeding, Gavage, Gastric intubation, NG tube, การล้างกระเพาะอาหาร, การให้อาหารทางสายยาง"],
+["Radial artery puncture for blood gas analysis","","C","Proc.C.21","หัตถการ 1.1","3.4.1.1.21","ABG, Arterial Blood Gas, Blood Gas Analysis, Radial Puncture, Radial Artery Access, Transradial Artery Access"],
+["Removal of nail or nail fold","","C","Proc.C.22","หัตถการ 1.1","3.4.1.1.22","Nail removal, nail avulsion, partial nail avulsion, total nail avulsion, matrixectomy, ingrown nail, onychocryptosis, PNA, TNA, O/C"],
+["Skin traction of limbs","","C","Proc.C.23","หัตถการ 1.1","3.4.1.1.23","Skin Traction, Cutaneous Traction, Buck`s traction, Bryant`s traction, Traction, Trxn, LE traction, UE traction, Pull, Tension, Stretch"],
+["Strengthening and stretching exercise","","C","Proc.C.24","หัตถการ 1.1","3.4.1.1.24","PNF, SRT, ROM, Tai Chi, Qigong, Dynamic Stretching, Static Stretching, Isometric Stretching, Active Stretching, Passive Stretching, strengthening, flexibility, lengthening, extension, Thai massage"],
+["Stump bandaging","","C","Proc.C.25","หัตถการ 1.1","3.4.1.1.25","Stump dressing, residual limb wrapping, RLD, Amputation bandaging, การพันผ้าพันแผลตอขา, Kaan phan phaa phan plae tor khaa"],
+["Vaginal packing","","C","Proc.C.28","หัตถการ 1.1","3.4.1.1.28","Vaginal pack, Vag pack, Orifice packing, Vaginal Packing Gauze, Vaginal Packing Sponge, VP, การยัดผ้าก๊อซในช่องคลอด, การแพ็คช่องคลอด"],
+["Venipuncture","","C","Proc.C.29","หัตถการ 1.1","3.4.1.1.29","Phlebotomy, Blood draw, Blood sample collection, IV start, IV access, เจาะเลือด"],
+["Abdominal paracentesis","","D","Proc.D.01","หัตถการ 1.2","3.4.1.2.1","Paracentesis, Abdominal tap, Ascitic tap, Laparocentesis, Peritoneocentesis, Abdominal Tapping, Aspiration of ascites"],
+["Aspiration of bursa (elbow and ankle)","","D","Proc.D.02","หัตถการ 1.2","3.4.1.2.2","Aspiration of bursa, Bursa Aspiration, Joint aspiration, Arthrocentesis, Aspiration of the olecranon bursa, Olecranon bursa aspiration, Bursitis, Elbow bursitis, Prepatellar bursitis, เบอร์ไซติส"],
+["Biopsy of skin, superficial mass","","D","Proc.D.03","หัตถการ 1.2","3.4.1.2.3","Biopsy, Shave biopsy, Punch biopsy, Excisional biopsy, Fine-needle aspiration, FNA, Tissue sample, Nodules, Bumps, การตัดชิ้นเนื้อ, Kaan tàt chín núea"],
+["Breech assistance delivery","","D","Proc.D.04","หัตถการ 1.2","3.4.1.2.4","Breech birth, breech presentation, bottom-first delivery, frank breech, complete breech, footling breech, ECV, C-section"],
+["Cervical biopsy","","D","Proc.D.05","หัตถการ 1.2","3.4.1.2.5","Biopsy, Punch biopsy, Cone biopsy, Endocervical curettage, ECC, LEEP, Conization, CKC"],
+["Cervical dilatation and uterine curettage","","D","Proc.D.06","หัตถการ 1.2","3.4.1.2.6","D&C, D and C, Dilation and curettage, dilatation and curettage, curette, Scraping of the Uterus, ขูดมดลูก"],
+["Contraceptive drug implantation and removal","","D","Proc.D.07","หัตถการ 1.2","3.4.1.2.7","Contraceptive implant, Birth control implant, Subdermal implant, LARC, IUD, คุมกำเนิด, ยาคุมกำเนิด, ETG, LNG"],
+["Debridement of wound","","D","Proc.D.08","หัตถการ 1.2","3.4.1.2.8","Cleaning, Cleansing, Irrigation, Excision, Scraping, Wound cleansing, Wound irrigation, Surgical removal, Tissue debridement, Sharp debridement, Autolytic debridement, Biological debridement, Enzymatic debridement, Mechanical debridement, Larval therapy, Maggot therapy, 清創術, 清创术, CSWD, MDT, DIME"],
+["Endotracheal intubation (children)","","D","Proc.D.09","หัตถการ 1.2","3.4.1.2.9","Endotracheal intubation, Tracheal intubation, ET intubation, Pediatric intubation, ETT, ETR, Intubation - endotracheal, การใส่ท่อช่วยหายใจ, การใส่ท่อช่วยหายใจในเด็ก"],
+["Excision of benign tumor and cyst of skin and subcutaneous tissue","","D","Proc.D.10","หัตถการ 1.2","3.4.1.2.10","Surgical removal, Tumor excision, Cyst removal, Benign neoplasm removal, Lipoma excision, Sebaceous cyst surgery, ตัด (dtàt)"],
+["Incision and curettage (external hordeolum)","","D","Proc.D.11","หัตถการ 1.2","3.4.1.2.11","Incision and drainage, I&C, Lancing, Surgical drainage, Curettement"],
+["Intraosseous access","","D","Proc.D.12","หัตถการ 1.2","3.4.1.2.12","Intraosseous infusion, IO, Intraosseous vascular access, IO access, Intraosseous Cannulation, Intraosseous Line, IO Line"],
+["Insertion of intrauterine contraceptive device","","D","Proc.D.13","หัตถการ 1.2","3.4.1.2.13","IUD, IUCD, Coil, Intrauterine device, Intrauterine system, IUS, LARC, Birth control, Contraceptive device, LNG-IUD, Cu-IUD, ห่วงอนามัยคุมกำเนิด"],
+["Joint aspiration, knee","","D","Proc.D.14","หัตถการ 1.2","3.4.1.2.14","Arthrocentesis, Joint aspiration, Knee aspiration, Knee arthrocentesis, Arthro, เจาะเข่า"],
+["Lumbar puncture (children)","","D","Proc.D.15","หัตถการ 1.2","3.4.1.2.15","Spinal tap, LP, Spinal puncture"],
+["Manual removal of placenta","","D","Proc.D.16","หัตถการ 1.2","3.4.1.2.16","MROP, MRP, Manual placenta removal, Manual removal of a retained placenta, Evacuation of the placenta from the uterus by hand"],
+["Manual vacuum aspiration","","D","Proc.D.17","หัตถการ 1.2","3.4.1.2.17","MVA, Manual vacuum aspiration, Suction curettage, Vacuum aspiration, Abortion, in-clinic abortion, aspiration abortion, menstrual extraction, suction-curettage"],
+["Plaster of Paris technique","","D","Proc.D.18","หัตถการ 1.2","3.4.1.2.18","POP, Plaster, Plaster cast, Gypsum plaster, ปูนปลาสเตอร์, ปูนทำเฝือก, Cast"],
+["Pleural paracentesis (thoracentesis)","","D","Proc.D.19","หัตถการ 1.2","3.4.1.2.19","thoracocentesis, pleural tap, chest tap, pleuracentesis, pleurocentesis, needle thoracostomy, pleural aspiration"],
+["Posterior nasal packing","","D","Proc.D.20","หัตถการ 1.2","3.4.1.2.20","Posterior nasal pack, Posterior packing, Posterior epistaxis nasal pack, Posterior Nasal Hemorrhage Management, Posterior balloon placement, Posterior nasal tamponade, PnP, การใช้วัสดุกดห้ามเลือดในโพรงหลังจมูก"],
+["Removal of foreign body from conjunctiva (simple case)","","D","Proc.D.21","หัตถการ 1.2","3.4.1.2.21","Conjunctival Foreign Body Removal, Foreign body removal, Superficial foreign body removal, Conjunctival extraneous body removal, FB, FBR, EOFB, EGFB, CPT 65205"],
+["Removal of foreign body from ear (simple case)","","D","Proc.D.22","หัตถการ 1.2","3.4.1.2.22","Ear Foreign Body Removal, Foreign body extraction, FB removal, เอาสิ่งแปลกปลอมออกจากหู, การเอาสิ่งแปลกปลอมออกจากหู, Removal of object from ear canal"],
+["Removal of foreign body from nose (simple case)","","D","Proc.D.23","หัตถการ 1.2","3.4.1.2.23","Foreign body removal, FBR, NFB removal, Extraction, Retrieval, Elimination, Excision, Removal procedure"],
+["Removal of foreign body from throat (simple case)","","D","Proc.D.24","หัตถการ 1.2","3.4.1.2.24","Heimlich maneuver, Choking first aid, FB removal, Abdominal thrusts, Back blows, Airway clearance, การสำลัก, วิธีการ Heimlich, เอาสิ่งแปลกปลอมออกจากคอ"],
+["Removal of foreign body from vagina in adult","","D","Proc.D.25","หัตถการ 1.2","3.4.1.2.25","Vaginal foreign body removal, Removal of impacted vaginal foreign body, Vagina foreign body extraction, Retained tampon removal under anesthesia, Foreign body in vulva and vagina treatment, การนำสิ่งแปลกปลอมออกจากช่องคลอด, VFB, CPT, ICD-10-CM, OR"],
+["Removal of foreign body from vagina in child","","D","Proc.D.26","หัตถการ 1.2","3.4.1.2.26","Vaginal Foreign Body, Foreign object in the vagina, Retained tampon, Retained pessary, Removal of impacted vaginal foreign body, FB, CPT 57415, T19.2XXA, Genitourinary Foreign Body Removal, ช่องคลอด, จิ๋ม, น้องสาว, ปิ๊"],
+["Removal of intrauterine contraceptive device","","D","Proc.D.27","หัตถการ 1.2","3.4.1.2.27","IUD removal, Intrauterine device removal, IUCD removal, Removal of the coil, IUD, IUCD, Coil, Mirena IUD removal, Mirena coil removal, Chinese ring removal, vòng tránh thai"],
+["Tubal ligation & resection (postpartum)","","D","Proc.D.28","หัตถการ 1.2","3.4.1.2.28","Tubal ligation, Female sterilization, Tubal sterilization, Having tubes tied, Tubectomy, Permanent birth control, TL, BTL, PPTL, Tubal tie"],
+["Ultrasonography, gravid uterus","","D","Proc.D.29","หัตถการ 1.2","3.4.1.2.29","Obstetric ultrasonography, Prenatal ultrasound, Obstetric sonogram, USG, USS, Ultrasound scan, TVS, USG ANC, ตรวจอัลตราซาวนด์"],
+["Venesection or central venous catheterization","","D","Proc.D.30","หัตถการ 1.2","3.4.1.2.30","Phlebotomy, therapeutic blood removal, therapeutic phlebotomy, bloodletting, venipuncture, CVC, central line, central venous line, CVL, CVAD, central venous access device"],
+["Umbilical vein catheterization","","D","Proc.D.31","หัตถการ 1.2","3.4.1.2.31","Umbilical venous catheter, UVC, Umbilical venous line, UVL, Optimal umbilical venous catheter tip positioning"],
+["Vacuum extraction","","D","Proc.D.32","หัตถการ 1.2","3.4.1.2.32","VE, Ventouse, vacuum-assisted vaginal delivery, vacuum extraction delivery, การดูดสูญญากาศช่วยคลอด"],
+["Appendectomy","","E","Proc.E.01","หัตถการ 2.2","3.4.2.2.1","appendicectomy, appendisectomy, appendix removal, surgical removal of the appendix, excision of the vermiform appendix, การตัดไส้ติ่ง, การผ่าตัดไส้ติ่ง, ศัลยกรรมตัดไส้ติ่งออก"],
+["Marsupialization of Bartholin’s cyst","","E","Proc.E.05","หัตถการ 2.2","3.4.2.2.5","Marsupialization, Bartholin cyst drainage, Bartholin gland cyst procedure, Bartholin abscess drainage, Word catheter, Jacobi ring, การทำปากถุงน้ำบาร์โธลิน"],
+["Polypectomy (cervical)","","E","Proc.E.07","หัตถการ 2.2","3.4.2.2.7","Cervical Polypectomy, Polypectomy, In-office polypectomy, Local excision of lesion, 57500, การตัดติ่งเนื้อที่ปากมดลูก"],
+["Reduction of finger dislocations","","E","Proc.E.08a","หัตถการ 2.2","3.4.2.2.8","Finger dislocation, Jammed finger, Coach`s finger, PIP dislocation, DIP dislocation, MCP dislocation, Phalanx dislocation, Closed reduction finger, PIPJ, DIPJ, MCPJ, การจัดกระดูกนิ้วมือที่เคลื่อน"],
+["Reduction of shoulder dislocations","","E","Proc.E.08b","หัตถการ 2.2","3.4.2.2.8","Shoulder dislocation, Dislocation of the shoulder, Glenohumeral dislocation, Glenohumeral joint dislocation, Closed reduction, Reduction, Relocation, TCT, TAE, FARES, ภาวะข้อไหล่หลุด"],
+["Bone marrow aspiration","","F","Proc.F.01","หัตถการ 3","3.4.3.1","BMA, Bone marrow aspirate, Bone marrow biopsy, Bone marrow exam, Aspiration"],
+["Circumcision","","F","Proc.F.02","หัตถการ 3","3.4.3.2","surgical removal of the foreskin, male circumcision, female circumcision, female genital cutting, genital mutilation, circ, Khlip, ขลิบ, MC, MMC, VMMC, MGC"],
+["Closed reduction of simple fractures","","F","Proc.F.03","หัตถการ 3","3.4.3.3","Closed Reduction, CR, Reduction, Closed Fracture Reduction, Fracture reduction - closed"],
+["General anesthesia for uncomplicated patient for simple surgery","","F","Proc.F.04","หัตถการ 3","3.4.3.4","GA, general anesthetic, general anaesthesia, anaesthesia, unconsciousness, ยาสลบ"],
+["Joint aspiration, other than knee joint","","F","Proc.F.05","หัตถการ 3","3.4.3.5","Arthrocentesis, Joint tap, Synovial fluid aspiration, Joint fluid removal"],
+["Low transverse cesarean section","","F","Proc.F.06","หัตถการ 3","3.4.3.6","LTCS, Lower segment Caesarean section, LSCS, Low Transverse Incision, Bikini-Cut Incision, LSTCS, Lower-segment transverse cesarean section"],
+["Needle biopsy of breast","","F","Proc.F.07","หัตถการ 3","3.4.3.7","Needle biopsy of breast, Breast biopsy, Fine needle aspiration, FNA, Core needle biopsy, CNB, Vacuum Assisted Breast Biopsy, VABB, Mammotome, Stereotactic biopsy"],
+["Peritoneal lavage","","F","Proc.F.08","หัตถการ 3","3.4.3.8","DPL, Diagnostic Peritoneal Lavage, Peritoneal Irrigation, Peritoneal Washing, DPA, Diagnostic Peritoneal Aspiration"],
+["Removal of embedded foreign body from cornea without incision","","F","Proc.F.09","หัตถการ 3","3.4.3.9","transparent covering of the eyeball, กระจกตา, córnea, 角膜"],
+["Repair of extensor tendon of hand","","F","Proc.F.10","หัตถการ 3","3.4.3.10","Extensor tendon repair, tendon repair, primary repair, secondary repair, extensor tendon injuries, extensor tendon laceration, mallet finger, boutonniere deformity, central slip repair, DIP, PIP, MCP, ROM, EDC, EPL, EIP, ECU, ECRB, ECRL, CPT 26418, การซ่อมแซมเอ็นยืดมือ, ผ่าตัดซ่อมแซมเส้นเอ็น"],
+["Salpingectomy","","F","Proc.F.11","หัตถการ 3","3.4.3.11","Fallopian tube removal, Unilateral salpingectomy, Partial salpingectomy, Bilateral salpingectomy, Total salpingectomy, Opportunistic salpingectomy, Prophylactic salpingectomy, BS, BSO"],
+["Suprapubic tap","","F","Proc.F.12","หัตถการ 3","3.4.3.12","Suprapubic aspiration, SPA, Suprapubic bladder aspiration, SBA, Bladder Aspiration, Suprapubic urine collection, Bladder tap"],
+["Tracheostomy","","F","Proc.F.13","หัตถการ 3","3.4.3.13","Tracheotomy, Trach"],
+["Cervical spine and pelvic traction","","G","Proc.G.01","หัตถการ 4","3.4.4.1","Cervical traction, Neck traction, Lumbar traction, Pelvic traction, Spinal traction, Spinal decompression, Spinal decompression therapy, Traction"],
+["Low forceps extraction","","G","Proc.G.02","หัตถการ 4","3.4.4.2","Low forceps delivery, Single delivery by low forceps delivery, Forceps delivery, Outlet Forceps, Mid-cavity forceps delivery, Assisted delivery, Instrumental birth, Operative vaginal delivery, OVD"],
+["Peritoneal dialysis","","G","Proc.G.03","หัตถการ 4","3.4.4.3","PD, CAPD, Continuous ambulatory peritoneal dialysis, APD, Automated peritoneal dialysis, CCPD, Continuous cycling peritoneal dialysis, Continuous cycler-assisted peritoneal dialysis, IPD, Intermittent peritoneal dialysis, Renal dialysis"],
+["Pleural biopsy","","G","Proc.G.04","หัตถการ 4","3.4.4.4","Biopsy, Needle biopsy, Open biopsy, Thoracoscopic biopsy, Thoracentesis, Lung biopsy, Tissue sample, Bx"],
+["Skeletal traction","","G","Proc.G.05","หัตถการ 4","3.4.4.5","sk. tx, sk. trx, sk. tr., BST, Balance Skeletal Traction, Traction Pins, โครงกระดูก"],
+["Spinal anesthesia","","G","Proc.G.06","หัตถการ 4","3.4.4.6","spinal block, spinal anaesthesia, SAB, subarachnoid block, intrathecal block, intradural block, spinal, ยาชา"],
+["Vasectomy","","G","Proc.G.07","หัตถการ 4","3.4.4.7","Male sterilization, permanent contraception, birth control, family planning, NSV, No-Scalpel Vasectomy"],
+["Hemoglobin, white blood cell count, platelet count","","INV","INV01","การตรวจอื่น ๆ","3.3.1","haemoglobin, Hb, Hgb, hemoprotein, ฮีโมโกลบิน, เฮโมโกลบิน, WBC count, leukocyte count, PLT, thrombocyte count, เกล็ดเลือด, เม็ดสีนำออกซิเจนที่อยู่ในเซลล์ของเม็ดเลือดแดง"],
+["Red cell indices","","INV","INV02","การตรวจอื่น ๆ","3.3.2","Red blood cell indices, RBC indices, Rbc indices, Erythrocyte indices, Blood indices, Hematology parameters, MCV, MCH, MCHC, RDW, เซลล์เม็ดเลือดแดง"],
+["Reticulocyte count","","INV","INV03","การตรวจอื่น ๆ","3.3.3","Retic count, RPI, CRC, Reticulocyte percent, Reticulocyte Index, Reticulocyte Production Index, Corrected Reticulocyte, การนับเรติคูโลไซต์"],
+["Inclusion bodies, Heinz bodies","","INV","INV04","การตรวจอื่น ๆ","3.3.4","Heinz bodies, Heinz-Ehrlich bodies, Inclusion bodies, RBC inclusions, ฮีนซ์ บอดีส์, สิ่งรวมในเม็ดเลือดแดง, สิ่งรวม"],
+["Hemoglobin typing","","INV","INV05","การตรวจอื่น ๆ","3.3.5","Hemoglobin, haemoglobin, Hb, Hgb, H&H, H/H, MCH, MCHC, ฮีโมโกลบิน"],
+["Erythrocyte sedimentation rate","","INV","INV06","การตรวจอื่น ๆ","3.3.6","อัตราการตกตะกอนของเม็ดเลือดแดง, ESR, sed rate, sedimentation rate, Westergren ESR"],
+["C-reactive protein","","INV","INV07","การตรวจอื่น ๆ","3.3.7","C-reactive protein, CRP, CRP (C-Reactive Protein), High Sensitivity C-reactive Protein, Protein, C-Reactive, hsCRP"],
+["Coagulation study, D-dimer","","INV","INV08","การตรวจอื่น ๆ","3.3.8","ดี-ไดเมอร์, D-dimer, DDI, Fragment D-dimer, Fibrin degradation fragment, Fibrin degradation products, Fibrin split products, XDP, FDP"],
+["Culture from clinical specimens","","INV","INV09","การตรวจอื่น ๆ","3.3.9","Culture from clinical specimens, Clinical culture, Laboratory culture, Specimen Culture, C/S, Culture for Bacteria and Yeast, การเพาะเชื้อ, การเพาะเชื้อจากสิ่งส่งตรวจ, วัฒนธรรมห้องปฏิบัติการ"],
+["Antimicrobial susceptibility testing","","INV","INV10","การตรวจอื่น ๆ","3.3.10","AST, Antibiotic Susceptibility Testing, Sensitivity Testing, Drug Resistance Testing, Culture and Sensitivity, C & S, Antimicrobial Susceptibility, Antibiotic sensitivity testing, Susceptibility testing, Drug susceptibility testing, การทดสอบความไวต่อยาต้านจุลชีพ"],
+["Cytological and pathological reports","","INV","INV11","การตรวจอื่น ๆ","3.3.11","Cytopathology report, Pathology report, Diagnostic report, Medical report, Lab report, TBS, TBSRTC, BSRTC, TPSRUC, FNAC, PAP, รายงานทางพยาธิวิทยา, รายงานเซลล์วิทยา, รายงานทางห้องปฏิบัติการ, พยาธิวิทยา"],
+["Endocrinologic studies: plasma glucose, HbA1C, Oral glucose tolerance test (OGTT), postprandial GTT, thyroid function test, serum cortisol, Parathyroid Hormone (PTH) level","","INV","INV12","การตรวจอื่น ๆ","3.3.12","Endocrinologic studies, Endocrine tests, Hormonal studies, plasma glucose, blood sugar, FPG, HbA1C, A1C, glycated hemoglobin, glycosylated hemoglobin, Oral glucose tolerance test, OGTT, GTT, Parathyroid Hormone, PTH, Parathormone, Parathyrin, การตรวจทางต่อมไร้ท่อ, ระดับน้ำตาลในเลือด, ฮีโมโกลบิน A1C, การทดสอบความทนทานต่อกลูโคส, ฮอร์โมนพาราไทรอยด์, ฮอร์โมน PTH"],
+["Cardiac markers","","INV","INV13","การตรวจอื่น ๆ","3.3.13","ตัวบ่งชี้ทางชีวภาพหัวใจ, เอนไซม์หัวใจ, Cardiac biomarkers, Cardiac enzymes, CB, Cardiac Troponin, cTn, cTnI, cTnT, Troponin I, Troponin T, CK-MB, Myoglobin"],
+["Forensic and toxicology trace evidence","","INV","INV14","การตรวจอื่น ๆ","3.3.14","Trace evidence, Forensic Toxicology, Microscopic Trace Evidence, Impression Trace Evidence, GSR, นิติเวช, นิติเวชวิทยา"],
+["HIV testing","","INV","INV15","การตรวจอื่น ๆ","3.3.15","HIV testing, HIV screening, HIVST, HIVSST, RDT, VCT, การตรวจเอชไอวี, การตรวจหาเชื้อเอชไอวี"],
+["Serologic studies e.g., HAV, HBV, HCV, TPHA, VDRL","","INV","INV16","การตรวจอื่น ๆ","3.3.16","Serological testing, serology, serum analysis, immunological test, HAV, HBV, HCV, TPHA, VDRL, RPR, TP-PA, การตรวจทางซีโรโลยี, การตรวจเลือด"],
+["Arterial blood gas analysis","","INV","INV17","การตรวจอื่น ๆ","3.3.17","การตรวจก๊าซจากหลอดเลือดแดง, Arterial blood gas, ABG, ABGA, Blood gas analysis"],
+["Spirometry, peak expiratory flow rate measurement","","INV","INV18","การตรวจอื่น ๆ","3.3.18","Spirometry, Peak Expiratory Flow Rate, PEFR, Peak Expiratory Flow, PEF, Peak flow measurement, Peak flow"],
+["Audiometry","","INV","INV19","การตรวจอื่น ๆ","3.3.19","เครื่องตรวจสมรรถภาพการได้ยิน, ตรวจการได้ยิน, เครื่องตรวจการได้ยิน, Hearing test, Hearing measurement, Hearing acuity testing, PTA, ABR, Tympanometry, CPA"],
+["Computerized tomography (CT) scan","","INV","INV20","การตรวจอื่น ๆ","3.3.20","CT scan, CAT scan, computed tomography, computerized tomography, computerized axial tomography, computed axial tomography, เอกซเรย์คอมพิวเตอร์, คอมพิวเตอร์เอ็กซเรย์"],
+["Mammography","","INV","INV21","การตรวจอื่น ๆ","3.3.21","Mammogram, Mastography, mammo, MG, การเอ็กซเรย์เต้านม, การตรวจเต้านมด้วยรังสีเอ็กซเรย์"],
+["Barium contrast GI studies","","INV","INV22","การตรวจอื่น ๆ","3.3.22","Barium swallow, Ba swallow, Esophagogram, Esophagram, Esophagography, Upper GI Series, UGI series, Upper GI Study, UGI Study, Contrast swallow, Barium meal, การกลืนแป้งแบเรียม, การตรวจหลอดอาหารด้วยแบเรียม, แบเรียมสวอลโลว์"],
+["Echocardiography","","INV","INV23","การตรวจอื่น ๆ","3.3.23","เอคโค่, การตรวจหัวใจด้วยคลื่นเสียงสะท้อน, Echo, echocardiogram, cardiac ultrasound"],
+["Tumor markers","","INV","INV24","การตรวจอื่น ๆ","3.3.24","Tumor markers, cancer markers, biomarkers, cancer biomarkers, circulating tumor marker, tumor tissue marker, CEA, AFP, CA19-9, PSA, CA125, CA 15-3, CA 27.29, B2M, สารบ่งชี้มะเร็ง, ค่ามะเร็ง"],
+["Bone mineral density","","INV","INV25","การตรวจอื่น ๆ","3.3.25","BMD, Bone density, Bone mass, aBMD, vBMD, Bone mineral density"],
+["Iron studies","","INV","INV26","การตรวจอื่น ๆ","3.3.26","Iron Panel, Total Iron, Fe, Total Iron-Binding Capacity, TIBC, Transferrin, Transferrin Saturation, TSAT, Ferritin, Serum Ferritin, SF, UIBC, sTfR, ชุดตรวจธาตุเหล็ก, การตรวจระดับเหล็กในเลือด"],
+["Antiglobulin test (Coombs test)","","INV","INV27","การตรวจอื่น ๆ","3.3.27","Antiglobulin test, Coombs test, DAT, IAT, Direct Antiglobulin Test, Indirect Antiglobulin Test, Direct Coombs Test, Indirect Coombs Test, AHG, AGT, การทดสอบแอนติโกลบูลิน, การทดสอบคูมบ์ส"],
+["Aerosol bronchodilator therapy","","K","Proc.K.01","องค์ความรู้","3.4.K.1","Inhalation therapy, Respiratory therapy, Nebulization therapy, Bronchodilator therapy, Aerosol therapy, Breathing treatment, SABA, LABA, MDI, DPI, Nebulizer"],
+["Basic mechanical ventilation","","K","Proc.K.02","องค์ความรู้","3.4.K.2","Mechanical ventilation, Assisted ventilation, Artificial ventilation, Ventilation, MV, AMV, A/C, AC, CMV, ‡ªìπ«`∏`°“√™à«¬À“¬„®∑`Ë‡§√◊ËÕß™à«¬À“¬„®®–∑”Àπâ“∑`Ë"],
+["Blood and blood component transfusion","","K","Proc.K.03","องค์ความรู้","3.4.K.3","Blood transfusion, transfusion, Blood component therapy, Blood replacement, Blood component transfusion, Blood transfusion therapy, Packed cells transfusion, haemotransfusion, hemotransfusion, autologous transfusion, autotransfusion, exchange transfusion, PRBC, FFP, PLT, CRYO, RBC, การถ่ายเลือด, การให้เลือด, การให้โลหิต, ถ่ายเลือด, 輸血"],
+["Breathing exercise","","K","Proc.K.04","องค์ความรู้","3.4.K.4","Breathing technique, Pranayama, Breathwork, Breathing control, Respiratory training, ลมปราณ, lompran, Breathing practice, Diaphragmatic breathing"],
+["Measurement of central venous pressure","","K","Proc.K.05","องค์ความรู้","3.4.K.5","CVP, Central Venous Pressure, Right Atrial Pressure, RAP, Jugular Venous Pressure, Venous Pressure, Right Ventricular End-Diastolic Pressure, RVEDP"],
+["Oxygen therapy","","K","Proc.K.06","องค์ความรู้","3.4.K.6","Oxygen therapy, Hyperbaric Oxygen Therapy, HBOT, HBO, LTOT, HOT, NOT, O2 therapy, Supplemental O2, O2, ออกซิเจน, ออกซิเจนใน, ก๊าซออกซิเจน"],
+["Phototherapy","","K","Proc.K.07","องค์ความรู้","3.4.K.7","light therapy, actinotherapy, radiation therapy, radiotherapy, blue light therapy, UV Phototherapy, PUVA, UVB"],
+["Postural drainage","","K","Proc.K.08","องค์ความรู้","3.4.K.8","Postural drainage, Chest physiotherapy, PD, Airway clearance, Mucus clearance, Respiratory therapy, Chest physical therapy, PD & P, CPT, Modified Postural Drainage, MPD"],
+["Stomal care","","K","Proc.K.09","องค์ความรู้","3.4.K.9","Stoma, Ostomy, Colostomy, Ileostomy, Urostomy, Peristomal skin care, สโตม่า"],
+["Hematocrit","","LAB","LAB01","การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ","3.1.1","HCT, packed cell volume, PCV, erythrocyte volume fraction, EVF, Ht, Crit, haematocrit, ฮีมาโทคริต"],
+["Blood smear: differential white blood cell count, red cell morphology, platelet estimate and morphology","","LAB","LAB02","การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ","3.1.2","Blood film, Peripheral blood smear, CBC with differential, CBC w/ diff, DIFF, Differential leukocyte count, Blood smear examination, การตรวจฟิล์มเลือด, การนับแยกชนิดเม็ดเลือดขาว, การตรวจความสมบูรณ์ของเม็ดเลือดและแยกชนิดเม็ดเลือดขาว"],
+["Malarial parasite","","LAB","LAB03","การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ","3.1.3","Plasmodium, P. falciparum, Pf, P. vivax, P. ovale, P. malariae, P. knowlesi, ไข้มาลาเรีย, ไข้ป่า, ไข้จับสั่น, มาลาเรีย, ยุงก้นปล่อง"],
+["ABO blood group, Anti-D (Rh blood group)","","LAB","LAB04","การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ","3.1.4","Blood type, Blood group, Rh factor, Rhesus factor, ABORH, หมู่เลือด"],
+["20-min whole blood clotting test (20WBCT)","","LAB","LAB05","การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ","3.1.5","20WBCT, WBCT20, 20-minute whole blood clotting test, whole blood clotting test, การทดสอบการแข็งตัวของเลือดครบส่วน 20 นาที"],
+["Urine analysis","","LAB","LAB06","การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ","3.1.6","การตรวจวิเคราะห์ปัสสาวะ, การแปลผลการตรวจวิเคราะห์ปัสสาวะ, Urinalysis, UA, uranalysis, Urine Test, Urine RE/ME test, Urine R/M test"],
+["Body fluid analysis (CSF)","","LAB","LAB07a","การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ","3.1.7","Cerebrospinal Fluid Analysis, CSF Analysis, Spinal Fluid Analysis, CSF, Spinal Tap, Lumbar Puncture, นํ้าไขสันหลัง"],
+["Body fluid analysis (pleural)","","LAB","LAB07b","การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ","3.1.7","Pleural Fluid Analysis, Pleural Fluid Testing, Pleural Effusion Testing, Diagnostic Thoracentesis, Pleural Fluid Tap, Pleural Fluid Aspiration, Pleural Fluid Culture, Pleural Fluid Cytology, Thoracentesis Fluid Analysis, Non-Gynecological Cytology, Body Fluids Cytology, Fluid, Non-Gyne Cytology, Cytology, Serous Fluids"],
+["Body fluid analysis (others)","","LAB","LAB07c","การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ","3.1.7","Body Fluid Analysis, Body Fluid Count and Differential, Fluid Count/Differential, Differential Count, Ascitic Fluid Analysis, Paracentesis Fluid Analysis, Pleural Fluid Analysis, Thoracentesis Fluid Analysis, Synovial Fluid Analysis, BF, CSF, RBC, WBC, SYF, TNC, BFFCD, การตรวจวิเคราะห์สารน้ำาจากร่างกาย, สารน้ำาจากร่างกาย"],
+["Stool examination","","LAB","LAB08a","การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ","3.1.8","Stool test, Fecal test, Fecal occult test, FOBT, FIT, Stool C&S, Fecal Culture, การตรวจอุจจาระ, การตรวจหาเลือดในอุจจาระ"],
+["Stool occult blood","","LAB","LAB08b","การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ","3.1.8","Stool occult blood, Fecal Occult Blood Test, FOBT, guaiac fecal occult blood test, gFOBT, stool guaiac test, guaiac smear test, occult blood test, Hemoccult, Fecal Immunochemical Test, FIT, iFOBT"],
+["Sputum examination","","LAB","LAB08c","การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ","3.1.8","การตรวจเสมหะ, Sputum analysis, Sputum test, Sputum culture, Sputum C&S, Respiratory Culture, Sputum Microbiology Test"],
+["Gram staining","","LAB","LAB09a","การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ","3.1.9","Gram stain, Gram's stain, Gram method, Gram's method, Gram's procedure, Gram staining procedure, Gram stain test, การย้อมสีแกรม"],
+["Acid fast staining","","LAB","LAB09b","การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ","3.1.9","Acid-fast stain, Ziehl-Neelsen stain, ZN, AFB, Kinyoun method, สีย้อมทนกรด, การย้อมสีทนกรด, แอซิดฟาสท์"],
+["Modified acid fast staining","","LAB","LAB09c","การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ","3.1.9","Modified Acid-Fast Stain, Modified AFB Stain, Partial Acid Fast Stain, mZN, Modified Kinyoun, การย้อมสี Modified Acid Fast Stain, การย้อมสี Modified AFB"],
+["KOH smear","","LAB","LAB10a","การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ","3.1.10","Potassium hydroxide preparation, KOH prep, Fungal smear, Skin lesion KOH exam, KOH test, KOH, Smear Fungus, Smear Yeast, Smear KOH, Yeast Smear, KOH mount test, Fungal wet mount test, Potassium hydroxide examination of skin lesion"],
+["Tzanck smear","","LAB","LAB10b","การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ","3.1.10","Tzanck smear for Cytology, Herpes Smear for Cytology, Tzanck test, chickenpox skin test, herpes skin test, TZANCK, แตงค์สเมียร์"],
+["Wet preparation","","LAB","LAB10c","การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ","3.1.10","Wet Prep, prep, การเตรียมการ, การเตรียมเปียก"],
+["Electrocardiography","","LAB","LAB12","การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ","3.1.12","Electrocardiogram, EKG, ECG, cardiogram, คลื่นไฟฟ้าหัวใจ, อีซีจี, อีเคจี"],
+["Growth and development assessment","","LAB","LAB13","การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ","3.1.13","การประเมินพัฒนาการและการเจริญเติบโต, การประเมินพัฒนาการ, Developmental Assessment, Developmental Screening, Developmental Milestones, ASQ, EPSDT, C&TC, growth chart"],
+["Electronic fetal heart rate monitoring","","LAB","LAB14","การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ","3.1.14","Electronic fetal monitoring, EFM, Continuous electronic fetal monitoring, CEFM, Cardiotocography, CTG, fetal monitor, electronic foetal monitor, การเฝ้าติดตามอัตราการเต้นของหัวใจทารกในครรภ์ด้วยอิเล็กทรอนิกส์, คาร์ดิโอโทโคกราฟี"],
+["Nasal and nasopharyngeal swab","","LAB","LAB15","การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ","3.1.15","Nasopharyngeal swab, NPS, NP, Nasal swab, Nasal and nasopharyngeal swab, การเก็บตัวอย่างจากโพรงจมูกส่วนบน"],
+["Urine pregnancy test","","LAB","LAB16","การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ","3.1.16","ชุดทดสอบการตั้งครรภ์, การทดสอบการตั้งครรภ์, Pregnancy test, HPT"],
+["Point of care testing e.g., glucose, blood gas","","LAB","LAB17","การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ","3.1.17","POCT, POC, near-patient testing, bedside testing, near-patient testing (NPT), การตรวจ ณ จุดดูแลผู้ป่วย, การตรวจวินิจฉัยข้างเตียง"],
+["FAST ultrasonography in trauma","","LAB","LAB19","การตรวจทางห้องปฏิบัติการและการตรวจพิเศษ ","3.1.19","FAST, EFAST, Focused Assessment with Sonography for Trauma, Focused Assessment with Sonography in Trauma, Extended FAST, Extended FAST scan, FAST scan, Trauma ultrasound, การตรวจ FAST, การตรวจ EFAST"],
+["Liver profile","MED,PED","QI","QI01","จุฬาฯ only","","Liver profile, Liver function test, Liver panel, Liver function panel, Hepatic function panel, LFT, HFP, การตรวจการทำงานของตับ, การตรวจสมรรถภาพตับ"],
+["Kidney profile","MED,PED","QI","QI02","จุฬาฯ only","","Kidney Profile, Renal Function Panel, RFP, Kidney Function Tests, BUN, Cr, CREAT, GFR, eGFR, uACR, ไต, ไต โปรไฟล์, การตรวจสมรรถภาพไต"],
+["Lipid profile","MED","QI","QI03","จุฬาฯ only","","Lipid panel, Cholesterol test, Lipid panel test, Cholesterol panel, Coronary risk panel, Lipoprotein profile, FLP, LP, CHD Profile, Cardiac Risk Profile, การตรวจวิเคราะห์ไขมันในเลือด, โปรไฟล์ไขมัน"],
+["Magnetic resonance imaging","RADIO","QI","QI04","จุฬาฯ only","","MRI, Nuclear magnetic resonance imaging, NMRI, Magnetic resonance tomography, MRT, magnetic-resonance imaging, NMR, เอ็มอาร์ไอ"],
+["Radionuclide study","RADIO","QI","QI05","จุฬาฯ only","","Radionuclide scan, nuclear medicine scan, radionuclide imaging, radionuclide angiocardiography, radionuclide angiography, radionuclide scanning, radionuclide test, radionuclide stress test, radionuclide ventriculography, RNA, RVG, การตรวจทางเวชศาสตร์นิวเคลียร์"],
+["Intravascular contrast studies: arterial and venous studies","RADIO","QI","QI06","จุฬาฯ only","","Intravascular contrast studies, Angiography, Digital Subtraction Angiography, DSA, Venography, CT IV contrast, Vascular imaging with contrast, การตรวจด้วยสารทึบรังสีในหลอดเลือด, การถ่ายภาพรังสีหลอดเลือด, การถ่ายภาพรังสีหลอดเลือดแบบดิจิทัล, การถ่ายภาพรังสีหลอดเลือดดำ"],
+["Ultrasonography","RADIO","QI","QI07","จุฬาฯ only","","Ultrasonography, Ultrasound, Sonography, Echography, US, U/S, อัลตราซาวนด์, อัลตร้าซาวด์, อุลตราซาวด์, คลื่นเสียงความถี่สูง, คลื่นเหนือเสียง"],
+["Polysomnography","MED,ENT","QI","QI08","จุฬาฯ only","","Sleep Test, Sleep Study, PSG, Polysomnogram, Computerized sleep study, การตรวจการนอนหลับ, การตรวจสุขภาพการนอน, การตรวจหาความผิดปกติระหว่างการนอนหลับ, การทำสลีปเทสต์"],
+["Pulmonary function test","MED,PED","QI","QI09","จุฬาฯ only","","Pulmonary Function Tests, PFTs, Lung function tests, Spirometry, Plethysmography, DLCO, การตรวจสมรรถภาพปอด, การตรวจการทำงานของปอด, การเป่าปอด"],
+["Needle electromyography","PMR","QI","QI10","จุฬาฯ only","","Needle EMG, EMG, Electromyography, Electromyogram, Electrodiagnosis, Myography, การตรวจคลื่นไฟฟ้ากล้ามเนื้อ, การตรวจด้วยเข็มนำไฟฟ้า, การตรวจกล้ามเนื้อด้วยไฟฟ้า, ไมโอกราฟี"],
+["Nerve conduction study","PMR","QI","QI11","จุฬาฯ only","","NCS, NCV, Nerve conduction velocity, Nerve conduction velocity test, Nerve conduction study, Electrophysiological study, Electrodiagnostic study, การตรวจความเร็วการนำกระแสประสาท, การตรวจการนำกระแสประสาท, การตรวจเส้นประสาทด้วยไฟฟ้า"],
+["Skin prick test","PED","QI","QI12","จุฬาฯ only","","SPT, Skin Test, Allergy Skin Test, การทดสอบภูมิแพ้ทางผิวหนัง, การสะกิดผิวหนัง, การทำ Skin Test"],
+["Tuberculin skin test [PPD]","PED","QI","QI13","จุฬาฯ only","","Mantoux test, TST, TB skin test, PPD test, Tuberculin sensitivity test, Mendel-Mantoux test, Purified protein derivative test, การทดสอบแมนทูว์, การทดสอบทูเบอร์คูลินทางผิวหนัง, การทดสอบพีพีดี"],
+["Ultrasound, transvaginal","OBG","QI","QI14","จุฬาฯ only","","Transvaginal ultrasound, TVS, TVUS, Endovaginal ultrasound, Vaginal ultrasound, Pelvic ultrasound, Transvaginal scan, อัลตราซาวด์ช่องคลอด, การอัลตราซาวด์ทางช่องคลอด, การตรวจอัลตราซาวด์ผ่านทางช่องคลอด, อัลตราซาวด์มดลูกและรังไข่ทางช่องคลอด"],
+["Base of tongue surgery","ENT","QO","QO01","จุฬาฯ only","","Base of tongue surgery, Tongue base surgery, TORS, Transoral robotic surgery, Midline glossectomy, Tongue base mucosectomy, TBM, RF BOT, Radiofrequency at base of tongue, การผ่าตัดโคนลิ้น, การผ่าตัดโคนลิ้นผ่านกล้องหุ่นยนต์, การผ่าตัดเนื้อเยื่อโคนลิ้น, การใช้คลื่นความถี่วิทยุจี้บริเวณโคนลิ้น"],
+["Ear surgery","ENT","QO","QO02","จุฬาฯ only","","Otoplasty, Pinnaplasty, Ear correction surgery, Ear reshaping, Ear pinning, Bat ear correction, การผ่าตัดตกแต่งใบหู, การผ่าตัดหู, การเย็บใบหู, การแก้ไขหูกาง"],
+["Fine-needle aspiration (ENT)","ENT","QO","QO03","จุฬาฯ only","","Fine needle aspiration, FNA, FNAB, Fine-needle aspiration biopsy, Fine-needle biopsy, Head and neck FNA, การเจาะดูดด้วยเข็มเล็ก, การเจาะชิ้นเนื้อด้วยเข็มเล็ก, การตรวจเซลล์ด้วยเข็มเล็ก"],
+["Laryngeal endoscopy","ENT","QO","QO04","จุฬาฯ only","","Laryngoscopy, Laryngeal examination, Phonoscopy, Phonoscopic examination, Stroboscopy, Videostroboscopy, EEL, Endoscopic evaluation of the larynx, FFL, Flexible fiberoptic laryngoscopy, DL, Direct laryngoscopy, การส่องกล้องตรวจกล่องเสียง, การตรวจกล่องเสียงด้วยกล้องเอนโดสโคป"],
+["Microlaryngeal surgery","ENT","QO","QO05","จุฬาฯ only","","Microlaryngoscopy, MLS, Phonomicrosurgery, Vocal cord microsurgery, Microsuspension direct laryngoscopy, MSDL, การผ่าตัดกล่องเสียงผ่านกล้องจุลทรรศน์, การผ่าตัดเส้นเสียงด้วยกล้องไมโครสโคป"],
+["Nasal endoscopy","ENT","QO","QO06","จุฬาฯ only","","Rhinoscopy, Nasoendoscopy, Nasopharyngoscopy, Nasendoscopy, Flexible nasal endoscopy, FNE, Diagnostic nasal endoscopy, DNE, การส่องกล้องตรวจโพรงจมูก, การส่องตรวจโพรงจมูกด้วยกล้อง, การตรวจช่องจมูกและลำคอด้วยกล้อง"],
+["Other ENT surgery","ENT","QO","QO07","จุฬาฯ only","","Otolaryngology surgery, ORL surgery, Ear Nose Throat surgery, Head and neck surgery, ศัลยกรรมหู คอ จมูก, การผ่าตัดทางโสต ศอ นาสิก, ศัลยกรรมศีรษะและลำคอ"],
+["Sinus surgery","ENT","QO","QO08","จุฬาฯ only","","Functional Endoscopic Sinus Surgery, FESS, Endoscopic Sinus Surgery, ESS, Full-house FESS, Balloon sinuplasty, Minimally invasive sinus technique, MIST, Caldwell-Luc surgery, การผ่าตัดไซนัส, การผ่าตัดไซนัสผ่านกล้องเอ็นโดสโคป, การผ่าตัดส่องกล้องไซนัส"],
+["Tonsillectomy","ENT","QO","QO09","จุฬาฯ only","","Tonsillectomy, TE, T&A, Tonsil surgery, Tonsil removal, การผ่าตัดต่อมทอนซิล, การตัดต่อมทอนซิล, ผ่าตัดทอนซิล"],
+["Cataract extraction","EYE","QO","QO10","จุฬาฯ only","","Cataract surgery, Phacoemulsification, Phaco, PHACO, PE, ECCE, ICCE, CE/IOL, CEIOL, Cataract extraction with intraocular lens implant, ต้อกระจก, การผ่าตัดต้อกระจก, การสลายต้อกระจกด้วยคลื่นความถี่สูง, การลอกต้อกระจก"],
+["Lacrimal sac irrigation","EYE","QO","QO11","จุฬาฯ only","","Lacrimal irrigation, Nasolacrimal duct irrigation, Lacrimal syringing, Nasolacrimal syringing, Probing and irrigation, P&I, การล้างท่อน้ำตา, การแยงท่อน้ำตา, การฉีดล้างท่อน้ำตา"],
+["Other eye surgery","EYE","QO","QO12","จุฬาฯ only","","Ocular surgery, Ophthalmic surgery, Eye procedure, Eye operation, การผ่าตัดตา, ศัลยกรรมจักษุ, การทำศัลยกรรมตา"],
+["Pterygium excision","EYE","QO","QO13","จุฬาฯ only","","Pterygium surgery, Conjunctival autograft, CAG, Surfer eye surgery, การผ่าตัดลอกต้อเนื้อ, การลอกต้อเนื้อ, การผ่าตัดต้อเนื้อร่วมกับการวางเนื้อเยื่อประสาน, การลอกต้อเนื้อร่วมกับปลูกถ่ายเนื้อเยื่อก้องตาตนเอง"],
+["Autopsy","FORENSIC","QO","QO14","จุฬาฯ only","","Necropsy, Post-mortem examination, Postmortem, PM, การชันสูตรศพ, การผ่าศพ, การตรวจศพ, การชันสูตรพลิกศพ"],
+["Bronchoscopy","MED","QO","QO15","จุฬาฯ only","","Bronchoscopy, Bronchoscopic examination, Fiberoptic bronchoscopy, FOB, Flexible bronchoscopy, Rigid bronchoscopy, การส่องกล้องหลอดลม, การตรวจส่องกล้องหลอดลม, การส่องกล้องปอด, การส่องกล้องทางเดินหายใจ"],
+["Hysterectomy","OBG","QO","QO16","จุฬาฯ only","","Total hysterectomy, Supracervical hysterectomy, Radical hysterectomy, Vaginal hysterectomy, Laparoscopic hysterectomy, Abdominal hysterectomy, การตัดมดลูก, การผ่าตัดมดลูก, ผ่ามดลูกออก"],
+["Myomectomy","OBG","QO","QO17","จุฬาฯ only","","Fibroidectomy, Uterine fibroid removal, Leiomyomectomy, Abdominal myomectomy, Laparoscopic myomectomy, Robotic myomectomy, Hysteroscopic myomectomy, TCRM, การผ่าตัดเนื้องอกมดลูก, การผ่าตัดเลาะเนื้องอกมดลูก, การผ่าตัดเอาเฉพาะเนื้องอกออกโดยเก็บมดลูกไว้"],
+["Other gynecologic surgery","OBG","QO","QO18","จุฬาฯ only","","Gynecologic surgery, Gyn surgery, Female reproductive system surgery, Pelvic surgery, การผ่าตัดทางนรีเวช, การผ่าตัดมดลูกและปีกมดลูก, การผ่าตัดส่องกล้องทางนรีเวช, การผ่าตัดทางช่องคลอด"],
+["Other obstetric surgery","OBG","QO","QO19","จุฬาฯ only","","Obstetric surgery, Obstetrical surgery, Surgical procedure obstetric, Maternal surgery, ศัลยกรรมทางสูติศาสตร์, การผ่าตัดทางสูติกรรม, การผ่าตัดทำคลอดและภาวะแทรกซ้อน"],
+["Perineorrhaphy","OBG","QO","QO20","จุฬาฯ only","","Perineoplasty, Perineorrhaphy with perineoplasty, Suture of the perineum, Repair of episiotomy wound, การเย็บซ่อมแผลฝีเย็บ, การผ่าตัดตกแต่งฝีเย็บ, การซ่อมแซมฝีเย็บ"],
+["Shoulder dystocia","OBG","QO","QO21","จุฬาฯ only","","Shoulder dystocia, Obstructed labour due to shoulder dystocia, Impacted shoulders, Shoulder girdle dystocia, ภาวะคลอดติดไหล่, การคลอดติดไหล่"],
+["Limb amputation","ORTHO","QO","QO22","จุฬาฯ only","","Amputation, Limb loss, Extremity amputation, AKA, BKA, AEA, BEA, TF, TT, TH, TR, HD, HP, KD, ED, SD, WD, TMA, การตัดแขนขา, การสูญเสียรยางค์, การตัดอวัยวะ, การตัดขา, การตัดแขน"],
+["Other orthopedic surgery","ORTHO","QO","QO23","จุฬาฯ only","","Orthopedic surgery, Orthopaedics, Musculoskeletal surgery, Bone surgery, Joint surgery, ศัลยกรรมกระดูกและข้อ, ศัลยศาสตร์ออร์โธปิดิกส์, การผ่าตัดกระดูกและข้อ, ออร์โธปิดิกส์ทั่วไป"],
+["Burr hole","SURGERY","QO","QO24","จุฬาฯ only","","Cranial burr hole, Trepanation, Skull trephination, Burr hole craniostomy, Burr hole surgery, การเจาะกะโหลก, การเจาะรูระบายเลือดในสมอง, การเจาะกะโหลกเพื่อระบายความดัน, การเจาะรูที่กะโหลกศีรษะ"],
+["Cholecystectomy","SURGERY","QO","QO25","จุฬาฯ only","","Cholecystectomy, Gallbladder removal, Laparoscopic cholecystectomy, Lap chole, LC, Open cholecystectomy, การผ่าตัดนิ่วในถุงน้ำดี, การผ่าตัดถุงน้ำดี, การผ่าตัดถุงน้ำดีผ่านกล้อง"],
+["Closure of perforation","SURGERY","QO","QO26","จุฬาฯ only","","Surgical closure, Perforation repair, Bowel repair, Gastric repair, เย็บซ่อมรูทะลุ, การปิดรูทะลุ, ผ่าตัดเย็บซ่อมส่วนที่ทะลุ"],
+["Colectomy","SURGERY","QO","QO27","จุฬาฯ only","","Bowel resection surgery, Colon resection, Colorectal resection, Partial colectomy, Total colectomy, Hemicolectomy, Open colectomy, Laparoscopic colectomy, การผ่าตัดลำไส้ใหญ่, การผ่าตัดตัดลำไส้ใหญ่, การตัดลำไส้ใหญ่"],
+["Colonoscopy","SURGERY","QO","QO28","จุฬาฯ only","","Lower gastrointestinal endoscopy, Lower GI endoscopy, Colorectal cancer screening, Endoscopy, การส่องกล้องตรวจลำไส้ใหญ่, การส่องกล้องลำไส้ใหญ่, การส่องกล้องตรวจทางเดินอาหารส่วนล่าง"],
+["Colostomy","SURGERY","QO","QO29","จุฬาฯ only","","Ostomy, Stoma, Bowel diversion, Fecal diversion, ทวารเทียม, การทำทวารเทียม, ลำไส้เปิดทางหน้าท้อง, สโตม่า"],
+["Craniotomy or craniectomy","SURGERY","QO","QO30","จุฬาฯ only","","Craniotomy, Craniectomy, Decompressive craniectomy, Bone flap removal, Skull opening, Trepanation, Trephination, Burr hole, การผ่าตัดเปิดกะโหลกศีรษะ, การผ่าตัดตัดกะโหลกศีรษะ, การเจาะกะโหลก, การเปิดฝากะโหลกศีรษะส่วนหนึ่งออกชั่วคราว, การผ่าตัดระบายความดันในกะโหลกศีรษะ"],
+["Cystoscopy","SURGERY","QO","QO31","จุฬาฯ only","","Cystoscopy, Cystourethroscopy, Bladder scope, Bladder examination, Bladder inspection, Urinary bladder endoscopy, การส่องกล้องตรวจกระเพาะปัสสาวะ, ส่องกล้องกระเพาะปัสสาวะ, การตรวจกระเพาะปัสสาวะด้วยกล้อง"],
+["Cystostomy","SURGERY","QO","QO32","จุฬาฯ only","","Suprapubic cystostomy, Suprapubic catheter, SPC, Vesicostomy, Epicystostomy, Tube cystostomy, Percutaneous suprapubic cystostomy, การเจาะระบายปัสสาวะทางหน้าท้อง, การเจาะระบายปัสสาวะเหนือหัวหน่าว, การเปิดท่อระบายจากกระเพาะปัสสาวะทางหน้าท้อง"],
+["Embolectomy or thrombectomy","SURGERY","QO","QO33","จุฬาฯ only","","Thromboembolectomy, Mechanical thrombectomy, Catheter embolectomy, Surgical embolectomy, Aspiration thrombectomy, Clot removal, การผ่าตัดลากลิ่มเลือด, การกำจัดลิ่มเลือด, การสวนหลอดเลือดเพื่อเอาลิ่มเลือดออก"],
+["ERCP","SURGERY","QO","QO34","จุฬาฯ only","","Endoscopic Retrograde Cholangiopancreatography, Endoscopic retrograde cholangio pancreatography, Endoscopic retrograde cholangiopancreatogram, ส่องกล้องตรวจท่อทางเดินน้ำดีและตับอ่อน, การส่องกล้องฉีดสีท่อทางเดินน้ำดีและตับอ่อน, อีอาร์ซีพี"],
+["Esophagogastroduodenoscopy","SURGERY","QO","QO35","จุฬาฯ only","","EGD, OGD, Upper endoscopy, Upper GI endoscopy, UGIE, Gastroscopy, Panendoscopy, PES, การส่องกล้องตรวจทางเดินอาหารส่วนบน, การส่องกล้องตรวจกระเพาะอาหาร, การส่องกล้องหลอดอาหาร กระเพาะอาหาร และลำไส้เล็กส่วนต้น"],
+["Exploratory laparotomy","SURGERY","QO","QO36","จุฬาฯ only","","Exploratory laparotomy, Ex-lap, Diagnostic laparotomy, Celiotomy, Peritoneotomy, Lap, การผ่าท้องเพื่อการวินิจฉัย, การผ่าเปิดหน้าท้องเพื่อสำรวจ, การผ่าตัดช่องท้องแบบเปิด"],
+["Fistulotomy or fistulectomy (anal)","SURGERY","QO","QO37","จุฬาฯ only","","Fistulotomy, Fistulectomy, Anal fistula surgery, Anal fistula repair, Fistula-in-ano treatment, การผ่าตัดฝีคัณฑสูตร, การผ่าเปิดทางเชื่อมฝีคัณฑสูตร, การตัดทางเชื่อมฝีคัณฑสูตร, ผ่าตัดฝีที่ก้น"],
+["Flap coverage","SURGERY","QO","QO38","จุฬาฯ only","","Rotational flap, Transposition flap, Advancement flap, Pedicled flap, Free flap, Skin flap, Muscle flap, Fasciocutaneous flap, Myocutaneous flap, Microvascular tissue transfer, การผ่าตัดย้ายเนื้อเยื่อ, การใช้ปลักเนื้อเยื่อ, การผ่าตัดย้ายแฟลบ, การทำแฟลบ"],
+["Gastrectomy","SURGERY","QO","QO39","จุฬาฯ only","","Gastrectomy, Partial gastrectomy, Total gastrectomy, Gastric sleeve, Gastric resection, Subtotal gastrectomy, การตัดกระเพาะอาหาร, การผ่าตัดกระเพาะอาหาร, การตัดกระเพาะ, การตัดกระเพาะลดน้ำหนัก"],
+["Gastrointestinal anastomosis","SURGERY","QO","QO40","จุฬาฯ only","","GIA, Gastrointestinal reconstruction, Intestinal anastomosis, Bowel anastomosis, R & A, Intestinal bypass, การเชื่อมต่อทางเดินอาหาร, การต่อลำไส้, การทำทางเบี่ยงทางเดินอาหาร"],
+["Gastrojejunostomy bypass","SURGERY","QO","QO41","จุฬาฯ only","","Gastrojejunostomy, GJ bypass, Gastric bypass, Roux-en-Y, Gastric outlet obstruction bypass, การผ่าตัดเชื่อมต่อกระเพาะอาหารกับลำไส้เล็กส่วนเจจูนัม, การทำทางเบี่ยงกระเพาะอาหารและลำไส้เล็ก, การผ่าตัดต่อกระเพาะอาหารกับลำไส้เล็กเจจูนัม"],
+["Gastrostomy","SURGERY","QO","QO42","จุฬาฯ only","","G-tube, Gastrostomy tube, PEG, PEG tube, Percutaneous endoscopic gastrostomy, Gastric feeding tube, การเจาะหน้าท้องเพื่อให้อาหาร, การใส่สายให้อาหารทางหน้าท้อง, การทำสายยางให้อาหารผ่านทางหน้าท้อง, การผ่าตัดเปิดกระเพาะอาหารให้อาหารทางหน้าท้อง"],
+["Hemorrhoidectomy","SURGERY","QO","QO43","จุฬาฯ only","","Hemorrhoidectomy, Haemorrhoidectomy, Surgical removal of hemorrhoids, Excisional hemorrhoidectomy, Stapled hemorrhoidopexy, PPH, Procedure for prolapse and hemorrhoids, HAL-RAR, การผ่าตัดริดสีดวงทวาร, การผ่าตัดริดสีดวง, ผ่าตัดริดสีดวงทวารหนัก"],
+["Hepatectomy","SURGERY","QO","QO44","จุฬาฯ only","","Liver resection, Hepatic resection, Liver removal, Partial hepatectomy, Total hepatectomy, การตัดตับ, การผ่าตัดตับ, การผ่าตัดระบายเนื้อตับ, การตัดตับออกบางส่วน"],
+["Herniorrhaphy","SURGERY","QO","QO45","จุฬาฯ only","","Hernia repair, Hernia surgery, Hernioplasty, Herniotomy, Rupture repair, การผ่าตัดไส้เลื่อน, การซ่อมแซมไส้เลื่อน, ผ่าตัดไส้เลื่อน"],
+["Ileostomy","SURGERY","QO","QO46","จุฬาฯ only","","Ostomy, Stoma, Brooke ileostomy, J-Pouch, K-pouch, Continent ileostomy, การผ่าตัดลำไส้เล็กมาไว้ที่หน้าท้อง, สโตม่า, ทวารเทียมทางลำไส้เล็ก"],
+["Jejunostomy","SURGERY","QO","QO47","จุฬาฯ only","","J-tube, Jejunum tube, PEJ tube, Feeding jejunostomy, การใส่สายให้อาหารทางหน้าท้องเข้าสู่ลำไส้เล็ก, การผ่าตัดใส่สายให้อาหารทางหน้าท้อง, เจจูโนสโตมี"],
+["Lysis of adhesions","SURGERY","QO","QO48","จุฬาฯ only","","Adhesiolysis, Adhesion lysis, Enterolysis, LOA, Laparoscopic adhesiolysis, การตัดเลาะพังผืด, การผ่าตัดแยกพังผืด, การสลายพังผืดในช่องท้อง"],
+["Mastectomy","SURGERY","QO","QO49","จุฬาฯ only","","Breast removal, Mast, MX, MRM, Radical mastectomy, การผ่าตัดเต้านม, การตัดเต้านม, การผ่าตัดตัดเต้านมออก, การทำศัลยกรรมตัดเต้านมออก"],
+["Maxillofacial surgery","SURGERY","QO","QO50","จุฬาฯ only","","Oral and Maxillofacial Surgery, OMFS, OMS, Oral surgery, OS, MKG surgery, ศัลยกรรมช่องปากและแม็กซิลโลเฟเชียล, ศัลยศาสตร์ช่องปากและแม็กซิลโลเฟเชียล, ศัลยกรรมแม็กซิลโลเฟเชียล, ศัลยกรรมโครงหน้าและขากรรไกร, การผ่าตัดช่องปากและใบหน้า, ศัลยศาสตร์ขากรรไกรและใบหน้า"],
+["Organ transplantation","SURGERY","QO","QO51","จุฬาฯ only","","Organ transplant, Organ transplantation, Graft, Allograft, Transplant, การปลูกถ่ายอวัยวะ, การเปลี่ยนอวัยวะ, การปลูกถ่าย, ปลูกถ่ายอวัยวะ, การเปลี่ยนถ่ายอวัยวะ"],
+["Other cardiothoracic surgery","SURGERY","QO","QO52","จุฬาฯ only","","Cardiovascular surgery, CVS, CV surgery, Thoracic surgery, Heart surgery, Chest surgery, การผ่าตัดหัวใจและทรวงอก, ศัลยกรรมหัวใจและทรวงอก, ผ่าตัดทรวงอก, ผ่าตัดหัวใจ"],
+["Other colorectal surgery","SURGERY","QO","QO53","จุฬาฯ only","","Proctology, Colon and rectal surgery, Large bowel surgery, Anorectal surgery, Colonic resection, Rectal resection, ศัลยกรรมลำไส้ใหญ่และทวารหนัก, การผ่าตัดลำไส้ใหญ่และทวารหนัก, ศัลยกรรมทวารหนัก, การผ่าตัดทวารหนัก"],
+["Other general surgery","SURGERY","QO","QO54","จุฬาฯ only","","General surgery, GS, Surgery, Surgical procedure, Operation, การผ่าตัด, ศัลยกรรม, ศัลยกรรมทั่วไป, การรักษาด้วยการผ่าตัด"],
+["Other head, neck and breast surgery","SURGERY","QO","QO55","จุฬาฯ only","","Mastectomy, Lumpectomy, Breast reconstruction, Breast conserving surgery, Head and neck surgery, ENT surgery, Otolaryngology, HNS, การผ่าตัดเต้านม, การผ่าตัดบริเวณศีรษะและลำคอ"],
+["Other hepato-pancreato-biliary surgery","SURGERY","QO","QO56","จุฬาฯ only","","HPB surgery, Hepatobiliary surgery, Hepatopancreatobiliary surgery, Liver surgery, Pancreas surgery, Biliary surgery, Gallbladder surgery, ศัลยกรรมตับ ตับอ่อน และทางเดินน้ำดี, ผ่าตัดตับ, ผ่าตัดตับอ่อน, ผ่าตัดทางเดินน้ำดี"],
+["Other minimally invasive surgery","SURGERY","QO","QO57","จุฬาฯ only","","Minimally Invasive Surgery, MIS, Keyhole Surgery, Laparoscopic Surgery, Endoscopic Surgery, Robotic Surgery, Minimal Access Surgery, MAS, การผ่าตัดส่องกล้อง, การผ่าตัดผ่านกล้อง, การผ่าตัดแผลเล็ก, การผ่าตัดผ่านกล้องแผลเล็ก, การผ่าตัดส่องกล้องแผลเล็ก"],
+["Other neurosurgery","SURGERY","QO","QO58","จุฬาฯ only","","Brain surgery, Spinal surgery, Intracranial surgery, Cranial surgery, Neurological surgery, ศัลยกรรมระบบประสาท, การผ่าตัดสมอง, การผ่าตัดไขสันหลัง, การผ่าตัดระบบประสาท"],
+["Other pediatric surgery","SURGERY","QO","QO59","จุฬาฯ only","","Pediatric surgery, Paediatric surgery, Child surgery, Children's surgery, Neonatal surgery, Fetal surgery, ศัลยกรรมเด็ก, กุมารศัลยศาสตร์, การผ่าตัดในเด็ก, ศัลยศาสตร์กุมาร, กุมารศัลย์"],
+["Other plastic surgery","SURGERY","QO","QO60","จุฬาฯ only","","Cosmetic surgery, Reconstructive surgery, Aesthetic surgery, Anaplasty, Plastic operation, ศัลยกรรมตกแต่ง, ศัลยกรรมพลาสติก, การผ่าตัดตกแต่ง, การทำศัลยกรรม"],
+["Other trauma surgery","SURGERY","QO","QO61","จุฬาฯ only","","Acute care surgery, Emergency surgery, Traumatology, Accident surgery, Major trauma, Polytrauma, การผ่าตัดทางศัลยกรรมอุบัติเหตุ, ศัลยศาสตร์อุบัติเหตุ"],
+["Other urologic surgery","SURGERY","QO","QO62","จุฬาฯ only","","Urology, Urosurgery, Genitourinary surgery, Urological procedures, Nephrectomy, Prostatectomy, Cystoscopy, Ureteroscopy, Vasectomy, Lithotripsy, ศัลยกรรมทางเดินปัสสาวะ, การผ่าตัดทางเดินปัสสาวะ, ยูโรวิทยา, ศัลยกรรมระบบปัสสาวะและอวัยวะสืบพันธุ์ชาย"],
+["Other vascular surgery","SURGERY","QO","QO63","จุฬาฯ only","","Vascular procedures, Endovascular surgery, Blood vessel surgery, Arterial surgery, Venous surgery, การผ่าตัดหลอดเลือด, ศัลยกรรมหลอดเลือด, การผ่าตัดเส้นเลือด, การรักษาโรคหลอดเลือดด้วยการผ่าตัด"],
+["Skin grafting","SURGERY","QO","QO64","จุฬาฯ only","","Skin graft, Transplant, Implant, Autograft, Split-thickness skin graft, Full-thickness skin graft, STSG, FTSG, การปลูกถ่ายผิวหนัง, การย้ายปลูกผิวหนัง, การปะผิวหนัง, การติดก้านเนื้อ, การศัลยกรรมตกแต่งผิวหนัง"],
+["Small bowel resection","SURGERY","QO","QO65","จุฬาฯ only","","Enterectomy, SBR, Small intestine resection, Partial enterectomy, Laparoscopic small bowel resection, Open small bowel resection, การตัดลำไส้เล็ก, การผ่าตัดลำไส้เล็ก, การตัดต่อลำไส้เล็ก"],
+["Thyroidectomy","SURGERY","QO","QO66","จุฬาฯ only","","Total thyroidectomy, Partial thyroidectomy, Hemithyroidectomy, Thyroid lobectomy, Completion thyroidectomy, Subtotal thyroidectomy, Isthmusectomy, TOETVA, การผ่าตัดไส้ติ่ง, การผ่าตัดต่อมไทรอยด์, การตัดต่อมไทรอยด์ออกทั้งหมด, การตัดต่อมไทรอยด์ออกบางส่วน"],
+["Vesicolithotomy","SURGERY","QO","QO67","จุฬาฯ only","","Cystolithotomy, Open cystolithotomy, Open vesicolithotomy, OCL, SPL, Sectio alta, การผ่าตัดนิ่วในกระเพาะปัสสาวะ, การผ่าตัดนิ่วในกระเพาะปัสสาวะแบบเปิดแผล"],
+["PE: Head-to-Toe Assessment: Adult","MED","QP","QP01","จุฬาฯ only","","Head-to-Toe, H2T Assessment, Complete Physical Assessment, Physical Assessment Guide, General Survey, Comprehensive Evaluation, IPPA, Inspection Palpation Percussion Auscultation, DCAP-BTLS, COLDSPA, OPQRSTU, OLD CART, PERRLA, การตรวจร่างกาย, การประเมินสุขภาพ"],
+["PE: Head-to-Toe Assessment: Infant","PED","QP","QP02","จุฬาฯ only","","Head-to-Toe Assessment Infant, Newborn Assessment, Neonatal Physical Exam, Baby Physical Exam, HTTA, APGAR, Infant Head-to-Toe, Neonatal Assessment, การประเมินร่างกายทารก, การตรวจร่างกายทารกแรกเกิด"],
+["PE: Head-to-Toe Assessment: Child","PED","QP","QP03","จุฬาฯ only","","Head-to-Toe Assessment, Pediatric Assessment, Child Physical Assessment, Head to Toe Exam, Physical Examination, Full Body Assessment, H2T, Pediatric Health Assessment, DCAP-BTLS, ABCDEFGHI, การประเมินร่างกายเด็ก, การตรวจร่างกายเด็ก"],
+["PE: Head-to-Toe Assessment: Older Adult","FPG","QP","QP04","จุฬาฯ only","","Head-to-Toe Assessment, Physical Assessment, General Survey, Physical Examination, Comprehensive Geriatric Assessment, CGA, Geriatric Assessment, DCAP-BTLS, ABCDEFGHI, FATMPH, T-FRAIL"],
+["PE: General Survey and Vital Signs","MED,PED","QP","QP05","จุฬาฯ only","","Vital signs, Vitals, General Survey, General Appearance, Physical Assessment, VS, T, P, R, BP, HR, RR"],
+["PE: Skin","MED,PED","QP","QP06","จุฬาฯ only","","epidermis, dermis, hide, pelt, surface, cutis, integument, complexion, ผิว, ผิวพรรณ, ผิวหนัง, SSKIN, AD, HS, BCC, SCC"],
+["PE: Eyes and adnexa","EYE","QP","QP07","จุฬาฯ only","","Ocular system, Ocular adnexa, Eyeball, Accessory visual structures, Globe and adnexa, OD, OS, OU, K, ON, ตา"],
+["PE: Ears, Nose, Mouth, and Neck","ENT","QP","QP08","จุฬาฯ only","","ENT, Otorhinolaryngology, Otolaryngology, Head and Neck surgery, ORL, OHNS, Ear, Nose, and Throat"],
+["PE: Thorax and Lungs","MED,PED","QP","QP09","จุฬาฯ only","","chest, rib cage, torso, pectus, pulmonary cavity, CXR, COPD, LRT, URT, TB, B/S, ปอด"],
+["PE: Cardiovascular System","MED,PED","QP","QP10","จุฬาฯ only","","Circulatory system, Vascular system, Cardiovascular, CV, CVS, ระบบหัวใจหลอดเลือด, หัวใจร่วมหลอดเลือด"],
+["PE: Peripheral Vascular System","MED,PED","QP","QP11","จุฬาฯ only","","Peripheral Vascular Disease, PVD, Peripheral Artery Disease, PAD, Vascular system, Peripheral arteries, เกี่ยวกับท่อหรือหลอด"],
+["PE: Breasts and Axillae","MED,SURGERY","QP","QP12","จุฬาฯ only","","breast, bosom, mammary gland, chest, axilla, armpit, underarm, oxter, axillae, accessory breast, polymastia, supernumerary breast, นม, หน้าอก, เต้านม, รักแร้, ALND, AND, AWS, SNB, NAC, Mast, MX, BMX"],
+["PE: Abdomen","MED,PED","QP","QP13","จุฬาฯ only","","belly, stomach, guts, corporation, ท้อง, หน้าท้อง, Abd, Abdo, ABD"],
+["PE: Male Genitalia and Prostate","SURGERY","QP","QP14","จุฬาฯ only","","penis, phallus, member, cock, dick, weenie, tool, shaft, glans, foreskin, prepuce, testicle, testes, balls, nuts, gonads, scrotum, epididymis, vas deferens, urethra, prostate, prostate gland, seminal vesicle, BPH, PSA, ED, STD, STI, DRE, TURP, ควย, ต่อมลูกหมาก, องคชาต, อวัยวะเพศชาย"],
+["PE: Female Genitalia","OBG","QP","QP15","จุฬาฯ only","","Vagina, Vulva, Genitals, Female genitals, PV, pelvic exam, ช่องคลอด, ตรวจภายใน"],
+["PE: Rectum and Anus","SURGERY","QP","QP16","จุฬาฯ only","","Rectum, Anus, Anal, Rectal, Back passage, Butthole, Asshole, ช่องทวารหนัก, ทวารหนัก, ไส้ตรง, EAS, IAS, BRBPR"],
+["PE: Musculoskeletal System","MED,PED","QP","QP17","จุฬาฯ only","","Musculoskeletal System, Musculoskeletal, MusculoSkeletal, M/S, Skeletal System, Bones and Muscles, Ortho, กระดูก, กล้ามเนื้อ"],
+["PE: otoscopy","ENT","QP","QP20","จุฬาฯ only","","Otoscopy, Ear exam, Ear examination, Pneumatic otoscopy, การตรวจหู, การส่องหู, การตรวจหูด้วยเครื่องส่องหู"],
+["PE: tuning fork","ENT","QP","QP21","จุฬาฯ only","","Weber test, Rinne test, Weber's test, Rinne's test, Tuning fork test, TFT, Hearing test, Auditory test, การตรวจการได้ยินด้วยส้อมเสียง, การทดสอบการได้ยิน, การตรวจ Rinne, การตรวจ Weber"],
+["PE: confrontation test for visual field (VF)","EYE","QP","QP22","จุฬาฯ only","","Confrontation Visual Field Test, CVF, Confrontation Field Test, Confrontational Visual Fields, Confrontation test, Peripheral visual field test, Screening visual field test, การตรวจลานสายตาโดยวิธีเผชิญหน้า, การตรวจลานสายตาเบื้องต้น, การตรวจลานสายตาด้วยนิ้วมือ"],
+["PE: direct ophthalmoscopy","EYE","QP","QP23","จุฬาฯ only","","Fundoscopy, Ophthalmoscopy, Direct ophthalmoscopy, DO, Fundoscopic exam, การตรวจจอประสาทตา, การส่องตรวจตา, การตรวจก้นหอยลูกตาด้วยกล้องส่องตรวจโดยตรง"],
+["PE: extraocular muscle test (EOM)","EYE","QP","QP24","จุฬาฯ only","","Extraocular muscle function testing, EOM, Extraocular movement, Ocular motility examination, Extraocular Motilities, Extraocular motility, การตรวจการเคลื่อนไหวของกล้ามเนื้อตา, การตรวจกล้ามเนื้อตา, การตรวจการกลอกตา"],
+["PE: lid eversion","EYE","QP","QP25","จุฬาฯ only","","Upper lid eversion, Lower lid eversion, Eyelid flipping, Lid flipping, Ectropion, Eversion, การพลิกเปลือกตา, การปลิ้นเปลือกตา, การตรวจเปลือกตาด้านใน, การตรวจคัดกรองสิ่งแปลกปลอมในตา"],
+["PE: visual acuity test (VA)","EYE","QP","QP26","จุฬาฯ only","","Visual Acuity Test, VA, Snellen Test, Eye exam, Eyesight test, Distant VA, Near VA, Uncorrected VA, Corrected VA, VA sc, VA cc, VA ph, การตรวจวัดสายตา, การวัดระดับสายตา, การวัดความคมชัดของการมองเห็น, การทดสอบการมองเห็น, การตรวจตา, วัดสายตา"],
+["Genogram","FPG","QP","QP27","จุฬาฯ only","","Family tree, Family diagram, Pedigree chart, Lineage diagram, McGoldrick-Gerson study, ผังครอบครัว, แผนผังครอบครัว, แผนภูมิครอบครัว, ผังเครือญาติ"],
+["Home visit","FPG","QP","QP28","จุฬาฯ only","","House call, Domiciliary visit, In-home visit, Home healthcare appointment, Mobile medical appointment, การเยี่ยมบ้าน, เยี่ยมบ้าน"],
+["Forensic wound examination","FORENSIC","QP","QP29","จุฬาฯ only","","การตรวจชันสูตรบาดแผล, การตรวจบาดแผลทางนิติเวช, การชันสูตรบาดแผล, รายงานชันสูตรบาดแผล, Injury interpretation, Forensic injury examination, Clinical forensic medicine, Wound examination"],
+["Rape examination","FORENSIC","QP","QP30","จุฬาฯ only","","Sexual Assault Forensic Exam, SAFE, Sexual Assault Nurse Examiner exam, SANE exam, Sexual Assault Kit, SAK, Rape Kit, Forensic Medical Examination, FME, Medical-legal exam, การตรวจร่างกายผู้เสียหายจากการล่วงละเมิดทางเพศ, การตรวจชันสูตรบาดแผลและร่องรอยการถูกล่วงละเมิดทางเพศ"],
+["Scene investigation","FORENSIC","QP","QP31","จุฬาฯ only","","Forensic investigation, Crime scene analysis, Criminal investigation, Evidence collection, Crime analysis, Forensic science, Forensic analysis, Forensic examination, CSI, การตรวจสถานที่เกิดเหตุ, การตรวจที่เกิดเหตุ, การชันสูตรสถานที่เกิดเหตุ, การเก็บหลักฐานในที่เกิดเหตุ"],
+["DM foot assessment","MED,PMR","QP","QP32","จุฬาฯ only","","Diabetic foot exam, Diabetic foot assessment, Comprehensive foot exam, Foot check, Foot inspection, DME, การตรวจเท้าในผู้ป่วยเบาหวาน, การประเมินเท้าเบาหวาน, การตรวจคัดกรองเท้าเบาหวาน, การตรวจประเมินภาวะแทรกซ้อนที่เท้าจากเบาหวาน"],
+["PE: ascites","MED,PED","QP","QP33","จุฬาฯ only","","Ascites, Abdominal dropsy, Peritoneal effusion, Fluid in the abdomen, ท้องมาน, ท้องบวมน้ำ, มีน้ำในช่องท้อง"],
+["PE: blood pressure measurement","MED,PED","QP","QP34","จุฬาฯ only","","Blood Pressure, BP, SBP, DBP, Vital signs, Sphygmomanometry, ความดันโลหิต, การวัดความดัน, ค่าความดัน, แรงดันเลือด, สัญญาณชีพ"],
+["PE: bruit","MED,PED","QP","QP35","จุฬาฯ only","","Vascular sound, Whooshing sound, Turbulent flow, Murmur, เสียงฟู่, เสียงผิดปกติของหลอดเลือด"],
+["PE: cerebellar","MED,PED","QP","QP36","จุฬาฯ only","","Cerebellar signs, Cerebellar exam, Cerebellar dysfunction, Ataxia, Dysmetria, Dysdiadochokinesia, Nystagmus, Intention tremor, Scanning speech, Hypotonia, DANISH, การตรวจการทำงานของสมองน้อย, การตรวจร่างกายระบบประสาทสมองน้อย, อาวะสมองน้อยทำงานผิดปกติ, อาการทางสมองน้อย"],
+["PE: chronic liver stigmata","MED,PED","QP","QP37","จุฬาฯ only","","Stigmata of chronic liver disease, CLD stigmata, Signs of cirrhosis, Cutaneous manifestations of liver disease, Physical signs of liver failure, อาการแสดงของโรคตับเรื้อรัง, ลักษณะทางคลินิกของโรคตับแข็ง, ร่องรอยโรคตับเรื้อรัง"],
+["PE: cranial nerve","MED,PED","QP","QP38","จุฬาฯ only","","Cranial Nerve Examination, CN exam, Cranial nerve assessment, 12 Cranial Nerves, CN I-XII, การตรวจเส้นประสาทสมอง, การตรวจร่างกายระบบประสาท, การตรวจเส้นประสาทสมองทั้ง 12 คู่"],
+["PE: crepitation","MED,PED","QP","QP39","จุฬาฯ only","","crepitus, crackles, crackling, rales, popping sound, grating sound, เสียงกรอบแกรบ, เสียงเปรี๊ยะ ๆ, เสียงก๊อบแก๊บ"],
+["PE: deep tendon reflex","MED,PED","QP","QP40","จุฬาฯ only","","DTR, Muscle stretch reflex, MSR, Myotatic reflex, Tendon reflex, Deep tendon reflex, การตรวจรีเฟล็กซ์, การเคาะเข่า, รีเฟล็กซ์เอ็นลึก, ปฏิกิริยาตอบสนองของกล้ามเนื้อเมื่อถูกยืด, รีเฟล็กซ์ของกล้ามเนื้อและเอ็น, การตรวจปฏิกิริยาตอบสนองทางระบบประสาท"],
+["PE: heave","MED,PED","QP","QP41","จุฬาฯ only","","Parasternal heave, Cardiac heave, Right ventricular heave, RV heave, ยกหน้าอก, การยกของหัวใจ, แรงกระแทกบริเวณหัวใจข้างกระดูกหน้าอก"],
+["PE: hepatomegaly","MED,PED","QP","QP42","จุฬาฯ only","","Hepatomegaly, Enlarged liver, Liver enlargement, Swollen liver, Megalohepatia, ตับโต, ภาวะตับโต"],
+["PE: lymphadenopathy","MED,PED","QP","QP43","จุฬาฯ only","","Swollen lymph nodes, Enlarged lymph nodes, Lymphadenitis, Adenopathy, Swollen glands, LAD, ต่อมน้ำเหลืองโต, ต่อมน้ำเหลืองอักเสบ, ก้อนที่คอ, ไข่ดันบวม"],
+["PE: measurement of orthostatic blood pressure or four-limb blood pressure","MED,PED","QP","QP44","จุฬาฯ only","","Orthostatic blood pressure, Postural blood pressure, 4-limb blood pressure, 4LBP, Orthostatic BP, Postural BP, การวัดความดันท่านอนและท่ายืน, การวัดความดันโลหิต 4 รยางค์, วัดความดัน 4 แขนขา"],
+["PE: motor system","MED,PED","QP","QP45","จุฬาฯ only","","Motor Examination, Muscle Strength Testing, Muscle Tone Evaluation, Coordination Exam, Neuromuscular Exam, การตรวจระบบมอเตอร์, การตรวจกำลังกล้ามเนื้อ, การตรวจความตึงตัวของกล้ามเนื้อ, การตรวจการประสานงานของกล้ามเนื้อ, การตรวจร่างกายระบบประสาทส่วนสั่งการ"],
+["PE: murmur","MED,PED","QP","QP46","จุฬาฯ only","","Heart murmur, Cardiac murmur, Systolic murmur, Diastolic murmur, เสียงฟู่ของหัวใจ, เสียงฟู่, เสียงหัวใจผิดปกติ, เสียงพึมพำของหัวใจ"],
+["PE: osteoarthritis of knee","MED,ORTHO","QP","QP47","จุฬาฯ only","","Knee OA, OA knee, Degenerative joint disease of the knee, Degenerative arthritis of the knee, Wear-and-tear arthritis, Gonarthrosis, โรคข้อเข่าเสื่อม, ข้อเข่าเสื่อม, ภาวะข้อเข่าเสื่อม, เข่าเสื่อม"],
+["PE: peripheral pulse assessment","MED,SURGERY","QP","QP48","จุฬาฯ only","","Pulse, Heart rate, Heartbeat, Rhythm, Distal pulse, Arterial pulse, การจับชีพจร, การตรวจชีพจร, การวัดชีพจร, การคลำชีพจร"],
+["PE: rheumatological examination","MED,PED","QP","QP49","จุฬาฯ only","","Rheumatological examination, Musculoskeletal examination, MSK examination, GALS, REMS, Locomotor examination, Joint examination, การตรวจร่างกายทางรูมาโตโลยี, การตรวจระบบกระดูก กล้ามเนื้อและข้อ, การตรวจร่างกายระบบข้อและเนื้อเยื่อเกี่ยวพัน"],
+["PE: signs of COPD","MED","QP","QP50","จุฬาฯ only","","Physical examination of COPD, Signs of COPD, Chronic obstructive pulmonary disease physical signs, อาการแสดงของโรคปอดอุดกั้นเรื้อรัง, การตรวจร่างกายโรคปอดอุดกั้นเรื้อรัง, Barrel chest, Hyperinflation, Wheezing, Prolonged expiration, Pursed-lip breathing, Accessory muscle use, Hoover's sign, Tripod position, Cyanosis"],
+["PE: somatic sensory system","MED,PED","QP","QP51","จุฬาฯ only","","Somatosensory system, Somatic sense, Sensory exam, Sensory system testing, การตรวจระบบความรู้สึก, การตรวจร่างกายระบบรับความรู้สึก, ระบบรับความรู้สึกทางกาย, การตรวจความรู้สึก, Sensory examination"],
+["PE: splenomegaly","MED,PED","QP","QP52","จุฬาฯ only","","Splenomegaly, Enlarged spleen, Spleen enlargement, Spleen swelling, Massive splenomegaly, ม้ามโต, ภาวะม้ามโต, ม้ามมีขนาดใหญ่ผิดปกติ"],
+["PE: stridor","MED,PED,ANESTH","QP","QP53","จุฬาฯ only","","Noisy breathing, Harsh breathing, High-pitched breathing, Inspiratory sound, Laryngeal sound, เสียงหวีดขณะหายใจเข้า, เสียงหายใจฮึดฮัด, เสียงฮืดอาด, เสียงการหายใจที่ผิดปกติ"],
+["PE: thyroid gland","MED,PED,SURGERY","QP","QP54","จุฬาฯ only","","Thyroid gland examination, Thyroid exam, Thyroid palpation, ตรวจต่อมไทรอยด์, การตรวจต่อมไทรอยด์, คลำหน้าคอ"],
+["PE: tremor","MED,PED","QP","QP55","จุฬาฯ only","","Tremor, Shaking, Quivering, Quaking, Quiver, Shiver, Trembling, Vibration, Spasm, Twitching, อาการสั่น, การสั่น, ตัวสั่น, อาการมือสั่น, ET, TRAP"],
+["PE: wheezing","MED,PED","QP","QP56","จุฬาฯ only","","High-pitched whistling, Sibilant rhonchi, หายใจมีเสียงวี้ด, หายใจลำบากและมีเสียงฟืดฟาด, เสียงวี้ด"],
+["PE: pelvic examination","OBG","QP","QP57","จุฬาฯ only","","Gynecological exam, Vaginal examination, Pelvic exam, Internal examination, Bimanual Exam, BME, VE, PV, การตรวจสูตินรีเวช, การตรวจภายใน, ตรวจภายใน"],
+["Development assessment (Denver)","PED","QP","QP58","จุฬาฯ only","","Denver Developmental Screening Test, DDST, Denver II, DDST-II, แบบประเมินพัฒนาการเดนเวอร์, แบบทดสอบพัฒนาการเด็กเดนเวอร์, การประเมินพัฒนาการเด็กปฐมวัย"],
+["Growth assessment (Growth charts)","PED","QP","QP59","จุฬาฯ only","","Growth Charts, Pediatric Growth Charts, WHO Growth Charts, CDC Growth Charts, Growth curve, การประเมินการเจริญเติบโต, การวัดการเจริญเติบโต, กราฟการเจริญเติบโต, กราฟมาตรฐานการเจริญเติบโต"],
+["Tourniquet test","PED","QP","QP60","จุฬาฯ only","","Hess test, Rumpel-Leede test, Rumpel-Leede capillary-fragility test, Capillary fragility test, CFT, การทดสอบความเปราะของเส้นเลือดฝอย, การทดสอบทูนิเกต์"],
+["Mental status examination","PSY","QP","QP61","จุฬาฯ only","","Mental status exam, MSE, Psychiatric evaluation, Psychiatric interview, Mental health assessment, Mental health evaluation, Psychological assessment, Psychological examination, Cognitive assessment, Neurocognitive testing, MMSE, Mini-mental state examination, TMSE, Thai Mental State Examination, การตรวจสภาพจิต, การประเมินสภาวะทางจิต, การประเมินสภาพจิตใจ, การตรวจสภาวะจิตใจ"],
+["Psychiatric interview","PSY","QP","QP62","จุฬาฯ only","","Psychiatric assessment, Mental status examination, MSE, Clinical interview, การประเมินทางจิตเวช, การตรวจสภาพจิต, การสัมภาษณ์ประวัติทางจิตเวช"],
+["IOP measurement by Schiotz tonometer","EYE","QP","QP63","จุฬาฯ only","","Schiotz tonometry, Indentation tonometry, IOP measurement, Schiotz, ตรวจความดันลูกตา, วัดความดันตา, เครื่องวัดความดันลูกตาแบบซีกอทซ์, การวัดความดันลูกตาด้วยเครื่องมือ Schiotz tonometer"],
+["Ishihara test","EYE","QP","QP64","จุฬาฯ only","","Ishihara color test, Color vision test, Pseudoisochromatic plates, Color blindness test, การตรวจตาบอดสี, การทดสอบตาบอดสี, การตรวจคัดกรองการมองเห็นสี, การทดสอบอิชิฮารา, แบบทดสอบตาบอดสีอิชิฮารา"],
+["Obesity assessment","MED,PED","QP","QP65","จุฬาฯ only","","Body Mass Index, BMI, Adiposity, Weight status assessment, Overweight and obesity screening, Obesity staging, Anthropometric measurement, การประเมินภาวะอ้วน, การวัดดัชนีมวลกาย, การตรวจโรคอ้วน, การประเมินน้ำหนักตัวเกิน"],
+["Leopold maneuver (at least 3rd maneuver)","OBG","QP","QP66","จุฬาฯ only","","Leopold maneuvers, Leopold's maneuvers, Abdominal palpation, Fundal grip, Lateral grip, Pawlik's grip, Pelvic grip, การตรวจครรภ์ด้วยหน้าท้อง, การคลำหน้าท้อง, การตรวจท่าทารกในครรภ์"],
+["Gait aids","PMR","QT","QT01","จุฬาฯ only","","Gait aids, Assistive Device, AD, Ambulation aid, AA, Wheelchair, WC, W/c, Powerchair, Wheeled Walker, WW, 4WW, Rollator, Rolling Walker, RW, Straight Cane, SC, Quad Cane, QC, Adaptive equipment, AE, เก้าอี้รถเข็น, รถเก้าอี้ไฟฟ้า, รถเข็นช่วยเดิน"],
+["Prosthetics and orthotics","PMR","QT","QT02","จุฬาฯ only","","prosthesis, orthosis, prostheses, orthoses, artificial limb, implant, brace, splint, support, O&P, CPO, CP, CO"],
+["Airway management","ANESTH","QT","QT03","จุฬาฯ only","","Endotracheal intubation, ETI, Supraglottic airway, SGA, Bag valve mask, BVM, Laryngeal mask airway, LMA, Rapid sequence intubation, RSI, การจัดการทางเดินหายใจ, การเปิดทางเดินหายใจ, การช่วยหายใจ"],
+["Tracheostomy care","ENT","QT","QT04","จุฬาฯ only","","Tracheostomy care, Trach care, Stoma care, Tracheostomy tube care, การดูแลท่อช่วยหายใจ, การดูแลแผลเจาะคอ, การดูแลผู้ป่วยเจาะคอ, การดูดเสมหะทางท่อเจาะคอ"],
+["Use of basic ENT instruments","ENT","QT","QT05","จุฬาฯ only","","ENT instrumentation, Otolaryngology instruments, Ear examination tools, Nasal instruments, Throat examination tools, Diagnostic and examination tools, Surgical ENT instruments, เครื่องมือหูคอจมูก, อุปกรณ์หูคอจมูก, เครื่องมือโสตศิรินาสิก, ชุดเครื่องมือ ENT พื้นฐาน, อุปกรณ์ตรวจหู คอ จมูก"],
+["Apply AED","EMER","QT","QT06","จุฬาฯ only","","AED, Automated External Defibrillator, Defibrillation, Defibrillator, Shock, Heart restarter, การใช้เครื่องเออีดี, การใช้เครื่องช็อกไฟฟ้าหัวใจอัตโนมัติ, การช็อกไฟฟ้าหัวใจ, เครื่องกระตุกหัวใจไฟฟ้าชนิดอัตโนมัติ"],
+["Cardiac pacing","EMER","QT","QT07","จุฬาฯ only","","Pacemaker, PPM, TPM, TCP, TTVP, Transcutaneous pacing, Transvenous pacing, Epicardial pacing, Permanent Pacemaker, Temporary Pacemaker, เครื่องกระตุ้นหัวใจ, การใส่เครื่องกระตุ้นไฟฟ้าหัวใจ, การฝังเครื่องกระตุ้นหัวใจ, เครื่องช่วยการเต้นของหัวใจ"],
+["Cervical spine immobilization, collar","EMER","QT","QT08","จุฬาฯ only","","Cervical Collar, C-Collar, Neck Brace, Neck Collar, Rigid Collar, Soft Collar, Philadelphia Collar, Aspen Collar, Miami J Collar, Cervical Orthosis, เฝือกดามคอ, เฝือกคอ, อุปกรณ์พยุงคอ, เฝือกคอชนิดแข็ง, เฝือกคอชนิดอ่อน"],
+["Cricothyrotomy","EMER","QT","QT09","จุฬาฯ only","","Cricothyroidotomy, Thyrocricotomy, Inferior laryngotomy, Intercricothyrotomy, Coniotomy, Emergency airway puncture, CriCon, Cric, Crike, ESA, Emergency surgical airway, FONA, Front of neck access, การเจาะเยื่อคริโคไทรอยด์, การเจาะคอฉุกเฉิน, การเปิดทางเดินหายใจฉุกเฉิน"],
+["Electrical cardioversion","EMER","QT","QT10","จุฬาฯ only","","Electrical cardioversion, Synchronized cardioversion, Direct-current cardioversion, DC cardioversion, DCCV, Synchronized shock, Cardioversion, การช็อกไฟฟ้าหัวใจ, การช็อกไฟฟ้าเปลี่ยนจังหวะการเต้นของหัวใจ, การทำคาร์ดิโอเวอร์ชันด้วยไฟฟ้า"],
+["Medical cardioversion","EMER","QT","QT11","จุฬาฯ only","","Pharmacologic cardioversion, Chemical cardioversion, PCV, Pharmacological cardioversion, Drug-induced cardioversion, การปรับจังหวะการเต้นของหัวใจด้วยยา, การทำคาร์ดิโอเวอร์ชันด้วยยา, การใช้ยาควบคุมจังหวะหัวใจ"],
+["Noninvasive ventilation","MED,PED","QT","QT12","จุฬาฯ only","","NIV, NIPPV, NPPV, CPAP, BiPAP, BPAP, Positive pressure ventilation, Assisted ventilation, Respiratory support, การช่วยหายใจแบบไม่ใส่ท่อช่วยหายใจ, การใช้เครื่องช่วยหายใจชนิดไม่รุกล้ำ, การช่วยหายใจด้วยแรงดันบวกชนิดไม่ใส่ท่อช่วยหายใจ"],
+["Pelvic binding","EMER","QT","QT13","จุฬาฯ only","","Pelvic binder, Pelvic sling, Pelvic circumferential compression device, PCCD, Pelvic splint, Pelvic sheet binder, PSB, การใช้แถบรัดตรึงกระดูกเชิงกราน, ตัวยึดกระดูกเชิงกราน, การพันประคองกระดูกเชิงกราน, การรัดเชิงกรานด้วยผ้าห่มหรือผ้าปูที่นอน"],
+["Pericardiocentesis","EMER","QT","QT14","จุฬาฯ only","","Pericardial tap, Percutaneous pericardiocentesis, Pericarditis-pericardiocentesis, Pericardial effusion-pericardiocentesis, การเจาะช่องเยื่อหุ้มหัวใจ, การเจาะระบายของเหลวออกจากเยื่อหุ้มหัวใจ, การเจาะถุงหุ้มหัวใจ, การเจาะเยื่อหุ้มหัวใจ"],
+["Pressure patching","EYE","QT","QT15","จุฬาฯ only","","Pressure patching, Eye pressure patch, Compression eye patch, Eye pad, Eye bandage, Eyelid pressure patching, FTP, Full-time patch, การปิดตาแน่น, การใช้ผ้าปิดตาแบบกดดัน, การปิดตาด้วยแรงดัน"],
+["Medical certification issuance","FORENSIC","QT","QT16","จุฬาฯ only","","Health certificate, Sick note, Medical report, Fit note, Medical documentation, Medical statement, Doctor's note, Doctor's certificate, Physician's statement, ใบรับรองแพทย์, ใบรับรองสุขภาพ, ผลตรวจร่างกาย"],
+["Local steroid injection","MED,PED","QT","QT17","จุฬาฯ only","","Corticosteroid injection, Steroid shot, Cortisone shot, Cortisone injection, SI, ฉีดยาสเตียรอยด์เฉพาะที่, การฉีดสเตียรอยด์, ฉีดยาแก้ปวดข้อ, ฉีดสเตียรอยด์เข้าข้อ, การฉีดยาลดการอักเสบเฉพาะที่"],
+["Other arterial puncture","MED,PED","QT","QT18","จุฬาฯ only","","Arterial puncture, Blood draw, Blood sampling, Phlebotomy, การเจาะเลือดแดง, การเจาะแดง, เจาะเลือดจากเส้นเลือดแดง"],
+["Suction of secretion","MED,PED","QT","QT19","จุฬาฯ only","","Suctioning, Airway suctioning, Endotracheal aspiration, ETA, Secretion removal, Mucus clearance, Sucking, การดูดเสมหะ, ดูดเสมหะ, การกำจัดเสมหะ, ดูดเสลด"],
+["Amniotomy (other than in labor)","OBG","QT","QT20","จุฬาฯ only","","Amniotomy, Artificial rupture of membranes, AROM, Breaking the water, เจาะถุงน้ำคร่ำ, การเจาะถุงน้ำคร่ำ"],
+["Endometrial sampling","OBG","QT","QT21","จุฬาฯ only","","Endometrial biopsy, ES, Pipelle, MedGyn endosampler, Endometrial cell sampler, การตรวจชิ้นเนื้อโพรงมดลูก, การสุ่มตัวอย่างเยื่อบุโพรงมดลูก"],
+["Pediatric advanced life support (PALS)","PED","QT","QT22","จุฬาฯ only","","Pediatric Advanced Life Support, PALS, PALS Provider, Pediatric resuscitation, การช่วยฟื้นคืนชีพขั้นสูงในเด็ก, การกู้ชีพเด็กขั้นสูง, การช่วยชีวิตขั้นสูงในเด็ก"],
+["Tepid sponge","PED","QT","QT23","จุฬาฯ only","","Tepid Sponging, Tepid Sponge Bath, TSB, Lukewarm sponge bath, การเช็ดตัวลดไข้, การเช็ดตัวด้วยน้ำอุ่น, การเช็ดตัวแบบ Tepid Sponge"],
+["Counseling","PSY","QT","QT24","จุฬาฯ only","","Advice, Guidance, Therapy, Psychotherapy, Talk therapy, LPC, LAC, LMHC, การให้คำปรึกษา, การแนะแนว, จิตบำบัด, การบำบัดด้วยการพูดคุย"],
+["Desuture","SURGERY","QT","QT25","จุฬาฯ only","","Suture removal, Stitches removal, Removal of stitches, Removing sutures, ตัดไหม, การตัดไหม, การเอาไหมเย็บแผลออก"],
+["Scrub burn wound","SURGERY","QT","QT26","จุฬาฯ only","","Friction burn, Road rash, Rug burn, Rub burn, Carpet burn, Skin abrasion, แผลถลอก, แผลครูด, แผลจากรถล้ม, แผลไหม้จากการครูดถลอก"],
+["Sengstaken-Blakemore intubation","SURGERY","QT","QT27","จุฬาฯ only","","SB tube, SBT, Balloon tamponade, Gastro-esophageal balloon tamponade, Sengstaken-Blakemore tube, การใส่สายระงับเลือดในทางเดินอาหาร, การใส่สาย Sengstaken-Blakemore, การทำบอลลูนหยุดเลือดในหลอดอาหารและกระเพาะอาหาร"],
+["Chest x-ray","","RAD","RAD01","การตรวจทางรังสีวิทยา ","3.2.1","CXR, Chest radiograph, Chest X-ray, Chest film, Chest XR, เอกซเรย์ปอด, ภาพถ่ายด้วยรังสีเอ็กซ์"],
+["Plain abdomen","","RAD","RAD02","การตรวจทางรังสีวิทยา ","3.2.2","ภาพถ่ายรังสีช่องท้อง, X-ray ช่องท้อง, Abdominal X-ray, AXR, KUB, Plain abdominal film, Abdominal radiograph"],
+["Plain KUB","","RAD","RAD03","การตรวจทางรังสีวิทยา ","3.2.3","KUB, Kidney Ureter and Bladder X-ray, KUB radiograph, Plain film KUB, Plain abdominal film, เอกซเรย์ KUB, ภาพถ่ายรังสี KUB"],
+["Skull and sinuses","","RAD","RAD04","การตรวจทางรังสีวิทยา ","3.2.4","กะโหลกศีรษะ, ไซนัส, โพรงในกระดูกศีรษะ, กะโหลกศีรษะและไซนัส, Skull, cranium, sinuses, paranasal sinuses, Skull and sinuses"],
+["Bones and joints","","RAD","RAD05","การตรวจทางรังสีวิทยา ","3.2.5","Bones, joints, Skeletal system, Musculoskeletal system, Bone structure, Anatomy, MA, กระดูก, ข้อต่อ, โครงกระดูกมนุษย์, กายวิภาค"],
+["Lateral soft tissue of neck","","RAD","RAD06","การตรวจทางรังสีวิทยา ","3.2.6","Lateral soft tissue neck X-ray, LNR, Soft tissue neck lateral radiograph, Plain lateral neck radiograph, ท่า lateral neck soft tissue technique, เนื้อเยื่ออ่อนด้านข้างคอ"]
 ];
 
         const searchInput = document.getElementById('searchInput');
