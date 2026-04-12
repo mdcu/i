@@ -1,0 +1,2 @@
+export const SUPABASE_URL = 'https://pfenhgdkhtvhnelrkopz.supabase.co';
+export const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBmZW5oZ2RraHR2aG5lbHJrb3B6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU5NDEyOTYsImV4cCI6MjA5MTUxNzI5Nn0.Tcyvl4Oepp_B4-M_quBKWPk6f5CnHCiXePuhFANKltc';

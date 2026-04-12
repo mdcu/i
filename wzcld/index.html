@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CloudWave | Multi-User Word Cloud</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <!-- Supabase JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- Header Section -->
+        <header id="main-header" class="hidden">
+            <h1 id="session-question">Loading question...</h1>
+            <div class="header-actions">
+                <button id="detonator-btn" title="Detonator (Reset Cloud)">💥</button>
+                <div id="stats-badge" title="My responses / Max allowance">0/0</div>
+            </div>
+        </header>
+
+        <!-- Main Content (Word Cloud) -->
+        <main id="cloud-container" class="hidden">
+            <div id="word-cloud" class="word-cloud">
+               <!-- Words will be injected here -->
+            </div>
+        </main>
+
+        <!-- Input Section -->
+        <footer id="input-section" class="hidden">
+            <div class="input-group">
+                <input type="text" id="word-input" placeholder="Type a word..." maxlength="20">
+                <button id="submit-btn" disabled>Add</button>
+            </div>
+            <p id="allowance-msg"></p>
+        </footer>
+
+        <!-- Initial/Login State -->
+        <div id="login-screen" class="modal-overlay hidden">
+            <div class="terminal-card">
+                <h2>Enter Access ID</h2>
+                <div class="input-row">
+                    <input type="text" id="access-id-input" placeholder="e.g. A1B2" maxlength="4">
+                    <button id="join-btn">Go</button>
+                </div>
+                <p class="host-prompt">Or <a href="#" id="show-host-modal">Host a new wave</a></p>
+            </div>
+        </div>
+
+        <!-- Hosting Modal -->
+        <div id="host-screen" class="modal-overlay hidden">
+            <div class="terminal-card">
+                <button class="close-modal" id="close-host">×</button>
+                <h2>Host New Wave</h2>
+                <div class="form-group">
+                    <label>Question</label>
+                    <input type="text" id="host-question" placeholder="Which word describes your mood?">
+                </div>
+                <div class="form-group">
+                    <label>Allowance per Person (0 = Unlimited)</label>
+                    <input type="number" id="host-allowance" value="3" min="0">
+                </div>
+                <button id="create-session-btn">Launch Wave</button>
+            </div>
+        </div>
+
+        <!-- Detonator Modal -->
+        <div id="detonator-modal" class="modal-overlay hidden">
+            <div class="terminal-card alert">
+                <h2>DETONATOR ACTIVE</h2>
+                <p>Enter detonation code to reset this wave.</p>
+                <input type="password" id="detonator-code-input" placeholder="••••">
+                <div class="action-buttons">
+                    <button id="cancel-detonation">Abort</button>
+                    <button id="confirm-detonation" class="danger">DETONATE</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Modal (for sharing ID) -->
+        <div id="success-modal" class="modal-overlay hidden">
+            <div class="terminal-card">
+                <h2>Wave Launched!</h2>
+                <p>Share this link or ID with your responders:</p>
+                <div class="id-display" id="new-id-display">----</div>
+                <div class="code-display">
+                    Detonator Code: <span id="new-detonator-display">----</span>
+                    <small>(Save this! You'll need it to reset)</small>
+                </div>
+                <button id="start-viewing-btn">Open Wave</button>
+            </div>
+        </div>
+
+        <!-- Error/Loading indicators -->
+        <div id="loading-overlay" class="">
+            <div class="spinner"></div>
+            <p>Syncing with the universe...</p>
+        </div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
