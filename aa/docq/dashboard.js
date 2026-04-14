@@ -681,8 +681,8 @@ function transformResults(results) {
         resultRow.push(rowTotal);
         resultRow.push(rowMax);
         resultRow.push(rowMaxNonNA);
-        resultRow.push(rowMax > 0 ? (rowTotal / rowMax * 100).toFixed(4) : '0.0000');
-        resultRow.push(rowMaxNonNA > 0 ? (rowTotal / rowMaxNonNA * 100).toFixed(4) : '0.0000');
+        resultRow.push(rowMax > 0 ? (rowTotal / rowMax * 100).toFixed(4) : '-');
+        resultRow.push(rowMaxNonNA > 0 ? (rowTotal / rowMaxNonNA * 100).toFixed(4) : '-');
 
         return resultRow;
     });
