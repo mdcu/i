@@ -342,6 +342,12 @@ tr.duplicate-row td {
     font-weight: 700;
 }
 
+.status-delayed {
+    background-color: #facc15 !important; /* Bright yellow */
+    color: black !important;
+    font-weight: 700;
+}
+
 /* Evaluation Scale Colors */
 .eval-green {
     background-color: #22c55e !important; /* Bright green */

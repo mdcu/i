@@ -279,7 +279,7 @@ function renderTable() {
         const th = document.createElement('th');
         th.textContent = h.label;
         th.title = h.label; // Tooltip for header
-        th.style.width = '10em'; // Slightly wider default and fixed for stability
+        th.style.width = '6em'; // Compact default width
 
         // Add resizer handle
         const resizer = document.createElement('div');
@@ -354,10 +354,14 @@ function renderTable() {
             if (h.key === 'status') {
                 if (val === 'Approved') td.classList.add('status-approved');
                 if (val === 'Submitted') {
-                    const subDate = new Date(row.submitted_at);
-                    const now = new Date();
-                    const diffDays = (now - subDate) / (1000 * 60 * 60 * 24);
-                    if (diffDays > 7) td.classList.add('status-delayed');
+                    // Use submitted_at or submitted_date as a fallback
+                    const dateStr = row.submitted_at || row.submitted_date;
+                    if (dateStr) {
+                        const subDate = new Date(dateStr);
+                        const now = new Date();
+                        const diffDays = (now - subDate) / (1000 * 60 * 60 * 24);
+                        if (diffDays > 7) td.classList.add('status-delayed');
+                    }
                 }
             }
 
