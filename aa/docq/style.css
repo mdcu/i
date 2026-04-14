@@ -98,6 +98,20 @@ button {
 }
 
 /* Header & Top Navigation */
+
+.header-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header-icon {
+    height: 32px;
+    /* Adjust size as needed */
+    width: auto;
+    object-fit: contain;
+}
+
 .dashboard-header {
     background: var(--bg-color);
     border-bottom: 2px solid var(--border-color);
@@ -464,6 +478,21 @@ td {
     100% {
         transform: rotate(360deg);
     }
+}
+
+/* Footer Styles */
+.app-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    padding: 0.5rem;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    background-color: transparent;
+    pointer-events: none;
+    z-index: 1000;
 }
 
 /* Scrollbar UI */
