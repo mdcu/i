@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DocQMD - Dashboard for Admins</title>
+    <!-- Modern Thai Font: Sarabun -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="login-container" id="login-container">
+        <header>
+            <h1>DocQMD - Dashboard for Admins</h1>
+        </header>
+        
+        <main class="login-card">
+            <form id="login-form">
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="admin@example.com" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="••••••••" required>
+                </div>
+                
+                <button type="submit" id="login-btn">
+                    <span>Login</span>
+                    <div class="loader" id="loader"></div>
+                </button>
+            </form>
+            
+            <p class="notice">
+                ต้องสมัคร user ทาง <a href="https://docq.md.chula.ac.th" target="_blank">docq.md.chula.ac.th</a> ก่อน และ แจ้งเป็น admin ในกลุ่ม Line. หากลืม password สามารถกดตั้ง password ใหม่ได้ที่เว็บหลัก
+            </p>
+        </main>
+    </div>
+
+    <div id="dashboard-container" class="dashboard-container" style="display: none;">
+        <header class="dashboard-header">
+            <div class="user-info-bar">
+                <p id="user-email-display"></p>
+                <button id="logout-btn" class="logout-btn">Logout</button>
+            </div>
+            <nav id="nav-menu" class="top-nav-menu">
+                <!-- Navigation courses/rotations will be injected here -->
+            </nav>
+        </header>
+        
+        <main class="dashboard-content">
+            <header class="content-header">
+                <h2 id="current-view-title">Dashboard</h2>
+                <div id="filter-section" class="filter-section"></div>
+            </header>
+            
+            <div class="table-actions">
+                <button id="export-btn" class="action-btn">Download Score</button>
+            </div>
+            
+            <div id="copy-toast" class="copy-toast">Copied!</div>
+            
+            <div id="table-wrapper" class="table-wrapper">
+                <table id="data-table">
+                    <thead>
+                        <!-- Headers injected here -->
+                    </thead>
+                    <tbody id="table-body">
+                        <!-- Rows injected here -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script src="dashboard.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
