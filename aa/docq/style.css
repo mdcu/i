@@ -284,7 +284,8 @@ thead {
 }
 
 th {
-    position: relative; /* Anchor for resizer */
+    position: relative;
+    /* Anchor for resizer */
     text-align: left;
     padding: 0.65rem 0.4rem;
     border-bottom: 2px solid var(--border-color);
@@ -337,32 +338,37 @@ tr.duplicate-row td {
 
 /* Status Highlighting */
 .status-approved {
-    background-color: #22c55e !important; /* Bright green */
+    background-color: #22c55e !important;
+    /* Bright green */
     color: white !important;
     font-weight: 700;
 }
 
 .status-delayed {
-    background-color: #facc15 !important; /* Bright yellow */
+    background-color: #facc15 !important;
+    /* Bright yellow */
     color: black !important;
     font-weight: 700;
 }
 
 /* Evaluation Scale Colors */
 .eval-green {
-    background-color: #22c55e !important; /* Bright green */
+    background-color: #22c55e !important;
+    /* Bright green */
     color: white !important;
     font-weight: 600;
 }
 
 .eval-red {
-    background-color: #ef4444 !important; /* Brighter red */
+    background-color: #ef4444 !important;
+    /* Brighter red */
     color: white !important;
     font-weight: 600;
 }
 
 .eval-grey {
-    background-color: #94a3b8 !important; /* Grey for NA */
+    background-color: #94a3b8 !important;
+    /* Grey for NA */
     color: white !important;
     font-weight: 500;
 }
@@ -386,12 +392,55 @@ tr.duplicate-row td {
 /* Stable Table Layout */
 #data-table {
     table-layout: fixed;
-    width: max-content; /* Allow growth but keep cells fixed */
+    /*width: max-content; */
     min-width: 100%;
+    border-collapse: collapse;
 }
 
-th, td {
-    cursor: copy; /* Hint for click-to-copy */
+#data-table th,
+#data-table td {
+    width: 6em;
+    min-width: 2em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    position: relative;
+    border: 1px solid var(--border-color);
+}
+
+#data-table th {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    text-align: left;
+    padding: 0.5rem;
+}
+
+#data-table td {
+    padding: 0.45rem 0.4rem;
+}
+
+/* Better Resizer Handle */
+.resizer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 5px;
+    cursor: col-resize;
+    user-select: none;
+    height: 100%;
+}
+
+.resizer:hover,
+.resizer.resizing {
+    border-right: 3px solid var(--primary-hover);
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+th,
+td {
+    cursor: copy;
+    /* Hint for click-to-copy */
 }
 
 /* Animations */

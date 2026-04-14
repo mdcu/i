@@ -14,6 +14,7 @@ let activeFilters = {
 };
 let currentSort = { column: 'submitted_date', desc: true };
 let extraHeaders = []; // Track dynamic score columns
+let columnWidths = {}; // Persist manual resizes
 
 /**
  * Initializes the dashboard view after login
@@ -279,7 +280,12 @@ function renderTable() {
         const th = document.createElement('th');
         th.textContent = h.label;
         th.title = h.label; // Tooltip for header
-        th.style.width = '6em'; // Compact default width
+        th.dataset.key = h.key; // For width persistence
+        
+        // Apply persisted width if exists
+        if (columnWidths[h.key]) {
+            th.style.width = columnWidths[h.key];
+        }
 
         // Add resizer handle
         const resizer = document.createElement('div');
@@ -395,7 +401,6 @@ function copyToClipboard(text) {
 
 /**
  * Logic for dragging the resizer on a table header
- * Fixed version to prevent "springing"
  */
 function initResizer(th, resizer) {
     let x = 0;
@@ -403,12 +408,20 @@ function initResizer(th, resizer) {
 
     const mouseMoveHandler = function (e) {
         const dx = e.clientX - x;
-        // Setting exact pixel width overcomes "springing" in table-layout: fixed
-        th.style.width = `${w + dx}px`;
+        const newWidth = Math.max(30, w + dx); // Hard minimum in pixels
+        const widthStr = `${newWidth}px`;
+        
+        th.style.width = widthStr;
+        
+        // Save to memory
+        if (th.dataset.key) {
+            columnWidths[th.dataset.key] = widthStr;
+        }
     };
 
     const mouseUpHandler = function () {
         resizer.classList.remove('resizing');
+        document.body.style.cursor = '';
         document.removeEventListener('mousemove', mouseMoveHandler);
         document.removeEventListener('mouseup', mouseUpHandler);
     };
@@ -418,10 +431,11 @@ function initResizer(th, resizer) {
         e.preventDefault();
 
         x = e.clientX;
-        const styles = window.getComputedStyle(th);
-        w = parseInt(styles.width, 10);
+        const rect = th.getBoundingClientRect();
+        w = rect.width;
 
         resizer.classList.add('resizing');
+        document.body.style.cursor = 'col-resize';
 
         document.addEventListener('mousemove', mouseMoveHandler);
         document.addEventListener('mouseup', mouseUpHandler);
