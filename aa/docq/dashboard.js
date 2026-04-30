@@ -4,6 +4,10 @@
  */
 
 let dashboardData = null;
+let advisors = null;
+let wb = null;
+let ws = null;
+let fullraw = null;
 let currentRotationData = [];
 let filteredData = [];
 let activeFilters = {
@@ -22,7 +26,10 @@ let columnWidths = {}; // Persist manual resizes
  */
 function initDashboard(data) {
     dashboardData = data;
-
+    advisors = data.advisors;
+    wb = data.wb;
+    ws = data.ws;
+    console.log(data);
     // Switch UI
     document.getElementById('login-container').style.display = 'none';
     const container = document.getElementById('dashboard-container');
@@ -65,30 +72,189 @@ function renderNavigation(courses) {
             const rotItem = document.createElement('div');
             rotItem.className = 'rotation-item';
             rotItem.textContent = rotation.rotation_title;
-            rotItem.onclick = () => {
+            rotItem.addEventListener('click', async (e) => {
+                e.preventDefault();
+                // Visual feedback: Start loading
+                setDBLoading(true, 'Fetching base rotation data...');
+
                 document.querySelectorAll('.rotation-item').forEach(el => el.classList.remove('active'));
                 rotItem.classList.add('active');
-                showRotation(rotation);
-            };
+
+                const payload = {
+                    "request": "results",
+                    "rotation_id": rotation.rotation_id
+                };
+
+                try {
+                    const response = await fetch('https://playground.n8n.md.chula.ac.th/webhook/docq2', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${dashboardData.token}`,
+                            'X-User-Email': dashboardData.token_email
+                        },
+                        body: JSON.stringify(payload)
+                    });
+                    let baseData = await response.json();
+
+                    if (!baseData || baseData.length === 0) {
+                        alert('ไม่พบข้อมูลงานใน rotation นี้');
+                        setDBLoading(false);
+                        return;
+                    }
+
+                    // Stage 2: Fetch scores for approved worksheets in batches
+                    const approvedRows = baseData.filter(row => row.status && row.status.toLowerCase() === 'approved');
+                    const totalApproved = approvedRows.length;
+                    let loadedCount = 0;
+
+                    if (totalApproved > 0) {
+                        setDBLoading(true, `Loading scores: 0 / ${totalApproved} worksheets...`);
+
+                        // Chunk approvedRows into batches of 50
+                        const batchSize = 50;
+                        const batches = [];
+                        for (let i = 0; i < approvedRows.length; i += batchSize) {
+                            batches.push(approvedRows.slice(i, i + batchSize));
+                        }
+
+                        const fetchBatchWithRetry = async (batch) => {
+                            let attempts = 0;
+                            const maxRetries = 5;
+                            const wsids = batch.map(row => row.worksheet_id || row.id);
+
+                            while (attempts < maxRetries) {
+                                try {
+                                    const scorePayload = {
+                                        "request": "results_score",
+                                        "wsids": wsids
+                                    };
+                                    const scoreRes = await fetch('https://playground.n8n.md.chula.ac.th/webhook/docq2', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                            'Authorization': `Bearer ${dashboardData.token}`,
+                                            'X-User-Email': dashboardData.token_email
+                                        },
+                                        body: JSON.stringify(scorePayload)
+                                    });
+
+                                    if (!scoreRes.ok) throw new Error(`HTTP error! status: ${scoreRes.status}`);
+                                    const scoreDataArray = await scoreRes.json();
+                                    
+                                    // Make sure we have an array
+                                    const resultsArray = Array.isArray(scoreDataArray) ? scoreDataArray : [scoreDataArray];
+
+                                    // Merge scoreData directly into the corresponding rows
+                                    batch.forEach(row => {
+                                        const wsid = row.worksheet_id || row.id;
+                                        const scoreData = resultsArray.find(r => (r.worksheet_id === wsid) || (r.id === wsid));
+                                        if (scoreData) {
+                                            Object.assign(row, scoreData);
+                                        }
+                                    });
+                                    
+                                    // Break out of the loop if successful
+                                    break;
+                                } catch (error) {
+                                    attempts++;
+                                    console.warn(`Retry ${attempts}/${maxRetries} for batch of ${batch.length} worksheets due to error:`, error);
+                                    if (attempts >= maxRetries) {
+                                        console.error(`Failed to fetch scores for batch after ${maxRetries} attempts`);
+                                    } else {
+                                        // Wait 1s before retrying
+                                        await new Promise(res => setTimeout(res, 1000));
+                                    }
+                                }
+                            }
+
+                            loadedCount += batch.length;
+                            setDBLoading(true, `Loading scores: ${loadedCount} / ${totalApproved} worksheets...`);
+                        };
+
+                        // Process batches sequentially
+                        for (const batch of batches) {
+                            await fetchBatchWithRetry(batch);
+                        }
+                    }
+
+                    // Process combined data
+                    setDBLoading(true, 'Processing data...');
+                    processFullData(baseData, rotation.rotation_title);
+
+                } catch (error) {
+                    console.error('Data Loading Error:', error);
+                    alert('เกิดข้อผิดพลาดในการโหลดข้อมูล กรุณา cap หน้านี้ส่งให้ admin: ' + error);
+                } finally {
+                    // Visual feedback: End loading
+                    setDBLoading(false);
+                }
+            });
             rotationList.appendChild(rotItem);
         });
-
         courseDiv.appendChild(rotationList);
         nav.appendChild(courseDiv);
-    });
+    })
 }
 
 /**
- * Displays the selected rotation view
+ * Processes the full raw data and renders the table
  */
-function showRotation(rotation) {
-    document.getElementById('current-view-title').textContent = rotation.rotation_title;
+function processFullData(data, rotation_title) {
+    document.getElementById('current-view-title').textContent = rotation_title;
 
     // Reset score expansion state when switching rotations
     extraHeaders = [];
 
-    // Flatten data to worksheet level
-    currentRotationData = flattenRotationData(rotation);
+    // Map the new flat structure to standard fields
+    currentRotationData = data.map((row, idx) => {
+        let advisor_name = '-';
+        let advisor_email = '-';
+
+        if (advisors && advisors.length > 0) {
+            const adv = advisors.find(a => a.advisor_id === row.advisor_id);
+            if (adv) {
+                advisor_name = adv.advisor_name;
+                advisor_email = adv.advisor_email;
+            }
+        }
+
+        return {
+            ...row,
+            section_title: row.section || 'N/A',
+            workbook_title: row.worksheet_blueprint || 'N/A',
+            worksheet_title: row.worksheet_blueprint || 'N/A',
+            hospital_number: row.hn || '',
+            admission_number: row.an || '',
+            student_email: row.student_id || '',
+            advisor_name: advisor_name,
+            advisor_email: advisor_email,
+            submitted_date: row.submitted || '',
+            approved_date: row.approved || '',
+            is_duplicate: false
+        };
+    });
+
+    // Extract extraHeaders and scores using transformResults
+    const transformed = transformResults(currentRotationData);
+    extraHeaders = transformed.headerMetadata;
+
+    // Merge transformed scores into currentRotationData
+    const scoreLookup = new Map();
+    transformed.rows.forEach(scoreRow => {
+        const wsId = scoreRow[0]; // worksheet_id is the first element
+        const scoreObj = {};
+        transformed.headers.forEach((hKey, idx) => {
+            scoreObj[hKey] = scoreRow[idx];
+        });
+        scoreLookup.set(wsId, scoreObj);
+    });
+
+    currentRotationData.forEach(row => {
+        if (scoreLookup.has(row.id)) {
+            Object.assign(row, scoreLookup.get(row.id));
+        }
+    });
 
     // Reset filters to "Select All"
     resetFilters(currentRotationData);
@@ -98,41 +264,6 @@ function showRotation(rotation) {
 
     // Refresh table
     applyFiltersAndRender();
-}
-
-/**
- * Flattens the nested structure: section -> workbook -> worksheet
- */
-function flattenRotationData(rotation) {
-    const rows = [];
-    rotation.sections.forEach(section => {
-        section.workbooks.forEach(workbook => {
-            // Automatically remove workbooks with "Draft" status
-            if (workbook.status && workbook.status.toLowerCase() === 'draft') return;
-
-            // Handle cases with no worksheets if they exist
-            if (!workbook.worksheets || workbook.worksheets.length === 0) {
-                rows.push({
-                    ...workbook,
-                    section_title: section.section_title,
-                    worksheet_title: 'N/A',
-                    worksheet_id: 'N/A',
-                    is_duplicate: false
-                });
-                return;
-            }
-
-            workbook.worksheets.forEach((worksheet, idx) => {
-                rows.push({
-                    ...workbook,
-                    ...worksheet, // This overwrites workbook properties if they conflict, but id field names are unique enough
-                    section_title: section.section_title,
-                    is_duplicate: idx > 0 // Help identify rows that share same workbook
-                });
-            });
-        });
-    });
-    return rows;
 }
 
 /**
@@ -281,7 +412,7 @@ function renderTable() {
         th.textContent = h.label;
         th.title = h.label; // Tooltip for header
         th.dataset.key = h.key; // For width persistence
-        
+
         // Apply persisted width if exists
         if (columnWidths[h.key]) {
             th.style.width = columnWidths[h.key];
@@ -410,9 +541,9 @@ function initResizer(th, resizer) {
         const dx = e.clientX - x;
         const newWidth = Math.max(30, w + dx); // Hard minimum in pixels
         const widthStr = `${newWidth}px`;
-        
+
         th.style.width = widthStr;
-        
+
         // Save to memory
         if (th.dataset.key) {
             columnWidths[th.dataset.key] = widthStr;
@@ -444,10 +575,9 @@ function initResizer(th, resizer) {
 
 /**
  * Main Export Logic
- * 1. Gather filtered IDs
- * 2. Fetch results from webhook
- * 3. Transform hierarchical JSON to flattened CSV
- * 4. Trigger download
+ * 1. Check if there's data to export
+ * 2. Generate FULL CSV (Base Columns + Extra Columns)
+ * 3. Trigger download
  */
 async function handleExport() {
     if (filteredData.length === 0) {
@@ -461,82 +591,7 @@ async function handleExport() {
     exportBtn.textContent = 'Processing...';
 
     try {
-        // 0. Reset score expansion state for new fresh download
-        extraHeaders = [];
-
-        // 1. Send only wbws with Status "Approved"
-        const approvedRows = filteredData.filter(row => row.status && row.status.toLowerCase() === 'approved');
-
-        if (approvedRows.length === 0) {
-            alert('ไม่มี workbook ที่มีสถานะ "Approved" ในหน้านี้');
-            return;
-        }
-
-        const wbws = approvedRows.map(row => ({
-            workbook_id: row.workbook_id,
-            worksheet_id: row.worksheet_id
-        }));
-
-        let results = [];
-
-        if (results.length === 0) {
-            const payload = {
-                "request": "results",
-                "wbws": wbws
-            };
-
-            const response = await fetch('https://playground.n8n.md.chula.ac.th/webhook/docqadmin', {
-                method: 'POST',
-                headers: { 
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${dashboardData.token}`,
-                    'X-User-Email': dashboardData.token_email
-                },
-                body: JSON.stringify(payload)
-            });
-            results = await response.json();
-        }
-
-        if (!results || results.length === 0) {
-            throw new Error('No data received from export call');
-        }
-
-        // 2. Print in dev console when data comes back
-        console.log('Raw n8n Result Data:', results);
-
-        const transformed = transformResults(results);
-
-        // 3. Print transformed array in dev console
-        console.log('Transformed Score Data:', transformed);
-
-        // 4. Update the original table: Merge scores into currentRotationData
-        const resultsArray = Array.isArray(results) ? results : [results];
-
-        // Use a map for fast lookup
-        const scoreLookup = new Map();
-        transformed.rows.forEach(scoreRow => {
-            const wsId = scoreRow[0]; // worksheet_id is the first element
-            const scoreObj = {};
-            transformed.headers.forEach((hKey, idx) => {
-                scoreObj[hKey] = scoreRow[idx];
-            });
-            scoreLookup.set(wsId, scoreObj);
-        });
-
-        // Update main data entries
-        currentRotationData.forEach(row => {
-            if (scoreLookup.has(row.worksheet_id)) {
-                Object.assign(row, scoreLookup.get(row.worksheet_id));
-            }
-        });
-
-        // 5. Update extra headers metadata (discovered by transformResults)
-        extraHeaders = transformed.headerMetadata;
-
-        // 6. Expand table and allow sorting/filtering
-        renderTable();
-
-        // 7. Generate FULL CSV (Base Columns + Extra Columns)
+        // Generate FULL CSV (Base Columns + Extra Columns)
         const fullCSV = generateFullCSV();
         downloadCSV(fullCSV);
 
@@ -729,7 +784,7 @@ function generateFullCSV() {
     ];
 
     const headers = [...baseHeaders, ...extraHeaders];
-    
+
     const escapeCsv = (val) => {
         if (val === null || val === undefined) return '';
         const str = String(val);
@@ -837,5 +892,86 @@ function downloadCSV(csvContent) {
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+    }
+}
+
+
+function setDBLoading(isLoading, textMessage = '') {
+    const loaderId = 'db-loading-overlay';
+    let overlay = document.getElementById(loaderId);
+
+    if (isLoading) {
+        // 1. If it already exists, just update text
+        if (overlay) {
+            const msgEl = document.getElementById('db-loading-message');
+            if (msgEl) msgEl.textContent = textMessage;
+            return;
+        }
+
+        // 2. Create the Overlay
+        overlay = document.createElement('div');
+        overlay.id = loaderId;
+
+        // 3. Apply Styles
+        Object.assign(overlay.style, {
+            position: 'fixed',
+            top: '0',
+            left: '0',
+            width: '100vw',
+            height: '100vh',
+            backgroundColor: 'rgba(0, 0, 0, 0.5)', // Transparent gray
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            zIndex: '9999',
+            cursor: 'wait'
+        });
+
+        // 4. Create the Spinner
+        const spinner = document.createElement('div');
+        spinner.className = 'db-spinner';
+
+        // Inline CSS for the spinning animation
+        const styleId = 'db-spinner-style';
+        if (!document.getElementById(styleId)) {
+            const styleSheet = document.createElement("style");
+            styleSheet.id = styleId;
+            styleSheet.innerText = `
+                .db-spinner {
+                    width: 50px;
+                    height: 50px;
+                    border: 5px solid #f3f3f3;
+                    border-top: 5px solid #3498db;
+                    border-radius: 50%;
+                    animation: spin 1s linear infinite;
+                }
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+            `;
+            document.head.appendChild(styleSheet);
+        }
+
+        overlay.appendChild(spinner);
+
+        // Create Message Element
+        const message = document.createElement('div');
+        message.id = 'db-loading-message';
+        message.style.color = 'white';
+        message.style.marginTop = '20px';
+        message.style.fontFamily = 'sans-serif';
+        message.style.fontSize = '1.2rem';
+        message.textContent = textMessage;
+
+        overlay.appendChild(message);
+        document.body.appendChild(overlay);
+
+    } else {
+        // 5. Remove the overlay if it exists
+        if (overlay) {
+            overlay.remove();
+        }
     }
 }
