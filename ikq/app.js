@@ -59,8 +59,8 @@ function promptForDetails() {
 async function loadData() {
     showLoading(true);
     try {
-        const mainUrl = `https://docs.google.com/spreadsheets/d/${state.sheetsId}/gviz/tq?tqx=out:csv&sheet=${state.sheetName}`;
-        const studentUrl = `https://docs.google.com/spreadsheets/d/${state.sheetsId}/gviz/tq?tqx=out:csv&sheet=student`;
+        const mainUrl = `https://docs.google.com/spreadsheets/d/${state.sheetsId}/gviz/tq?tqx=out:csv&sheet=${state.sheetName}&headers=1`;
+        const studentUrl = `https://docs.google.com/spreadsheets/d/${state.sheetsId}/gviz/tq?tqx=out:csv&sheet=student&headers=1`;
 
         const [mainRes, studentRes] = await Promise.all([
             fetch(mainUrl),
