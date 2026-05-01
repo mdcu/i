@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IKQ Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="spinner"></div>
+        <p>Loading Dashboard...</p>
+    </div>
+    
+    <div class="layout">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>Students</h2>
+            </div>
+            <div class="student-list" id="student-list">
+                <!-- Future: Student names will go here -->
+                <div class="placeholder-text">Student list reserved for future use.</div>
+            </div>
+        </aside>
+        
+        <main class="main-content">
+            <header class="topbar">
+                <div class="topbar-left" style="display: flex; align-items: center; gap: 16px;">
+                    <button id="mobile-sidebar-toggle" class="btn mobile-only" style="padding: 8px 12px; font-size: 1.1rem;" title="Toggle Students">👥</button>
+                    <h1>IKQ</h1>
+                </div>
+                <div class="controls">
+                    <button id="lucky-draw-btn" class="btn btn-accent">✨ Lucky Draw</button>
+                    <select id="teacher-filter" class="filter-select">
+                        <option value="All">[All Teachers]</option>
+                    </select>
+                </div>
+                <div class="actions" style="display: flex; gap: 12px; align-items: center;">
+                    <button id="theme-toggle" class="btn" style="background: var(--bg-panel); color: var(--text-primary); border: 1px solid var(--border-color); padding: 8px 12px; font-size: 1.1rem;" title="Toggle Light/Dark Mode">🌓</button>
+                    <button id="refresh-btn" class="btn">Refresh Data</button>
+                </div>
+            </header>
+            
+            <div class="dashboard-container" id="dashboard-container">
+                <!-- Dynamically generated charts will appear here -->
+            </div>
+            <footer class="dashboard-footer">
+                &copy; 2026. Aisawan Petchlorlian. All Rights Reserved.
+            </footer>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
