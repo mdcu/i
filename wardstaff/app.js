@@ -35,7 +35,7 @@ class CryptoVault {
         const key = await this.deriveKey(passcode);
         const iv = crypto.getRandomValues(new Uint8Array(12));
         const encoded = new TextEncoder().encode(JSON.stringify(data));
-        
+
         const ciphertext = await crypto.subtle.encrypt(
             { name: 'AES-GCM', iv },
             key,
@@ -45,7 +45,7 @@ class CryptoVault {
         const combined = new Uint8Array(iv.length + ciphertext.byteLength);
         combined.set(iv);
         combined.set(new Uint8Array(ciphertext), iv.length);
-        
+
         return btoa(String.fromCharCode(...combined));
     }
 
@@ -54,7 +54,7 @@ class CryptoVault {
             const combined = new Uint8Array(
                 atob(encryptedBase64).split('').map(c => c.charCodeAt(0))
             );
-            
+
             const iv = combined.slice(0, 12);
             const ciphertext = combined.slice(12);
             const key = await this.deriveKey(passcode);
@@ -114,7 +114,7 @@ class WardApp {
                 this.state.patients = [];
                 await this.save(passcode);
             }
-            
+
             this.state.passcode = passcode;
             this.showView('dashboard');
             this.render();
@@ -157,8 +157,9 @@ class WardApp {
 
     // --- State Actions ---
     async admitPatient(data) {
+        const patientId = crypto.randomUUID();
         const newPatient = {
-            id: crypto.randomUUID(),
+            id: patientId,
             bed_no: data.bed_no,
             hn: data.hn,
             name: data.name,
@@ -169,7 +170,30 @@ class WardApp {
             problems: [],
             consults: []
         };
+
+        // Initial Problem
+        if (data.initial_problem_title && data.initial_problem_title.trim()) {
+            newPatient.problems.push({
+                id: crypto.randomUUID(),
+                title: data.initial_problem_title,
+                plan: data.initial_problem_plan || '',
+                status: 'Active',
+                created_at: new Date().toISOString()
+            });
+        }
+
+        // Initial Course Entry
+        if (data.initial_course_content && data.initial_course_content.trim()) {
+            newPatient.course.push({
+                id: crypto.randomUUID(),
+                date: new Date().toISOString(),
+                content: data.initial_course_content,
+                color: 'white'
+            });
+        }
+
         this.state.patients.push(newPatient);
+        this.state.selectedId = patientId;
         await this.save();
         this.render();
     }
@@ -324,11 +348,19 @@ class WardApp {
             return map[status] || 'bg-zinc-500';
         };
 
-        this.patientGrid.innerHTML = this.state.patients.map(p => `
+        const statusPriority = { 'Admitted': 0, 'Transfer': 1, 'Discharged': 2 };
+        const sortedPatients = [...this.state.patients].sort((a, b) => {
+            const pA = statusPriority[a.status] ?? 99;
+            const pB = statusPriority[b.status] ?? 99;
+            if (pA !== pB) return pA - pB;
+            return a.bed_no.localeCompare(b.bed_no, undefined, { sensitivity: 'base' });
+        });
+
+        this.patientGrid.innerHTML = sortedPatients.map(p => `
             <div onclick="app.selectPatient('${p.id}')" 
-                 class="group relative cursor-pointer rounded-2xl p-4 flex flex-col gap-3 transition-all border-2 ${this.state.selectedId === p.id 
-                    ? 'bg-zinc-900 border-zinc-900 text-white shadow-xl ring-4 ring-zinc-900/10 scale-[1.02]' 
-                    : 'bg-white border-zinc-100 shadow-sm hover:border-zinc-300 hover:shadow-md hover:-translate-y-1'}">
+                 class="group relative cursor-pointer rounded-2xl p-4 flex flex-col gap-3 transition-all border-2 ${this.state.selectedId === p.id
+                ? 'bg-zinc-900 border-zinc-900 text-white shadow-xl ring-4 ring-zinc-900/10 scale-[1.02]'
+                : 'bg-white border-zinc-100 shadow-sm hover:border-zinc-300 hover:shadow-md hover:-translate-y-1'}">
                 
                 <div class="flex items-start justify-between w-full">
                     <div class="flex items-center gap-2">
@@ -351,14 +383,14 @@ class WardApp {
                 ${p.problems.length > 0 ? `
                     <div class="flex gap-1 overflow-hidden opacity-80">
                         ${[...new Set(p.problems.map(pr => pr.status))].slice(0, 3).map(status => {
-                            const colors = {
-                                'Critical': 'bg-orange-400',
-                                'Active': 'bg-yellow-400',
-                                'Solved': 'bg-green-400',
-                                'Inactive': 'bg-zinc-300'
-                            };
-                            return `<div class="w-1.5 h-1.5 rounded-full ${colors[status] || 'bg-zinc-300'}"></div>`;
-                        }).join('')}
+                    const colors = {
+                        'Critical': 'bg-orange-400',
+                        'Active': 'bg-yellow-400',
+                        'Solved': 'bg-green-400',
+                        'Inactive': 'bg-zinc-300'
+                    };
+                    return `<div class="w-1.5 h-1.5 rounded-full ${colors[status] || 'bg-zinc-300'}"></div>`;
+                }).join('')}
                     </div>
                 ` : ''}
             </div>
@@ -570,7 +602,7 @@ class WardApp {
 
     showAdmitModal() {
         this.showModal(`
-            <div class="p-8 md:p-10">
+            <div class="p-8 md:p-10 max-w-2xl max-h-[90vh] overflow-y-auto no-scrollbar">
                 <h3 class="text-3xl font-black text-zinc-900 mb-6 font-sans">Patient Admission</h3>
                 <form id="admit-form" class="space-y-6">
                     <div class="grid grid-cols-2 gap-4">
@@ -579,29 +611,46 @@ class WardApp {
                             <input name="bed_no" required class="w-full px-6 py-4 rounded-2xl bg-zinc-50 border-2 border-transparent focus:border-zinc-900 outline-none font-bold text-xl" placeholder="A-01">
                         </div>
                         <div class="space-y-2">
-                            <label class="text-[10px] font-black uppercase tracking-widest text-zinc-400 px-1">Emoji Identity</label>
+                            <label class="text-[10px] font-black uppercase tracking-widest text-zinc-400 px-1">Emoji</label>
                             <input name="emoji" value="🏥" class="w-full px-6 py-4 rounded-2xl bg-zinc-50 border-2 border-transparent focus:border-zinc-900 outline-none font-bold text-xl text-center">
                         </div>
                     </div>
                     <div class="space-y-2">
-                        <label class="text-[10px] font-black uppercase tracking-widest text-zinc-400 px-1">Initial Status</label>
+                        <label class="text-[10px] font-black uppercase tracking-widest text-zinc-400 px-1">Current Status</label>
                         <select name="status" class="w-full px-6 py-4 rounded-2xl bg-zinc-50 border-2 border-transparent focus:border-zinc-900 outline-none font-bold">
                             <option value="Admitted">Admitted</option>
-                            <option value="Discharged">Discharged</option>
                             <option value="Transfer">Transfer</option>
+                            <option value="Discharged">Discharged</option>
                         </select>
                     </div>
                     <div class="space-y-2">
-                        <label class="text-[10px] font-black uppercase tracking-widest text-zinc-400 px-1">Hospital Number (HN)</label>
-                        <input name="hn" required class="w-full px-6 py-4 rounded-2xl bg-zinc-50 border-2 border-transparent focus:border-zinc-900 outline-none font-bold" placeholder="HN-123456">
-                    </div>
-                    <div class="space-y-2">
-                        <label class="text-[10px] font-black uppercase tracking-widest text-zinc-400 px-1">Full Name</label>
+                        <label class="text-[10px] font-black uppercase tracking-widest text-zinc-400 px-1">Name</label>
                         <input name="name" required class="w-full px-6 py-4 rounded-2xl bg-zinc-50 border-2 border-transparent focus:border-zinc-900 outline-none font-bold" placeholder="John Doe">
                     </div>
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-zinc-400 px-1">HN</label>
+                        <input name="hn" required class="w-full px-6 py-4 rounded-2xl bg-zinc-50 border-2 border-transparent focus:border-zinc-900 outline-none font-bold" placeholder="HN-123456">
+                    </div>
+
+                    <!-- Additional Clinical Fields -->
+                    <div class="pt-4 border-t border-zinc-100 space-y-6">
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-black uppercase tracking-widest text-zinc-400 px-1">Primary Diagnosis / Problem</label>
+                            <input name="initial_problem_title" class="w-full px-6 py-4 rounded-2xl bg-zinc-50 border-2 border-transparent focus:border-zinc-900 outline-none font-bold" placeholder="e.g. Sepsis from CAP">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-black uppercase tracking-widest text-zinc-400 px-1">Initial Management Plan</label>
+                            <textarea name="initial_problem_plan" class="w-full px-6 py-4 rounded-2xl bg-zinc-50 border-2 border-transparent focus:border-zinc-900 outline-none font-medium text-sm h-32" placeholder="Detail the initial plan..."></textarea>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-black uppercase tracking-widest text-zinc-400 px-1">First Timeline Block (Clinical Course)</label>
+                            <textarea name="initial_course_content" class="w-full px-6 py-4 rounded-2xl bg-zinc-50 border-2 border-transparent focus:border-zinc-900 outline-none font-medium text-sm h-32" placeholder="Summary of events upon admission..."></textarea>
+                        </div>
+                    </div>
+
                     <div class="flex gap-4 pt-4">
                         <button type="button" onclick="app.closeModal()" class="flex-1 py-4 font-bold text-zinc-400">Cancel</button>
-                        <button type="submit" class="flex-1 bg-zinc-900 text-white font-black py-4 rounded-2xl shadow-xl">Confirm Admiralty</button>
+                        <button type="submit" class="flex-1 bg-zinc-900 text-white font-black py-4 rounded-2xl shadow-xl hover:bg-zinc-800 transition-all">Confirm Admission</button>
                     </div>
                 </form>
             </div>
@@ -865,7 +914,7 @@ class WardApp {
                 const raw = new FormData(e.target).get('json');
                 const imported = JSON.parse(raw);
                 const patients = Array.isArray(imported) ? imported : [imported];
-                
+
                 // Add unique IDs to prevent collisions and ensure basic structure
                 const newPatients = patients.map(p => ({
                     ...p,
